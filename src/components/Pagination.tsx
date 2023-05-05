@@ -25,21 +25,30 @@ export default function Pagination({total, pageSize, currentPage, onPageChange}:
 
     return (
         <div className={"flex w-full justify-between items-center m-2"}>
-            <div className={"flex"}>
-                <Button
-                    text={"Previous page"}
-                    rounded={"left"}
+            <div className={"flex items-baseline gap-2 md:gap-0"}>
+                <button
+                    type={"button"}
                     disabled={currentPage - 1 <= 0}
+                    className={"text-slate-900 dark:text-slate-100 disabled:text-gray-500 disabled:pointer-events-none p-2 rounded-l-lg bg-gradient-to-tr from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-150 dark:from-slate-900 dark:to-slate-800 dark:hover:from-slate-700 dark:hover:to-slate-800 border border-slate-600/25 dark:border-slate-100/25"}
                     onClick={onClickPrevious}
-                />
-                <Button
-                    text={"Next page"}
-                    rounded={"right"}
+                >
+                    Previous page
+                </button>
+                <p className={"md:hidden"}>{`Page ${currentPage} of ${numberOfPages}`}</p>
+
+
+                <button
+                    type={"button"}
                     disabled={currentPage + 1 > numberOfPages}
                     onClick={onClickNext}
-                />
+                    className={"text-slate-900 dark:text-slate-100 disabled:text-gray-500 disabled:pointer-events-none p-2 rounded-r-lg bg-gradient-to-tr from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 dark:from-slate-900 dark:to-slate-800 dark:hover:from-slate-700 dark:hover:to-slate-800 border border-slate-600/25 dark:border-slate-100/25"}
+                >
+                    Next page
+                </button>
+
+
             </div>
-            <p>{`Page ${currentPage} of ${numberOfPages}`}</p>
+            <p className={"hidden md:block"}>{`Page ${currentPage} of ${numberOfPages}`}</p>
         </div>
     )
 }
