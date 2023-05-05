@@ -1,9 +1,7 @@
-import {ReactNode} from "react";
-
 interface Props {
     brews: number;
     countries: number;
-    statistics: number;
+    roasters: number;
 }
 
 interface CardProps {

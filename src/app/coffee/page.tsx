@@ -14,7 +14,7 @@ export default function Coffee() {
             <Header />
             <Container>
                 <Intro title={"Coffee"} />
-                <Statistics brews={statistics.brews} roasters={statistics.roasters} countries={statistics.countries}  />
+                <Statistics brews={statistics.brews} roasters={statistics.roasters} countries={statistics.countries} />
                 <h2 className={"text-2xl font-semibold"}>Most recent brews</h2>
                 <Table brews={brews} />
                 <div className={"flex flex-row-reverse text-sm mt-2 mb-2"}>
