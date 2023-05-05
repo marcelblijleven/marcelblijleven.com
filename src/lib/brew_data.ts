@@ -7,7 +7,27 @@ interface Mapping<T> {
     [key: string]: T
 }
 
-function getBeansMapping(data: Bean[]): Mapping<SimpleBean> {
+interface ConfigItem {
+    config: {uuid: string}
+}
+
+interface Statistics {
+    brews: number;
+    roasters: number;
+    countries: number;
+}
+
+function getMapping<T extends ConfigItem>(data: T[]): Mapping<T> {
+    const mapping: Mapping<T> = {}
+
+    for (const item of data) {
+        mapping[item.config.uuid] = item;
+    }
+
+    return mapping;
+}
+
+function getSimpleBeanMapping(data: Bean[]): Mapping<SimpleBean> {
     const mapping: Mapping<SimpleBean> = {};
 
     for (const bean of data) {
@@ -23,7 +43,7 @@ function getBeansMapping(data: Bean[]): Mapping<SimpleBean> {
     return mapping;
 }
 
-function getGrinderMapping(data: Mill[]): Mapping<SimpleGrinder> {
+function getSimpleGrinderMapping(data: Mill[]): Mapping<SimpleGrinder> {
     const mapping: Mapping<SimpleGrinder> = {};
 
     for (const grinder of data) {
@@ -35,7 +55,7 @@ function getGrinderMapping(data: Mill[]): Mapping<SimpleGrinder> {
     return mapping;
 }
 
-function getPreparationMapping(data: Preparation[]): Mapping<SimplePreparation> {
+function getSimplePreparationMapping(data: Preparation[]): Mapping<SimplePreparation> {
     const mapping: Mapping<SimplePreparation> = {};
 
     for (const prep of data) {
@@ -72,12 +92,13 @@ function getRatioString(gramsIn: null | number, gramsOut: null | number): string
 
 }
 
-export function readBrewData(): Brew[] {
+export function readBrewData(limit?: undefined | number): Brew[] {
     const data: BCData = require("./bc.json");
-    const beans: Mapping<SimpleBean> = getBeansMapping(data.BEANS);
-    const grinders: Mapping<SimpleGrinder> = getGrinderMapping(data.MILL);
-    const preparationMethods: Mapping<SimplePreparation> = getPreparationMapping(data.PREPARATION);
-    return data.BREWS.map(brew => {
+    const beans: Mapping<SimpleBean> = getSimpleBeanMapping(data.BEANS);
+    const grinders: Mapping<SimpleGrinder> = getSimpleGrinderMapping(data.MILL);
+    const preparationMethods: Mapping<SimplePreparation> = getSimplePreparationMapping(data.PREPARATION);
+
+    let brews = data.BREWS.map(brew => {
         return {
             uuid: brew.config.uuid,
             name: getName(brew, beans),
@@ -100,4 +121,33 @@ export function readBrewData(): Brew[] {
 
         return 0;
     });
+
+    if (limit) {
+        brews = brews.slice(0, 10);
+    }
+
+    return brews;
+}
+
+export function readStatistics(): Statistics {
+    const data: BCData = require("./bc.json");
+    const brews = data.BREWS.length;
+    const roasters = new Set();
+    const countries = new Set();
+    const beans = getMapping<Bean>(data.BEANS);
+
+    for (const brew of data.BREWS) {
+        const country = beans[brew.bean]?.bean_information[0]["country"] || null;
+        const roaster = beans[brew.bean].roaster;
+
+        if (country) {
+            countries.add(country);
+        }
+
+        if (roaster) {
+            roasters.add(roaster)
+        }
+    }
+
+    return {brews, roasters: roasters.size, countries: countries.size}
 }
