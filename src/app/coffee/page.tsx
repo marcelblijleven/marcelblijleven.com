@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Container from "@/components/Container";
 import Intro from "@/app/Intro";
-import Statistics from "@/app/coffee/Statistics";
+import Statistics from "@/components/Statistics";
 import Table from "@/app/coffee/brews/Table";
 import {readBrewData, readStatistics} from "@/lib/brew_data";
 import Link from "next/link";
