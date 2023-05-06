@@ -34,7 +34,7 @@ export default function Statistics(props: Props) {
     const [showWowee, setShowWowee] = useState<boolean>(false);
 
     const updateSequence = useCallback((n: number) => {
-        const expectedSequence = [0, 0, 2, 2, 1];
+        const expectedSequence = [0, 2, 1];
         const newSequence = [...sequence, n];
         const index = newSequence.length - 1;
 
