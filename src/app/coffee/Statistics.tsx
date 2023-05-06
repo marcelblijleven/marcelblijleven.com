@@ -20,7 +20,7 @@ function Card(props: CardProps) {
 
 export default function Statistics(props: Props) {
     return (
-        <div className={"grid grid-cols-3 gap-6 md:gap-4 sm:gap-2 px-0 md:px-8 mb-8"}>
+        <div className={"grid grid-cols-3 gap-2 md:gap-4 lg:gap-6 px-0 md:px-8 mb-8"}>
             <Card title={"Brews"} count={props.brews} />
             <Card title={"Roasters"} count={props.countries} />
             <Card title={"Countries"} count={props.countries} />
