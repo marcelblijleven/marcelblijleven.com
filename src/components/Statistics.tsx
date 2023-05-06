@@ -20,7 +20,7 @@ interface StatsProps {
 function Stats(props: StatsProps) {
     return (
         <Card onClick={props.onClick}>
-            <div className={"pointer-events-none select-none"}>
+            <div className={"flex flex-col items-center pointer-events-none select-none"}>
                 <p className={""}>{props.title}</p>
                 <p className={"text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14"}>{props.count}</p>
             </div>
