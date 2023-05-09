@@ -19,7 +19,9 @@ export default function CountableStats(props: Props) {
                     <p className={"truncate"}>{key}</p>
                     <p className={""}>{value}</p>
                 </div>
-                <ProgressBar total={total} progress={(value as number)} />
+                <div class="max-w-[50%]">
+                    <ProgressBar total={total} progress={(value as number)} />
+                </div>
             </div>
         )
     })
