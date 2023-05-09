@@ -1,48 +1,28 @@
-import { MouseEvent} from "react";
+import {MouseEvent, ReactNode} from "react";
+import styles from "./Button.module.css";
 
 interface Props {
-    text: string;
+    label?: string;
     disabled?: boolean;
-    variant?: "primary" | "secondary" | "tertiary";
-    rounded?: "left" | "right" | "full";
+    variant?: "primary" | "secondary" | "tertiary" | "icon" | "cancel";
+    icon?: ReactNode
     onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function Button(props: Props) {
-    let rounded;
-    switch (props.rounded) {
-        case "left":
-            rounded = "rounded-l-lg";
-            break;
-        case "right":
-            rounded = "rounded-r-lg";
-            break;
-        case "full":
-        default:
-            rounded = "rounded-lg";
-    }
-
-    let variant;
-    switch (props.variant) {
-        case "secondary":
-            variant = "rounded-l-lg";
-            break;
-        case "secondary":
-            variant = "rounded-r-lg";
-            break;
-        case "primary":
-        default:
-            variant = "text-slate-900 dark:text-slate-100 p-2 hover:bg-blue-900 disabled:bg-gray-400";
-    }
+    const variant = props.variant || "primary";
 
     return (
         <button
             type={"button"}
-            className={`${variant} ${rounded}`}
+            className={`${styles.btn} ${styles[`btn-${variant}`]}`}
             disabled={props.disabled || false}
             onClick={props.onClick}
+
         >
-            {props.text}
+
+            {props.label && props.label}
+            {props.icon && props.icon}
         </button>
     )
 }

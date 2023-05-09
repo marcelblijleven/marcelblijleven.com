@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --secondary-color: #0f172a;
+  --primary-color: #f1f5f9;
   --foreground: #0f172a;
   --background: #f8fafc;
 }
@@ -17,4 +19,24 @@
 body {
   color: var(--foreground);
   background: var(--background);
+}
+
+@layer components {
+  .background-gradient {
+    @apply bg-gradient-to-tr from-slate-50 to-slate-100;
+  }
+
+  .background-gradient:hover {
+    @apply bg-gradient-to-tr from-slate-100 to-slate-200;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .background-gradient {
+      @apply bg-gradient-to-tr from-slate-900 to-slate-800;
+    }
+
+    .background-gradient:hover {
+      @apply bg-gradient-to-tr from-slate-700 to-slate-800;
+    }
+  }
 }

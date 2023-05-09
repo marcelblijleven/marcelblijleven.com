@@ -24,27 +24,21 @@ export default function Pagination({total, pageSize, currentPage, onPageChange}:
     }
 
     return (
-        <div className={"flex w-full justify-between items-center m-2"}>
-            <div className={"flex items-baseline gap-2 md:gap-0"}>
-                <button
-                    type={"button"}
+        <div className={"flex w-full justify-between items-center my-2"}>
+            <div className={"flex justify-between w-full md:w-auto items-baseline gap-2 md:gap-0"}>
+                <Button
                     disabled={currentPage - 1 <= 0}
-                    className={"text-slate-900 dark:text-slate-100 disabled:text-gray-500 disabled:pointer-events-none p-2 rounded-l-lg bg-gradient-to-tr from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-150 dark:from-slate-900 dark:to-slate-800 dark:hover:from-slate-700 dark:hover:to-slate-800 border border-slate-600/25 dark:border-slate-100/25"}
                     onClick={onClickPrevious}
-                >
-                    Previous page
-                </button>
+                    label={"Previous page"}
+                    variant={"primary"}
+                />
                 <p className={"md:hidden"}>{`Page ${currentPage} of ${numberOfPages}`}</p>
-
-
-                <button
-                    type={"button"}
+                <Button
                     disabled={currentPage + 1 > numberOfPages}
                     onClick={onClickNext}
-                    className={"text-slate-900 dark:text-slate-100 disabled:text-gray-500 disabled:pointer-events-none p-2 rounded-r-lg bg-gradient-to-tr from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 dark:from-slate-900 dark:to-slate-800 dark:hover:from-slate-700 dark:hover:to-slate-800 border border-slate-600/25 dark:border-slate-100/25"}
-                >
-                    Next page
-                </button>
+                    label={"Next page"}
+                    variant={"primary"}
+                />
 
 
             </div>

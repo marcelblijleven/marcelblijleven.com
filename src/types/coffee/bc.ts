@@ -11,7 +11,7 @@ export interface Bean {
     name:                   string;
     buyDate:                string;
     roastingDate:           string;
-    note:                   Note | null;
+    note:                   string | null;
     roaster:                string;
     config:                 Config;
     roast:                  BeanRoastingType;
@@ -31,7 +31,7 @@ export interface Bean {
     ean_article_number:     null | string;
     bean_roast_information: BeanRoastInformation;
     rating:                 number;
-    qr_code:                QrCode;
+    qr_code:                string;
     favourite:              boolean;
     shared?:                boolean;
     cupping?:               Cupping;
@@ -40,6 +40,8 @@ export interface Bean {
 
 export enum BeanMix {
     SingleOrigin = "SINGLE_ORIGIN",
+    Unknown = "UNKNOWN",
+    Blend = "BLEND",
 }
 
 export interface BeanRoastInformation {
@@ -57,9 +59,11 @@ export interface BeanRoastInformation {
 }
 
 export enum BeanRoastingType {
+    Espresso = "ESPRESSO",
     Filter = "FILTER",
     Omni = "OMNI",
     Unknown = "UNKNOWN",
+
 }
 
 export interface Config {
@@ -90,18 +94,6 @@ export interface Cupping {
     notes:              string;
 }
 
-export enum Note {
-    Empty = "",
-    IkHadEerstePlaatsInMysteryCoffeeLeague = "Ik had eerste plaats in Mystery Coffee League",
-    MysteryCoffeeLeagueFebruari2022 = "Mystery coffee league februari 2022",
-    Natural = "Natural",
-}
-
-export enum QrCode {
-    Empty = "",
-    The7B761A95 = "7b761a95",
-}
-
 export interface Brew {
     grind_size:                           string;
     grind_weight:                         number;
@@ -126,7 +118,7 @@ export interface Brew {
     config:                               Config;
     tds:                                  number;
     brew_beverage_quantity:               number;
-    brew_beverage_quantity_type:          BrewQuantityType;
+    brew_beverage_quantity_type:          string;
     coordinates:                          Coordinates;
     cupping:                              Cupping;
     cupped_flavor:                        CuppedFlavor;
@@ -134,7 +126,7 @@ export interface Brew {
     bean_weight_in:                       number;
     favourite:                            boolean;
     water:                                string;
-    vessel_name:                          VesselName;
+    vessel_name:                          string;
     vessel_weight:                        number;
     flow_profile:                         string;
     brew_time_milliseconds?:              number;
@@ -155,11 +147,6 @@ export interface Coordinates {
     latitude:         null;
     longitude:        null;
     speed:            null;
-}
-
-export enum VesselName {
-    Empty = "",
-    Hario = "hario",
 }
 
 export interface Mill {

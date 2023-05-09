@@ -1,6 +1,5 @@
 import {Brew} from "@/types/coffee/brews";
 
-
 function getDateString(timestamp: number) {
     const date = new Date(timestamp * 1000);
     return date.toLocaleDateString("nl-NL", {
@@ -32,17 +31,17 @@ export default function Table({ brews }:TableProps) {
     const tdClass = "px-2 py-2 whitespace-nowrap"
     return (
         <div className={"overflow-x-auto"}>
-            <table className={"w-full text-sm text-left text-gray-500 dark:text-gray-400"}>
-                <thead className={"text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400"}>
-                <tr>
-                    <th scope={"col"} className={"px-2 py-3 w-80"}>Name</th>
-                    <th scope={"col"} className={"px-2 py-3"}>Date</th>
-                    <th scope={"col"} className={"px-2 py-3"}>Method</th>
-                    <th scope={"col"} className={"px-2 py-3"}>Grinder</th>
-                    <th scope={"col"} className={"px-2 py-3"}>Grind setting</th>
-                    <th scope={"col"} className={"px-2 py-3"}>In/Out (ratio)</th>
-                    <th scope={"col"} className={"px-2 py-3"}>Brew duration</th>
-                </tr>
+            <table className={"w-full text-sm text-left text-gray-900 dark:text-gray-100"}>
+                <thead className={"text-xs text-gray-900 dark:text-gray-100 uppercase bg-gray-50 dark:bg-slate-900"}>
+                    <tr>
+                        <th scope={"col"} className={"px-2 py-3 w-80"}>Name</th>
+                        <th scope={"col"} className={"px-2 py-3"}>Date</th>
+                        <th scope={"col"} className={"px-2 py-3"}>Method</th>
+                        <th scope={"col"} className={"px-2 py-3"}>Grinder</th>
+                        <th scope={"col"} className={"px-2 py-3"}>Grind setting</th>
+                        <th scope={"col"} className={"px-2 py-3"}>In/Out (ratio)</th>
+                        <th scope={"col"} className={"px-2 py-3"}>Brew duration</th>
+                    </tr>
                 </thead>
 
                 <tbody>
