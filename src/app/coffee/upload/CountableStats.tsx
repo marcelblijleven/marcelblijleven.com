@@ -6,11 +6,11 @@ interface Props {
 }
 
 export default function CountableStats(props: Props) {
+    let total = 0;
     const entries = Object.entries<number>(props.countable).map(([key, value]) => {
+        total += value;
         return [key, value]
     }).slice(0, 10);
-
-    const total = entries.reduce((a, [_, b]) => a + b, 0);
 
     const items = entries.map(([key, value]) => {
         return (

@@ -13,7 +13,7 @@ function getAge(dateStr: string | null): string {
     }
     const now = Date.now();
     const date = new Date(dateStr);
-    const diff = now - date;
+    const diff = now - date.getTime();
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
     return `${days} days`;
 }
