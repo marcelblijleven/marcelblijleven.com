@@ -1,0 +1,4 @@
+.tableHead {
+    @apply px-2;
+    @apply font-bold;
+}
