@@ -15,7 +15,7 @@ import UploadSection from "@/app/coffee/upload/UploadSection";
 
 
 export default function UploadPage() {
-    const [data, setData] = useState<BrewStatistics>(null);
+    const [data, setData] = useState<BrewStatistics | null>(null);
 
     const retrieveData = (data: BrewStatistics) => {
         setData(data)

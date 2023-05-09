@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image';
-import {MouseEvent, useCallback, useEffect, useState} from "react";
+import {MouseEvent, useCallback, useState} from "react";
 import Card from "@/components/Card";
 
 
@@ -21,7 +21,7 @@ function Stats(props: StatsProps) {
     return (
         <Card onClick={props.onClick}>
             <div className={"flex flex-col items-center pointer-events-none select-none"}>
-                <p className={""}>{props.title}</p>
+                <p className={"font-semibold"}>{props.title}</p>
                 <p className={"text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14"}>{props.count}</p>
             </div>
         </Card>
@@ -76,7 +76,6 @@ export default function Statistics(props: Props) {
                 <div className={"relative"}>
                     <div className={"absolute inset-4 bg-sky-500 rounded-4xl h-3/4 blur-3xl"}/>
                     <Image className={"relative left-2 md:left-3"} src={"/wowee.svg"} alt={"wowee"} width={300} height={300}/>
-
                 </div>
             </div>
         )

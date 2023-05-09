@@ -10,7 +10,7 @@ import Header from "@/components/Header";
 import Intro from "@/app/Intro";
 
 export default function Page() {
-    const pageSize = 20;
+    const pageSize = 12;
     const brews = readBrewData();
     const [currentPage, setCurrentPage] = useState(1);
     const onPageChange = useCallback((page: number) => {
