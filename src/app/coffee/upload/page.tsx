@@ -10,10 +10,6 @@ import Button from "@/components/Button";
 import Statistics from "@/app/coffee/upload/Statistics";
 import UploadSection from "@/app/coffee/upload/UploadSection";
 
-
-
-
-
 export default function UploadPage() {
     const [data, setData] = useState<BrewStatistics | null>(null);
 
