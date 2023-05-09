@@ -42,7 +42,7 @@ export default function Header(props: Props) {
                 </div>
             </header>
             {menuOpen && (
-                <div className={"absolute top-14 left-0 h-screen w-full h-full z-10 bg-white"}>
+                <div className={"absolute top-14 left-0 h-screen w-full h-full z-10 bg-white dark:bg-slate-900"}>
                     <div className={"flex flex-col w-full divide-y-2 font-semibold"}>
                         <div className={"flex items-center justify-center flex-grow h-14"}>
                             <Link href={"/"}>Home</Link>
