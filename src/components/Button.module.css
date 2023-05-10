@@ -3,11 +3,15 @@
 }
 
 .btn:disabled {
-    @apply pointer-events-none bg-gray-200 text-gray-500 border border-gray-200;
+    @apply pointer-events-none bg-gray-200 text-gray-500 border border-gray-200 cursor-not-allowed;
 }
 
 .btn-primary {
     @apply bg-sky-700 border border-sky-700;
+}
+
+.btn-primary:hover {
+    @apply bg-gradient-to-br from-sky-600 to-sky-700;
 }
 
 .btn-secondary {
@@ -20,6 +24,10 @@
 
 .btn-tertiary {
     @apply text-gray-900 bg-transparent border border-transparent
+}
+
+.btn-tertiary:hover {
+    @apply border-gray-900;
 }
 
 .btn-icon {
@@ -42,8 +50,16 @@
         @apply border-slate-100
     }
 
+    .btn-secondary:hover {
+        @apply bg-gradient-to-br from-gray-900 to-gray-700
+    }
+
     .btn-tertiary {
-        @apply text-gray-100;
+        @apply text-gray-100 border border-transparent;
+    }
+
+    .btn-tertiary:hover {
+        @apply border border-gray-100;
     }
 
     .btn-icon:hover {
