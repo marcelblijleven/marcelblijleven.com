@@ -3,6 +3,7 @@
 import ProgressBar from "@/components/ProgressBar";
 import {useState} from "react";
 import ClickableText from "@/components/ClickableText";
+import {capitalizeFirstLetter} from "@/utils/strings";
 
 interface Props {
     label: string;
@@ -22,7 +23,7 @@ export default function CountableStats(props: Props) {
             <div key={key} className={"flex gap-2 items-center mb-1 hover:bg-slate-200 dark:hover:bg-slate-800"}>
                 <div
                     className={"flex w-1/2 gap-2 justify-between text-sm font-semibold text-gray-900 dark:text-gray-100"}>
-                    <p className={"truncate"}>{key}</p>
+                    <p className={"truncate"}>{capitalizeFirstLetter(key)}</p>
                     <p className={""}>{value}</p>
                 </div>
                 <div className={"w-1/2"}>
