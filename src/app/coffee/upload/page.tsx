@@ -21,7 +21,7 @@ export default function UploadPage() {
         <>
             <Header />
             <Container>
-                <Intro title={"Your stats"} description={"Process a JSON export from the Beanconqueror app to view your stats"} />
+                <Intro title={"Your coffee stats"} description={"Process a JSON export from the Beanconqueror app to view your stats"} />
                 <div className={"flex flex-col gap-2"}>
                     {!data ? (
                         <UploadSection callback={retrieveData} />

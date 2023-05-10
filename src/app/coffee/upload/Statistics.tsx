@@ -15,7 +15,8 @@ export default function Statistics(props: BrewStatistics) {
             />
             <BacklogStats label={"Your backlog"} beans={props.beanMapping} usage={props.beanUsage}/>
             <CountableStats label={"Favourite origins"} countable={props.countryCount} />
-            <CountableStats label={"Favourite roasters"} countable={props.roasterCount} />
+            <CountableStats label={"Favourite roasters (bags)"} countable={props.roasterCount} />
+            <CountableStats label={"Favourite roasters (grams)"} countable={props.roasterCountWeight} />
             <CountableStats label={"Favourite grinder"} countable={props.grinderCount} />
             <CountableStats label={"Favourite preparation method"} countable={props.preparationCount} />
             <CountableStats label={"Favourite variety"} countable={props.varietyCount} />
