@@ -22,7 +22,7 @@ export default function CountableStats(props: Props) {
         entries = entries.slice(0, slicedLength);
     }
 
-    const total = entries.reduce((prev, [_, value]) => prev + value, 0);
+    const total = entries.reduce((prev, [_, value]) => prev + (value as number), 0);
 
     const items = entries.map(([key, value]) => {
         return (
