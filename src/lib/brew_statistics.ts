@@ -23,12 +23,12 @@ function increaseCountOfKey(mapping: Mapping<number>, key: string, value?: numbe
     }
 }
 
-function sortCountMappingAsc(mapping: Mapping<number>): Mapping<number> {
-    return Object.entries(mapping).sort(([, a], [, b]) => a - b).reduce((r, [k, v]) => ({...r, [k]: v}), {});
+function sortCountMappingAsc(mapping: Mapping<number>): [string, number][] {
+    return Object.entries(mapping).sort(([,a],[,b]) => a-b);
 }
 
-function sortCountMappingDesc(mapping: Mapping<number>): Mapping<number> {
-    return Object.entries(mapping).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+function sortCountMappingDesc(mapping: Mapping<number>): [string, number][] {
+    return Object.entries(mapping).sort(([,a],[,b]) => b-a);
 }
 
 export function processBCFile(contents: string, callback: (data: BrewStatistics) => void) {
@@ -39,6 +39,7 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
 
     let lastBrewTime: number = 0;
     const roasterCount: Mapping<number> = {};
+    const roasterCountWeight: Mapping<number> = {};
     const countryCount: Mapping<number> = {};
     const varietyCount: Mapping<number> = {};
     const processingCount: Mapping<number> = {};
@@ -50,7 +51,11 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
     const grindWeights: number[] = [];
 
     for (const bean of data.BEANS) {
-        bean.roaster && increaseCountOfKey(roasterCount, bean.roaster.trim());
+        if (bean.roaster) {
+            const roaster = bean.roaster.trim();
+            increaseCountOfKey(roasterCount, roaster);
+            increaseCountOfKey(roasterCountWeight, roaster, bean.weight || 0);
+        }
         bean.bean_information && bean.bean_information.forEach(
             info => {
                 info.country && increaseCountOfKey(countryCount, info.country.trim())
@@ -101,6 +106,7 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
 
     callback({
         roasterCount: sortCountMappingDesc(roasterCount),
+        roasterCountWeight: sortCountMappingDesc(roasterCountWeight),
         countryCount: sortCountMappingDesc(countryCount),
         grinderCount: sortCountMappingDesc(grinderCount),
         beanCount: sortCountMappingDesc(beanCount),
@@ -120,13 +126,14 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
 }
 
 export interface BrewStatistics {
-    roasterCount: Mapping<number>;
-    countryCount: Mapping<number>;
-    grinderCount: Mapping<number>;
-    preparationCount: Mapping<number>;
-    varietyCount: Mapping<number>;
-    processingCount: Mapping<number>;
-    beanCount: Mapping<number>;
+    roasterCount: [string, number][];
+    roasterCountWeight: [string, number][];
+    countryCount: [string, number][];
+    grinderCount: [string, number][];
+    preparationCount: [string, number][];
+    varietyCount: [string, number][];
+    processingCount: [string, number][];
+    beanCount: [string, number][];
     beanUsage: Mapping<number>;
     beanMapping: Mapping<Bean>;
     averageGrindWeight: number;
