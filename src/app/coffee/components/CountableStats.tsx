@@ -27,18 +27,19 @@ export default function CountableStats(props: Props) {
                     <p className={""}>{value}</p>
                 </div>
                 <div className={"w-1/2"}>
-
                     <ProgressBar total={total} progress={(value as number)}/>
                 </div>
             </div>
         )
     });
 
+    const showAll = totalEntries > slicedLength;
+
     return (
-        <div className={"mb-6"}>
+        <div className={showAll ? "mb-6" : "mb-12"}>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
             {items}
-            {totalEntries > slicedLength && (
+            {showAll && (
                 <div className={"flex justify-end"}>
                     <ClickableText text={slice ? "Show all" : "Collapse"} onClick={() => setSlice(!slice)}/>
                 </div>

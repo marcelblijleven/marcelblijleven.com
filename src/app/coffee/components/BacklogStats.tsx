@@ -1,5 +1,6 @@
 import {Bean} from "@/types/coffee/bc";
 import {sortFnAsc} from "@/utils/sort";
+import {getDateString} from "@/utils/dates";
 
 interface BacklogStatsProps {
     label: string;
@@ -18,20 +19,7 @@ function getAge(dateStr: string | null): string {
     return `${days} days`;
 }
 
-function getDateString(date: Date | null) {
-    if (!date) {
-        return "";
-    }
 
-    return date.toLocaleDateString("nl-NL", {
-        timeZone: "UTC",
-        minute: "2-digit",
-        hour: "2-digit",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-    });
-}
 
 function stringToDate(value: string | undefined): Date | null {
     if (value === undefined || value === "") {
@@ -77,7 +65,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                                     {bean.roaster}
                                 </td>
                                 <td className={"p-2"}>
-                                    {getDateString(bean.roastingDate ? new Date(bean.roastingDate): null)}
+                                    {getDateString(bean.roastingDate ? new Date(bean.roastingDate): null, false)}
                                 </td>
                                 <td className={"p-2"}>
                                     {getAge(bean.roastingDate)}
