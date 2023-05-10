@@ -18,6 +18,8 @@ export default function Statistics(props: BrewStatistics) {
             <CountableStats label={"Favourite roasters"} countable={props.roasterCount} />
             <CountableStats label={"Favourite grinder"} countable={props.grinderCount} />
             <CountableStats label={"Favourite preparation method"} countable={props.preparationCount} />
+            <CountableStats label={"Favourite variety"} countable={props.varietyCount} />
+            <CountableStats label={"Favourite processing"} countable={props.processingCount} />
         </div>
 
     )

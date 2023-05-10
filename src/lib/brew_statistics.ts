@@ -40,6 +40,8 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
     let lastBrewTime: number = 0;
     const roasterCount: Mapping<number> = {};
     const countryCount: Mapping<number> = {};
+    const varietyCount: Mapping<number> = {};
+    const processingCount: Mapping<number> = {};
     const grinderCount: Mapping<number> = {};
     const preparationCount: Mapping<number> = {};
     const beanCount: Mapping<number> = {};
@@ -50,7 +52,11 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
     for (const bean of data.BEANS) {
         bean.roaster && increaseCountOfKey(roasterCount, bean.roaster);
         bean.bean_information && bean.bean_information.forEach(
-            info => info.country && increaseCountOfKey(countryCount, info.country)
+            info => {
+                info.country && increaseCountOfKey(countryCount, info.country)
+                info.variety && increaseCountOfKey(varietyCount, info.variety)
+                info.processing && increaseCountOfKey(processingCount, info.processing)
+            }
         );
     }
 
@@ -99,6 +105,8 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
         grinderCount: sortCountMappingDesc(grinderCount),
         beanCount: sortCountMappingDesc(beanCount),
         preparationCount: sortCountMappingDesc(preparationCount),
+        varietyCount: sortCountMappingDesc(varietyCount),
+        processingCount: sortCountMappingDesc(processingCount),
         beanUsage: beanUsage,
         beanMapping: beanMapping,
         averageGrindWeight: totalGroundBeans / grindWeights.length,
@@ -116,6 +124,8 @@ export interface BrewStatistics {
     countryCount: Mapping<number>;
     grinderCount: Mapping<number>;
     preparationCount: Mapping<number>;
+    varietyCount: Mapping<number>;
+    processingCount: Mapping<number>;
     beanCount: Mapping<number>;
     beanUsage: Mapping<number>;
     beanMapping: Mapping<Bean>;
