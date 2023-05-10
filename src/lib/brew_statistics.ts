@@ -50,12 +50,12 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
     const grindWeights: number[] = [];
 
     for (const bean of data.BEANS) {
-        bean.roaster && increaseCountOfKey(roasterCount, bean.roaster);
+        bean.roaster && increaseCountOfKey(roasterCount, bean.roaster.trim());
         bean.bean_information && bean.bean_information.forEach(
             info => {
-                info.country && increaseCountOfKey(countryCount, info.country)
-                info.variety && increaseCountOfKey(varietyCount, info.variety)
-                info.processing && increaseCountOfKey(processingCount, info.processing)
+                info.country && increaseCountOfKey(countryCount, info.country.trim())
+                info.variety && increaseCountOfKey(varietyCount, info.variety.trim())
+                info.processing && increaseCountOfKey(processingCount, info.processing.trim())
             }
         );
     }
