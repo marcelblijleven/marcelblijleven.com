@@ -1,4 +1,3 @@
-
 interface ParsedMilliseconds {
     seconds: number;
     minutes: number;
@@ -17,19 +16,19 @@ function parseMilliseconds(ms: number): ParsedMilliseconds {
     }
 
     const seconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(seconds / 60) ;
+    const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24)
 
     return {
-            seconds: seconds % 60,
-            minutes: minutes % 60,
-            hours: hours % 24,
-            days: days,
+        seconds: seconds % 60,
+        minutes: minutes % 60,
+        hours: hours % 24,
+        days: days,
     }
 }
 
-export function getNaturalDate(date: Date): string  {
+export function getNaturalDate(date: Date): string {
     const rtf = new Intl.RelativeTimeFormat("en", {numeric: "auto"});
     const now = Date.now();
     const diff = (now - date.getTime());
@@ -52,4 +51,27 @@ export function getNaturalDate(date: Date): string  {
     }
 
     return "Just now"
+}
+
+export function getDateString(date: Date | null, includeTime: boolean) {
+    if (!date) {
+        return "";
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+        timeZone: "UTC",
+        minute: "2-digit",
+        hour: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+    }
+
+
+    if (!includeTime) {
+        delete options.hour
+        delete options.minute
+    }
+
+    return date.toLocaleDateString("nl-NL", options);
 }

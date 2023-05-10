@@ -1,7 +1,7 @@
 import {BrewStatistics} from "@/lib/brew_statistics";
-import CountableStats from "@/app/coffee/upload/CountableStats";
-import BacklogStats from "@/app/coffee/upload/BacklogStats";
-import CardStats from "@/app/coffee/upload/CardStats";
+import CountableStats from "@/app/coffee/components/CountableStats";
+import BacklogStats from "@/app/coffee/components/BacklogStats";
+import CardStats from "@/app/coffee/components/CardStats";
 
 export default function Statistics(props: BrewStatistics) {
     return (
