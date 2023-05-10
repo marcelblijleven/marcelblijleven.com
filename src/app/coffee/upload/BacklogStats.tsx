@@ -18,7 +18,11 @@ function getAge(dateStr: string | null): string {
     return `${days} days`;
 }
 
-function getDateString(date: Date) {
+function getDateString(date: Date | null) {
+    if (!date) {
+        return "";
+    }
+
     return date.toLocaleDateString("nl-NL", {
         timeZone: "UTC",
         minute: "2-digit",
@@ -73,7 +77,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                                     {bean.roaster}
                                 </td>
                                 <td className={"p-2"}>
-                                    {getDateString(new Date(bean.roastingDate))}
+                                    {getDateString(bean.roastingDate ? new Date(bean.roastingDate): null)}
                                 </td>
                                 <td className={"p-2"}>
                                     {getAge(bean.roastingDate)}
