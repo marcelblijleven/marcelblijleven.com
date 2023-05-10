@@ -16,10 +16,19 @@ function createMappingByUuid<T extends HasConfigUUID>(data: T[]): Mapping<T> {
 
 
 function increaseCountOfKey(mapping: Mapping<number>, key: string, value?: number) {
-    if (key in mapping) {
-        mapping[key] += value || 1;
+    if (key.includes(",")) {
+        key.split(",").forEach((subKey => {
+            increaseCountOfKey(mapping, subKey, value);
+        }));
+
+        return
+    }
+
+    const lcKey = key.toLowerCase().trim();
+    if (lcKey in mapping) {
+        mapping[lcKey] += value || 1;
     } else {
-        mapping[key] = value || 1;
+        mapping[lcKey] = value || 1;
     }
 }
 
