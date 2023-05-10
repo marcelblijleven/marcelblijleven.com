@@ -38,7 +38,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                 return sortFnAsc(stringToDate(a.roastingDate), stringToDate(b.roastingDate))
             })
     );
-
+    console.log(props.usage, "<--")
     return (
         <div className={"mb-4"}>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
@@ -74,7 +74,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                                     {`${bean.weight || "-"} gr`}
                                 </td>
                                 <td className={"p-2"}>
-                                    {`${props.usage[bean.name] || "-"} gr`}
+                                    {`${props.usage[bean.name.toLowerCase()] || "-"} gr`}
                                 </td>
                             </tr>
                         )
