@@ -21,7 +21,7 @@ export default function ProgressBar(props: Props) {
 
     return (
         <Progress.Root
-            className={"relative overflow-hidden bg-slate-300 dark:bg-slate-700 border dark:border-slate-900 rounded-full w-9/12 h-5 translate-z-0"}
+            className={"relative overflow-hidden bg-slate-300 dark:bg-slate-700 border dark:border-slate-900 rounded-full w-full h-5 translate-z-0"}
             value={progress}
         >
             <Progress.Indicator
