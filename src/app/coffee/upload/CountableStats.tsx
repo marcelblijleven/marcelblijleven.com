@@ -26,19 +26,22 @@ export default function CountableStats(props: Props) {
 
     const items = entries.map(([key, value]) => {
         return (
-            <div key={key} className={"flex gap-2 items-center mb-1"}>
+            <div key={key} className={"flex gap-2 items-center mb-1 hover:bg-slate-200 dark:hover:bg-slate-800"}>
                 <div
-                    className={"flex w-3/12 gap-2 justify-between text-sm font-semibold text-gray-900 dark:text-gray-100"}>
+                    className={"flex w-1/2 gap-2 justify-between text-sm font-semibold text-gray-900 dark:text-gray-100"}>
                     <p className={"truncate"}>{key}</p>
                     <p className={""}>{value}</p>
                 </div>
-                <ProgressBar total={total} progress={(value as number)}/>
+                <div className={"w-1/2"}>
+
+                    <ProgressBar total={total} progress={(value as number)}/>
+                </div>
             </div>
         )
     });
     console.log(entries.length, slicedLength, slice)
     return (
-        <div className={"mb-4"}>
+        <div className={"mb-6"}>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
             {items}
             {totalEntries > slicedLength && (
