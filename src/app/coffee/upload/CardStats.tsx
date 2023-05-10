@@ -33,7 +33,13 @@ export default function CardStats(props: Props) {
     const averageWeight = props.averageWeight ? props.averageWeight.toFixed(2) : null;
     const averageBrewsPerDay = props.averageBrewsPerDay ? props.averageBrewsPerDay.toFixed(2) : null;
     const totalBrews = props.totalBrews ? props.totalBrews.toString() : null;
-    const totalGroundBeans = props.totalGroundBeans ? props.totalGroundBeans.toFixed(2) : null;
+
+    let totalGroundBeansText = "-";
+
+    if (props.totalGroundBeans) {
+        totalGroundBeansText = props.totalGroundBeans > 1000 ? `${(props.totalGroundBeans / 1000).toFixed(2)} kg` : `${props.totalGroundBeans} gr`
+    }
+
     const timeSinceLastCoffee = getNaturalDate(props.lastBrew);
 
     return (
@@ -41,7 +47,7 @@ export default function CardStats(props: Props) {
             {averageWeight && <Stats label={"Avg. grind weight"} value={`${averageWeight} gr`} />}
             {averageBrewsPerDay && <Stats label={"Avg. brews per day"} value={averageBrewsPerDay} />}
             {totalBrews && <Stats label={"Total brews"} value={totalBrews} />}
-            {totalGroundBeans && <Stats label={"Total ground beans"} value={`${totalGroundBeans} gr`} />}
+            {props.totalGroundBeans && <Stats label={"Total ground beans"} value={totalGroundBeansText} />}
             {props.lastBrew && <Stats label={"Last brew"} value={timeSinceLastCoffee} />}
         </div>
     )
