@@ -25,7 +25,7 @@ export default function ProgressBar(props: Props) {
             value={progress}
         >
             <Progress.Indicator
-                className={"bg-sky-800 hover:bg-gradient-to-r hover:from-sky-800 hover:to-sky-600 w-full h-full transition duration-700 ease-in"}
+                className={"bg-sky-800 hover:bg-gradient-to-r hover:from-sky-800 w-full h-full transition duration-400 ease-in"}
                 style={{transform: `translateX(-${100 - progress}%)`}}
             />
         </Progress.Root>
