@@ -78,7 +78,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                                     {props.usage[bean.name.toLowerCase()] ? `${props.usage[bean.name.toLowerCase()]} gr`: "-"}
                                 </td>
                                 <td className={"p-2"}>
-                                    {bean.weight && props.usage[bean.name.toLowerCase()] ? bean.weight - props.usage[bean.name.toLowerCase()] : "-"}
+                                    {bean.weight && props.usage[bean.name.toLowerCase()] ? `${bean.weight - props.usage[bean.name.toLowerCase()]} gr` : "-"}
                                 </td>
                             </tr>
                         )
