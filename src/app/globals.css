@@ -19,6 +19,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  margin-right: calc(-1 * (100vw - 100%)); /* Prevents scrollbar from shifting content */
 }
 
 @layer components {

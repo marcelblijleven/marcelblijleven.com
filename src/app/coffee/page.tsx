@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Container from "@/components/Container";
 import Intro from "@/app/Intro";
 
 // import {readBrewData, readStatistics} from "@/lib/brew_data";
@@ -14,8 +12,6 @@ export default function Coffee() {
 
     return (
         <>
-            <Header />
-            <Container>
                 <Intro title={"My coffee stats"} description={""}/>
                 <TextSection heading={"So, what is this?"}>
                     <p>
@@ -30,7 +26,6 @@ export default function Coffee() {
                     </p>
                 </TextSection>
                 <Statistics {...statistics} uploaded={false}/>
-            </Container>
         </>
     )
 }
