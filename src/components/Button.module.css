@@ -65,4 +65,8 @@
     .btn-icon:hover {
         @apply border border-slate-100 from-slate-900 to-slate-800;
     }
+
+    .btn:disabled {
+        @apply text-gray-800 bg-gray-600 border-gray-600;
+    }
 }
