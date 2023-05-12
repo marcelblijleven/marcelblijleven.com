@@ -52,6 +52,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                         <th scope={"col"} className={"font-bold px-2"}>Age</th>
                         <th scope={"col"} className={"font-bold px-2"}>Weight</th>
                         <th scope={"col"} className={"font-bold px-2"}>Consumed</th>
+                        <th scope={"col"} className={"font-bold px-2"}>Available</th>
                     </tr>
                     </thead>
 
@@ -71,10 +72,13 @@ export default function BacklogStats(props: BacklogStatsProps) {
                                     {getAge(bean.roastingDate)}
                                 </td>
                                 <td className={"p-2"}>
-                                    {`${bean.weight || "-"} gr`}
+                                    {bean.weight ? `${bean.weight} gr`: "-"}
                                 </td>
                                 <td className={"p-2"}>
-                                    {`${props.usage[bean.name.toLowerCase()] || "-"} gr`}
+                                    {props.usage[bean.name.toLowerCase()] ? `${props.usage[bean.name.toLowerCase()]} gr`: "-"}
+                                </td>
+                                <td className={"p-2"}>
+                                    {bean.weight && props.usage[bean.name.toLowerCase()] ? bean.weight - props.usage[bean.name.toLowerCase()] : "-"}
                                 </td>
                             </tr>
                         )
