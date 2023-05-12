@@ -20,8 +20,8 @@ export default function Coffee() {
                 <TextSection heading={"So, what is this?"}>
                     <p>
                         I keep track of most of my coffee brews in an app called Beanconqueror.
-                        I wrote a small script small to parse the JSON exports from this app, which I sync and deploy to
-                        this website.
+                        I wrote a script to parse the JSON exports from this app, which I sync and deploy to
+                        this website using an iOS shortcut.
                     </p>
                     <p>
                         <Link className={
