@@ -7,7 +7,7 @@ export default function Home() {
       <>
         <Header />
         <Container>
-          <Intro title={"Welcome"} description={"Not much to see here yet.."} />
+          <Intro title={"Hi"} description={"Not much to see here yet.."} />
         </Container>
       </>
   )

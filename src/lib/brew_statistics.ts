@@ -40,8 +40,20 @@ function sortCountMappingDesc(mapping: Mapping<number>): [string, number][] {
     return Object.entries(mapping).sort(([,a],[,b]) => b-a);
 }
 
-export function processBCFile(contents: string, callback: (data: BrewStatistics) => void) {
-    const data = (JSON.parse(contents) as BCData);
+export function processMyBCFile(): BrewStatistics {
+    const bcData = require("./bc.json");
+    return processBCFile(bcData)
+}
+
+export function processBCFile(contents: string | BCData, callback?: (data: BrewStatistics) => void): BrewStatistics {
+    let data: BCData
+
+    if (typeof contents === "string") {
+        data = (JSON.parse(contents) as BCData)
+    } else {
+        data = contents
+    }
+
     const preparationMapping = createMappingByUuid<Preparation>(data.PREPARATION);
     const beanMapping = createMappingByUuid<Bean>(data.BEANS);
     const grinderMapping = createMappingByUuid<Mill>(data.MILL);
@@ -113,7 +125,7 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
 
     const totalGroundBeans = grindWeights.reduce((a, b) => a + b, 0);
 
-    callback({
+    const statistics = {
         roasterCount: sortCountMappingDesc(roasterCount),
         roasterCountWeight: sortCountMappingDesc(roasterCountWeight),
         countryCount: sortCountMappingDesc(countryCount),
@@ -131,7 +143,13 @@ export function processBCFile(contents: string, callback: (data: BrewStatistics)
         totalBrews: data.BREWS.length,
         totalGroundBeans: totalGroundBeans,
         lastBrew: new Date(lastBrewTime)
-    });
+    }
+
+    if (callback) {
+        callback(statistics);
+    }
+
+    return statistics;
 }
 
 export interface BrewStatistics {

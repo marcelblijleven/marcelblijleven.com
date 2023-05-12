@@ -43,7 +43,7 @@ export default function CardStats(props: Props) {
     const timeSinceLastCoffee = getNaturalDate(props.lastBrew);
 
     return (
-        <div className={"flex flex-wrap items-center justify-center gap-2 mb-2"}>
+        <div className={"flex flex-wrap items-center justify-center gap-2 mb-4"}>
             {averageWeight && <Stats label={"Avg. grind weight"} value={`${averageWeight} gr`} />}
             {averageBrewsPerDay && <Stats label={"Avg. brews per day"} value={averageBrewsPerDay} />}
             {totalBrews && <Stats label={"Total brews"} value={totalBrews} />}
