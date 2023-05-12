@@ -1,8 +1,5 @@
 "use client"
 
-
-import Header from "@/components/Header";
-import Container from "@/components/Container";
 import Intro from "@/app/Intro";
 import {BrewStatistics, processBCFile} from "@/lib/brew_statistics";
 import {useState} from "react";
@@ -20,8 +17,6 @@ export default function UploadPage() {
 
     return (
         <>
-            <Header/>
-            <Container>
                 <Intro title={"Your coffee stats"}
                        description={"Process a JSON export from the Beanconqueror app to view your stats"}/>
                 <div className={"flex flex-col gap-2"}>
@@ -51,7 +46,6 @@ export default function UploadPage() {
                             </div>
                         </>)}
                 </div>
-            </Container>
         </>
     )
 }
