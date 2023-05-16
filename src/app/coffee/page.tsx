@@ -20,9 +20,7 @@ export default function Coffee() {
                         this website using an iOS shortcut.
                     </p>
                     <p>
-                        <Link className={
-                            "decoration-2 decoration-blue-500 underline hover:text-blue-500"
-                        } href={"/coffee/upload"}>Click here</Link> if you want to upload and visualize your own data.
+                        <Link className={"link"} href={"/coffee/upload"}>Click here</Link> if you want to upload and visualize your own data.
                     </p>
                 </TextSection>
                 <Statistics {...statistics} uploaded={false}/>
