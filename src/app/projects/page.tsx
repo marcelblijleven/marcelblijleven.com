@@ -6,7 +6,7 @@ import GitHubIcon from "@/components/icons/GithubIcon";
 
 const stripHttps = (url: string) => url.split("https://www.")[1];
 
-function Project(props: {title: string, url: string, children: ReactNode, shortDescription: string, icon: ReactNode}) {
+function Project(props: {title: string, url: string, children: ReactNode, shortDescription: string, Icon: ReactNode}) {
     return (
         <div className={"flex flex-col gap-2 px-4 py-4 md:px-6 md:py-8 hover:shadow"}>
             <div className={"flex align-baseline justify-between"}>
@@ -14,7 +14,9 @@ function Project(props: {title: string, url: string, children: ReactNode, shortD
                     <h3 className={"text-lg font-semibold"}>{props.title}</h3>
                     <span className={"text-md italic font-normal"}>{props.shortDescription}</span>
                 </div>
-                {props.icon && <Link href={props.url}>{createElement(props.icon)}</Link>}
+                {props.Icon && (
+                    <Link href={props.url}>{props.Icon}</Link>
+                )}
             </div>
             {props.children}
             <Link className={"link"} href={props.url}>{stripHttps(props.url)}</Link>
@@ -36,7 +38,7 @@ export default function ProjectPage() {
                     title={"Fittie"}
                     shortDescription={"a Python package for decoding .FIT workout files"}
                     url={"https://www.github.com/marcelblijleven/fittie"}
-                    icon={GitHubIcon}
+                    Icon={<GitHubIcon />}
                 >
                     <p>
                         Using the documentation on the Garmin FIT Protocol I wrote this Python package to be able to decode
@@ -47,7 +49,7 @@ export default function ProjectPage() {
                     title={"Advent of Code"}
                     shortDescription={"my solutions for the AOC puzzles"}
                     url={"https://www.github.com/marcelblijleven/adventofcode"}
-                    icon={GitHubIcon}
+                    Icon={<GitHubIcon />}
                 >
                     <p>
                         Every year I like to participate in the Advent of Code, an Advent calendar of small programming puzzles.<br />

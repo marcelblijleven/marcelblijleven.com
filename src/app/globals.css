@@ -24,11 +24,11 @@ body {
 
 @layer components {
   .link {
-    @apply max-w-max decoration-2 decoration-blue-500 underline;
+    @apply max-w-max decoration-2 decoration-sky-600 underline;
   }
 
   .link:hover {
-    @apply bg-blue-500 text-white;
+    @apply bg-sky-600 text-white;
   }
 
   .background-gradient {
