@@ -23,6 +23,14 @@ body {
 }
 
 @layer components {
+  .link {
+    @apply max-w-max decoration-2 decoration-blue-500 underline;
+  }
+
+  .link:hover {
+    @apply bg-blue-500 text-white;
+  }
+
   .background-gradient {
     @apply bg-gradient-to-tr from-slate-50 to-slate-100;
   }

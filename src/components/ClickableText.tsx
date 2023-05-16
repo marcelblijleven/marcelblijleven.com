@@ -5,7 +5,7 @@ interface Props {
 
 export default function ClickableText(props: Props) {
     return (
-        <p onClick={props.onClick} className={"text-slate-900 dark:text-slate-100 underline decoration-2 decoration-blue-500 hover:text-blue-500 cursor-pointer"}>
+        <p onClick={props.onClick} className={"text-slate-900 dark:text-slate-100 link cursor-pointer"}>
             {props.text}
         </p>
     )
