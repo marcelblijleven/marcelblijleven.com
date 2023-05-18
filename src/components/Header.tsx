@@ -19,8 +19,9 @@ export default function Header() {
                     </div>
                     <nav>
                         <div className={"flex gap-4 md:gap-6 font-semibold"}>
-                            <Link className={"link no-underline"} href={"/projects"}>Projects</Link>
-                            <Link className={"link no-underline"} href={"/coffee"}>Coffee</Link>
+                            <Link href={"/blog"} className={"link no-underline"}>Blog</Link>
+                            <Link href={"/projects"} className={"link no-underline"}>Projects</Link>
+                            <Link href={"/coffee"} className={"link no-underline"}>Coffee</Link>
                         </div>
                     </nav>
                 </div>

@@ -1,6 +1,7 @@
 import Intro from "@/app/Intro";
 import TextSection from "@/components/TextSection";
 import Link from "next/link";
+import {Posts} from "@/app/blog/page";
 
 export default function Home() {
 
@@ -19,6 +20,9 @@ export default function Home() {
                 <p>
                     <Link className={"link"} href={"https://www.github.com/marcelblijleven"}>github.com/marcelblijleven</Link>
                 </p>
+            </TextSection>
+            <TextSection heading={"Recent posts"}>
+                <Posts />
             </TextSection>
         </>
     )

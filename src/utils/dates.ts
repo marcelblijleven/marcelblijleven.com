@@ -75,3 +75,18 @@ export function getDateString(date: Date | null, includeTime: boolean) {
 
     return date.toLocaleDateString("nl-NL", options);
 }
+
+export function getDateStringWithMonthName(date: Date | string) {
+    if (typeof date === "string") {
+        date = new Date(date);
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Europe/Amsterdam",
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    }
+
+    return date.toLocaleDateString("en-EN", options);
+}
