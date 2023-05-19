@@ -1,7 +1,7 @@
 "use client"
 
 import Intro from "@/app/Intro";
-import {BrewStatistics, processBCFile} from "@/lib/brew_statistics";
+import {Statistics as BrewStatistics, processBCFile} from "@/lib/brew_statistics";
 import {useState} from "react";
 import Button from "@/components/Button";
 import Statistics from "@/app/coffee/components/Statistics";

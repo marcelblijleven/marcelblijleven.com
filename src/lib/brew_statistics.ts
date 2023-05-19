@@ -40,7 +40,7 @@ function sortCountMappingDesc(mapping: Mapping<number>): [string, number][] {
     return Object.entries(mapping).sort(([,a],[,b]) => b-a);
 }
 
-export function processMyBCFile(): BrewStatistics {
+export function processMyBCFile(): Statistics {
     const bcData = require("./bc.json");
     return processBCFile(bcData)
 }
@@ -162,7 +162,7 @@ function getBrewStatistics(brews: Brew[]): BrewStatistics {
 }
 
 
-export function processBCFile(contents: string | BCData, callback?: (data: BrewStatistics) => void): Statistics {
+export function processBCFile(contents: string | BCData, callback?: (data: Statistics) => void): Statistics {
     let data: BCData
 
     if (typeof contents === "string") {
