@@ -46,7 +46,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                 <table className={"w-full text-sm text-left text-gray-900 dark:text-gray-100"}>
                     <thead className={"text-xs text-gray-900 dark:text-gray-100 uppercase bg-gray-50 dark:bg-slate-900"}>
                     <tr>
-                        <th scope={"col"} className={"px-2 py-3 w-80"}>Name</th>
+                        <th scope={"col"} className={"px-2 py-3"}>Name</th>
                         <th scope={"col"} className={"font-bold px-2"}>Roaster</th>
                         <th scope={"col"} className={"font-bold px-2"}>Roasting date</th>
                         <th scope={"col"} className={"font-bold px-2"}>Age</th>
