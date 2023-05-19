@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import {getNaturalDate} from "@/utils/dates";
+import {Bean} from "@/types/coffee/bc";
 
 interface Props {
     averageWeight: number;
@@ -7,6 +8,8 @@ interface Props {
     totalBrews: number;
     totalGroundBeans: number;
     lastBrew: Date;
+    usagePerBeans: Mapping<number>;
+    beanMapping: Mapping<Bean>;
 }
 
 interface StatsProps {
@@ -29,6 +32,23 @@ function Stats(props: StatsProps) {
     )
 }
 
+function getRemainingWeight(mapping: Mapping<Bean>, usage: Mapping<number>): number {
+    let remainingWeight: number = 0;
+
+    for (const bean of Object.values(mapping)) {
+        if (bean.finished || !bean.weight) {
+            continue;
+        }
+
+        const beanUsage = usage[bean.config.uuid] || 0;
+        const totalWeight = bean.weight;
+
+        remainingWeight += (totalWeight - beanUsage);
+    }
+
+    return remainingWeight;
+}
+
 export default function CardStats(props: Props) {
     const averageWeight = props.averageWeight ? props.averageWeight.toFixed(2) : null;
     const averageBrewsPerDay = props.averageBrewsPerDay ? props.averageBrewsPerDay.toFixed(2) : null;
@@ -41,6 +61,11 @@ export default function CardStats(props: Props) {
     }
 
     const timeSinceLastCoffee = getNaturalDate(props.lastBrew);
+    const remainingWeight = getRemainingWeight(props.beanMapping, props.usagePerBeans);
+    const estimatedRemainingWeight = remainingWeight && averageBrewsPerDay && averageWeight ? (
+        remainingWeight / (averageBrewsPerDay * averageWeight)
+    ) : null;
+    console.log(remainingWeight, averageBrewsPerDay, averageWeight, estimatedRemainingWeight)
 
     return (
         <div className={"flex flex-row flex-wrap items-center justify-center gap-2 mb-4"}>
@@ -48,6 +73,8 @@ export default function CardStats(props: Props) {
             {averageBrewsPerDay && <Stats label={"Avg. brews per day"} value={averageBrewsPerDay} />}
             {totalBrews && <Stats label={"Total brews"} value={totalBrews} />}
             {props.totalGroundBeans && <Stats label={"Total ground beans"} value={totalGroundBeansText} />}
+            {remainingWeight && <Stats label={"Remaining bean weight"} value={`${remainingWeight.toFixed(2)} gr`} />}
+            {estimatedRemainingWeight && <Stats label={"Estimated remaining days"} value={`${estimatedRemainingWeight.toFixed(2)} days`} />}
             {props.lastBrew && <Stats label={"Last brew"} value={timeSinceLastCoffee} />}
         </div>
     )

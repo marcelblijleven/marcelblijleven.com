@@ -18,12 +18,10 @@ interface Props {
 export default function CountableStats(props: Props) {
     const [slice, setSlice] = useState<boolean>(true);
     const slicedLength = 10;
-    console.log(props.countable)
     const totalEntries = Object.keys(props.countable).length;
 
     const entries = slice ? props.countable.slice(0, slicedLength) : props.countable;
     const total = entries.reduce((prev, [_, value]) => prev + (value as number), 0);
-    console.log(entries)
     const items = entries.map(([key, value]) => {
         const name = props.mapping?.[key].name || key;
 

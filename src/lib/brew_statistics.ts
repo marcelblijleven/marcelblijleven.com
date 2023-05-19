@@ -59,7 +59,7 @@ interface BrewStatistics {
     averageBrewsPerDay: number;
     totalGroundWeight: number;
     averageGrindWeight: number;
-    usagePerBean: [string, number][];
+    usagePerBean: Mapping<number>;
     brewsPerBean:  Mapping<number>;
     usagePerGrinder: [string, number][];
     brewsPerGrinder: [string, number][];
@@ -151,7 +151,7 @@ function getBrewStatistics(brews: Brew[]): BrewStatistics {
         brewsPerDay: brewsPerDay,
         totalGroundWeight,
         averageGrindWeight: averageGroundWeight,
-        usagePerBean: sortCountMappingDesc(usagePerBean),
+        usagePerBean: usagePerBean,
         brewsPerBean: brewsPerBean,
         usagePerGrinder: sortCountMappingDesc(usagePerGrinder),
         brewsPerGrinder: sortCountMappingDesc(brewsPerGrinder),

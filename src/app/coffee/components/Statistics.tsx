@@ -16,8 +16,10 @@ export default function Statistics(props: Props) {
                 totalBrews={props.totalBrews}
                 lastBrew={props.lastBrew}
                 totalGroundBeans={props.totalGroundWeight}
+                usagePerBeans={props.usagePerBean}
+                beanMapping={props.beanMapping}
             />
-            <BacklogStats label={props.uploaded ? "Your backlog" : "My backlog"} beans={props.beanMapping} usage={props.brewsPerBean}/>
+            <BacklogStats label={props.uploaded ? "Your backlog" : "My backlog"} beans={props.beanMapping} usage={props.usagePerBean}/>
             <CountableStats label={"Favourite origins"} countable={props.countryCount} />
             <CountableStats label={"Favourite roasters (bags)"} countable={props.roasterCount} />
             <CountableStats label={"Favourite roasters (grams)"} countable={props.roasterCountWeight} />

@@ -39,6 +39,8 @@ export default function BacklogStats(props: BacklogStatsProps) {
             })
     );
 
+    console.log("usage", props.usage)
+
     return (
         <div className={"mb-4"}>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
@@ -57,7 +59,13 @@ export default function BacklogStats(props: BacklogStatsProps) {
                     </thead>
 
                     <tbody>
-                    {beans.map(bean => (
+                    {beans.map(bean => {
+                        console.log(bean.config.uuid, props.usage[bean.config.uuid])
+                        const usage = props.usage[bean.config.uuid] || 0;
+                        const remaining = bean.weight - usage;
+
+                     return (
+
                             <tr key={bean.config.uuid} className={"border-b border-slate-100 dark:border-gray-500"}>
                                 <td className="px-2 py-2 font-medium whitespace-nowrap">
                                     {bean.name}
@@ -78,10 +86,10 @@ export default function BacklogStats(props: BacklogStatsProps) {
                                     {props.usage[bean.config.uuid] ? `${props.usage[bean.config.uuid]} gr`: "-"}
                                 </td>
                                 <td className={"p-2"}>
-                                    {bean.weight && props.usage[bean.config.uuid] ? `${bean.weight - props.usage[bean.config.uuid]} gr` : "-"}
+                                    {bean.weight ? `${remaining} gr` : "-"}
                                 </td>
                             </tr>
-                        )
+                        )}
                     )}
                     </tbody>
                 </table>
