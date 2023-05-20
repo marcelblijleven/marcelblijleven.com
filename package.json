@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild": "git rev-parse --short HEAD > src/lib/sha.txt",
+    "predev": "git rev-parse --short HEAD > src/lib/sha.txt"
   },
   "dependencies": {
     "@radix-ui/react-progress": "^1.0.2",
