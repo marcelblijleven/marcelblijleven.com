@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import { Analytics } from '@vercel/analytics/react';
-import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ['latin'] })
 const color = "#0284c7";  // sky 600
@@ -29,7 +28,7 @@ export default function RootLayout({
         <main className={"max-w-5xl mx-auto px-4 sm:px-6 md:px-8 h-screen"}>
           {children}
         </main>
-        <Footer />
+        {/*<Footer />*/}
         <Analytics />
       </body>
     </html>
