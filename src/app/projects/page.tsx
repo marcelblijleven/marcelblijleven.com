@@ -1,8 +1,14 @@
 import Intro from "@/app/Intro";
 import TextSection from "@/components/TextSection";
 import Link from "next/link";
-import {createElement, ReactNode} from "react";
+import {ReactNode} from "react";
 import GitHubIcon from "@/components/icons/GithubIcon";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Projects | marcelblijleven.com",
+    description: "A small collection of projects hosted on my GitHub"
+}
 
 const stripHttps = (url: string) => url.split("https://www.")[1];
 

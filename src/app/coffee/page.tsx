@@ -2,9 +2,15 @@ import Intro from "@/app/Intro";
 
 // import {readBrewData, readStatistics} from "@/lib/brew_data";
 import Link from "next/link";
+import {Metadata} from "next";
 import {processMyBCFile} from "@/lib/brew_statistics";
 import TextSection from "@/components/TextSection";
 import Statistics from "@/app/coffee/components/Statistics";
+
+export const metadata: Metadata = {
+    title: "My coffee stats | marcelblijleven.com",
+    description: "Some coffee statistics I track"
+}
 
 export default function Coffee() {
     // const brews = readBrewData(10);

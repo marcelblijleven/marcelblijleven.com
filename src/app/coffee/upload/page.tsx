@@ -7,6 +7,12 @@ import Button from "@/components/Button";
 import Statistics from "@/app/coffee/components/Statistics";
 import TextSection from "@/components/TextSection";
 import FileUpload from "@/components/FileUpload";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Your coffee stats | marcelblijleven.com",
+    description: "Your Beanconqueror coffee data visualized"
+}
 
 export default function UploadPage() {
     const [data, setData] = useState<BrewStatistics | null>(null);
