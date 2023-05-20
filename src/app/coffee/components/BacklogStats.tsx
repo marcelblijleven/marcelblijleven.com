@@ -39,8 +39,6 @@ export default function BacklogStats(props: BacklogStatsProps) {
             })
     );
 
-    console.log("usage", props.usage)
-
     return (
         <div className={"mb-4"}>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
@@ -60,7 +58,6 @@ export default function BacklogStats(props: BacklogStatsProps) {
 
                     <tbody>
                     {beans.map(bean => {
-                        console.log(bean.config.uuid, props.usage[bean.config.uuid])
                         const usage = props.usage[bean.config.uuid] || 0;
                         const remaining = bean.weight - usage;
 

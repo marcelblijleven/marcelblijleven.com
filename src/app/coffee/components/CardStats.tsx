@@ -65,7 +65,7 @@ export default function CardStats(props: Props) {
     const showRemainingWeight = remainingWeight && averageBrewsPerDay && averageWeight;
 
     const estimatedRemainingWeight = showRemainingWeight ? remainingWeight / (averageBrewsPerDay * averageWeight) : null;
-    console.log(estimatedRemainingWeight)
+
     return (
         <div className={"flex flex-row flex-wrap items-center justify-center gap-2 mb-4"}>
             {averageWeight && <Stats label={"Avg. grind weight"} value={`${averageWeight.toFixed(2)} gr`} />}
