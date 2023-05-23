@@ -19,9 +19,9 @@ interface StatsProps {
 
 function Stats(props: StatsProps) {
     return (
-        <div className={"min-w-full md:min-w-fit"}>
+        <div className={"w-fit"}>
             <Card>
-                <div className={"flex flex-col items-start md:items-center pointer-events-none select-none"}>
+                <div className={"flex flex-col items-center md:items-center pointer-events-none select-none"}>
                     <p className={"text-xs md:text-md font-semibold whitespace-nowrap"}>{props.label}</p>
                     <p className={"text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl sm:leading-10 md:text-5xl md:leading-14"}>
                         {props.value}

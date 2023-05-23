@@ -9,7 +9,7 @@ function readSha() {
 export default function Footer() {
     const sha = readSha();
     return (
-        <footer className={"fixed bottom-0 w-full bg-white"}>
+        <footer className={"w-full bg-white"}>
             <div className={"flex justify-center items-center max-w-5xl mx-auto px-8 h-12"}>
                 <p className={"text-xs text-gray-300"}>{sha}</p>
             </div>

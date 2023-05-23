@@ -40,10 +40,10 @@ export default function BacklogStats(props: BacklogStatsProps) {
     );
 
     return (
-        <div className={"mb-4"}>
+        <>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
-            <div className={"overflow-x-auto mb-4 whitespace-nowrap"}>
-                <table className={"w-full text-sm text-left text-gray-900 dark:text-gray-100"}>
+            <div className={"w-screen overflow-x-auto mb-4 whitespace-nowrap"}>
+                <table className={"text-sm text-left text-gray-900 dark:text-gray-100"}>
                     <thead className={"text-xs text-gray-900 dark:text-gray-100 uppercase bg-gray-50 dark:bg-slate-900"}>
                     <tr>
                         <th scope={"col"} className={"px-2 py-3"}>Name</th>
@@ -64,7 +64,7 @@ export default function BacklogStats(props: BacklogStatsProps) {
                      return (
 
                             <tr key={bean.config.uuid} className={"border-b border-slate-100 dark:border-gray-500"}>
-                                <td className="px-2 py-2 font-medium whitespace-nowrap">
+                                <td className="px-2 py-2 font-medium">
                                     {bean.name}
                                 </td>
                                 <td className={"p-2"}>
@@ -91,6 +91,6 @@ export default function BacklogStats(props: BacklogStatsProps) {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     )
 }

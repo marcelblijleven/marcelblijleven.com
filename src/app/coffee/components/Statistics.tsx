@@ -9,7 +9,7 @@ interface Props extends BrewStatistics {
 
 export default function Statistics(props: Props) {
     return (
-        <div className={"flex flex-col w-full"}>
+        <div className={"flex flex-col w-full space-y-6"}>
             <CardStats
                 averageWeight={props.averageGrindWeight}
                 averageBrewsPerDay={props.averageBrewsPerDay}

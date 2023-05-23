@@ -30,7 +30,7 @@ export default function CountableStats(props: Props) {
                 <div
                     className={"flex w-1/2 gap-2 justify-between text-sm font-semibold text-gray-900 dark:text-gray-100"}>
                     <p className={"truncate capitalize"}>{name}</p>
-                    <p className={""}>{value}</p>
+                    <p>{value}</p>
                 </div>
                 <div className={"w-1/2"}>
                     <ProgressBar total={total} progress={(value as number)}/>
@@ -42,7 +42,7 @@ export default function CountableStats(props: Props) {
     const showAll = totalEntries > slicedLength;
 
     return (
-        <div className={showAll ? "mb-6" : "mb-12"}>
+        <div>
             <h2 className={"text-2xl font-semibold mb-2"}>{props.label}</h2>
             {items}
             {showAll && (
