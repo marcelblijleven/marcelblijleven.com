@@ -23,13 +23,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={"h-full"}>
+      <body className={inter.className + "h-full"}>
         <Header />
-        <main className={"max-w-5xl mx-auto px-4 sm:px-6 md:px-8"}>
+        <main className={"max-w-5xl mx-auto px-4 sm:px-6 md:px-8 pb-8"}>
           {children}
+          <Analytics />
         </main>
-        <Analytics />
       </body>
     </html>
   )

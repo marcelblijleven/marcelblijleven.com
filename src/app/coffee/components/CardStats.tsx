@@ -1,6 +1,8 @@
 import Card from "@/components/Card";
 import {getNaturalDate} from "@/utils/dates";
 import {Bean} from "@/types/coffee/bc";
+import { Text, Value } from "@/components/text";
+import ProgressBar from "@/components/ProgressBar";
 
 interface Props {
     averageWeight: number;
@@ -15,21 +17,23 @@ interface Props {
 interface StatsProps {
     label: string;
     value: string;
+    progress?: number | null;
 }
 
 function Stats(props: StatsProps) {
     return (
-        <div className={"w-fit"}>
-            <Card>
-                <div className={"flex flex-col items-center md:items-center pointer-events-none select-none"}>
-                    <p className={"text-xs md:text-md font-semibold whitespace-nowrap"}>{props.label}</p>
-                    <p className={"text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl sm:leading-10 md:text-5xl md:leading-14"}>
-                        {props.value}
-                    </p>
+        <Card className={"max-w-xs"}>
+        <Text>{props.label}</Text>
+        <Value>{props.value}</Value>
+        {props.progress && (
+            <>
+                <div className="flex justify-between mt-4">
+                    <Text>{`${props.progress.toFixed(2)} remaining days`}</Text>
                 </div>
-            </Card>
-        </div>
-    )
+                <ProgressBar total={100} progress={props.progress} />
+            </>
+        )}
+    </Card>)
 }
 
 function getRemainingWeight(mapping: Mapping<Bean>, usage: Mapping<number>): number {
@@ -67,13 +71,12 @@ export default function CardStats(props: Props) {
     const estimatedRemainingWeight = showRemainingWeight ? remainingWeight / (averageBrewsPerDay * averageWeight) : null;
 
     return (
-        <div className={"flex flex-row flex-wrap items-center justify-center gap-2 mb-4"}>
+        <div className={"grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"}>
             {averageWeight && <Stats label={"Avg. grind weight"} value={`${averageWeight.toFixed(2)} gr`} />}
             {averageBrewsPerDay && <Stats label={"Avg. brews per day"} value={averageBrewsPerDay.toFixed(2)} />}
             {totalBrews && <Stats label={"Total brews"} value={totalBrews} />}
             {props.totalGroundBeans && <Stats label={"Total ground beans"} value={totalGroundBeansText} />}
-            {remainingWeight && <Stats label={"Remaining bean weight"} value={`${remainingWeight.toFixed(2)} gr`} />}
-            {estimatedRemainingWeight && <Stats label={"Estimated remaining days"} value={`${estimatedRemainingWeight.toFixed(1)} days`} />}
+            {remainingWeight && <Stats label={"Remaining bean weight"} value={`${remainingWeight.toFixed(2)} gr`} progress={estimatedRemainingWeight} />}
             {props.lastBrew && <Stats label={"Last brew"} value={timeSinceLastCoffee} />}
         </div>
     )

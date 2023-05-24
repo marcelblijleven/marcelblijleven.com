@@ -1,6 +1,5 @@
 import Intro from "@/app/Intro";
 
-// import {readBrewData, readStatistics} from "@/lib/brew_data";
 import Link from "next/link";
 import {Metadata} from "next";
 import {processMyBCFile} from "@/lib/brew_statistics";
