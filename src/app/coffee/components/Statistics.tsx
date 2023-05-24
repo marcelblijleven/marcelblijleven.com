@@ -9,7 +9,7 @@ interface Props extends BrewStatistics {
 
 export default function Statistics(props: Props) {
     return (
-        <div className={"flex flex-col w-full space-y-6"}>
+        <div className={"flex flex-col w-full space-y-4 md:space-y-6"}>
             <CardStats
                 averageWeight={props.averageGrindWeight}
                 averageBrewsPerDay={props.averageBrewsPerDay}
@@ -20,7 +20,6 @@ export default function Statistics(props: Props) {
                 beanMapping={props.beanMapping}
             />
             <BacklogStats label={props.uploaded ? "Your backlog" : "My backlog"} beans={props.beanMapping} usage={props.usagePerBean}/>
-
             <CountableStats label={"Favourite origins"} countable={props.countryCount} />
             <CountableStats label={"Favourite roasters (bags)"} countable={props.roasterCount} />
             <CountableStats label={"Favourite roasters (grams)"} countable={props.roasterCountWeight} />
