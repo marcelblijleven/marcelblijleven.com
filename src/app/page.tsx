@@ -1,5 +1,5 @@
 import Intro from "@/app/Intro";
-import TextSection from "@/components/TextSection";
+import TextSection from "@/components/text-section";
 import Link from "next/link";
 
 export default function Home() {
@@ -13,12 +13,10 @@ export default function Home() {
                     I love to automate the boring stuff and I have a strong focus on code quality.
                 </p>
                 <p>
-                    Here you can find some of my <Link className={"link"} href={"/projects"}>projects</Link>.
+                    Here you can find some of my <Link className={"link"} href={"/projects"}>projects</Link>.<br />
                     Find out what kind of coffee I&apos;ve been drinking <Link className={"link"} href={"/coffee"}>here</Link>.
                 </p>
-                <p>
-                    <Link className={"link"} href={"https://www.github.com/marcelblijleven"}>github.com/marcelblijleven</Link>
-                </p>
+
             </TextSection>
         </>
     )

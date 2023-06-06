@@ -75,3 +75,22 @@ export function getDateString(date: Date | null, includeTime: boolean) {
 
     return date.toLocaleDateString("nl-NL", options);
 }
+
+export function getAge(dateStr: string | null): string {
+    if (!dateStr) {
+        return "-";
+    }
+    const now = Date.now();
+    const date = new Date(dateStr);
+    const diff = now - date.getTime();
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return `${days} days`;
+}
+
+export function stringToDate(value: string | undefined): Date | null {
+    if (value === undefined || value === "") {
+        return null;
+    }
+
+    return new Date(value);
+}

@@ -1,15 +1,11 @@
 "use client"
 
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/progress-bar";
 import {useState} from "react";
-import ClickableText from "@/components/ClickableText";
+import ClickableText from "@/components/clickable-text";
 import {Preparation, Mill} from "@/types/coffee/bc";
-import Card from "@/components/Card";
 import {Text, Title} from "@/components/text";
-
-interface Mapping<T> {
-    [key: string]: T
-}
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 
 interface Props {
     label: string;
@@ -45,16 +41,22 @@ export default function CountableStats(props: Props) {
     const showAll = totalEntries > slicedLength;
 
     return (
-        <Card className={"text-gray-900 space-y-2"}>
-            <Title>{props.label}</Title>
-            <div className={"grid grid-cols-2 gap-x-2 gap-y-1"}>
-                {items}
-            </div>
-            {showAll && (
-                <div className={"flex justify-end"}>
-                    <ClickableText text={slice ? "Show all" : "Collapse"} onClick={() => setSlice(!slice)}/>
+        <Card>
+            <CardHeader>
+                <CardTitle>
+                    {props.label}
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className={"grid grid-cols-2 gap-x-2 gap-y-1"}>
+                    {items}
                 </div>
-            )}
+                {showAll && (
+                    <div className={"flex justify-end"}>
+                        <ClickableText text={slice ? "Show all" : "Collapse"} onClick={() => setSlice(!slice)}/>
+                    </div>
+                )}
+            </CardContent>
         </Card>
     )
 }
