@@ -1,7 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import type { Metadata } from "next";
-import Header from "@/components/header";
+import Header from "@/components/layout/header";
 import { Analytics } from '@vercel/analytics/react';
 import {ThemeProvider} from "@/components/theme-provider";
 // import Footer from "@/components/Footer";
