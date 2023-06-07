@@ -1,12 +1,11 @@
 import Intro from "@/app/Intro";
 import TextSection from "@/components/text-section";
 import Link from "next/link";
-import {createElement, ReactNode} from "react";
 import {Metadata} from "next";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
-import {GitFork, Github, Star, Stars} from "lucide-react";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {GitFork, LucideIcon, LucideProps, Star} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
-import {Button} from "@/components/ui/button";
+
 
 export const metadata: Metadata = {
     title: "Projects | marcelblijleven.com",
@@ -46,14 +45,20 @@ async function getRepositoryDetails(owner: string, repo: string): Promise<Reposi
     return (content as Repository);
 }
 
-const IconCount = (props: {icon: ReactNode, count: number}) => (
-    <div className={"flex gap-2 items-center"}>
-        {createElement(props.icon, {className: "h-4 w-4"})}
-        {props.count}
-    </div>
-);
 
+interface IconProps extends LucideProps {
+    Icon: LucideIcon;
+    count: number;
+}
 
+const IconCount = ({Icon, count, ...props}: IconProps) => {
+    return (
+        <div className={"flex gap-2 items-center"}>
+            <Icon className={"h-4 w-4"} {...props} />
+            {count}
+        </div>
+    );
+};
 
 function Project(props: { repository: Repository }) {
 
@@ -69,8 +74,8 @@ function Project(props: { repository: Repository }) {
             </CardHeader>
             <CardContent className={"flex items-center gap-2"}>
                 <Badge variant={"outline"}>{props.repository.language}</Badge>
-                <IconCount icon={Star} count={props.repository.stargazers_count} />
-                <IconCount icon={GitFork} count={props.repository.forks_count} />
+                <IconCount Icon={Star} count={props.repository.stargazers_count} />
+                <IconCount Icon={GitFork} count={props.repository.forks_count} />
             </CardContent>
         </Card>
     )

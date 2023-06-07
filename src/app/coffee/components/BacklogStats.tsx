@@ -3,14 +3,11 @@ import {sortFnAsc} from "@/utils/sort";
 import {stringToDate} from "@/utils/dates";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import BacklogTable from "@/app/coffee/components/BacklogTable";
-import {Geolocation} from "@/lib/geodata";
-import Globe from "@/components/globe/globe-client";
 
 interface BacklogStatsProps {
     label: string;
     beans: Mapping<Bean>;
     usage: Mapping<number>;
-    // countries: Mapping<Geolocation>;
 }
 
 export default function BacklogStats(props: BacklogStatsProps) {

@@ -40,8 +40,8 @@ export default function FileUpload(props: Props) {
                 accept={"application/json"}
                 onChange={onFileChange}
             />
-            <Button label={"Select file"} variant={"secondary"} size={"default"} onClick={onSelectFileClick}>Select file</Button>
-            <Button label={"Process"} variant={"default"} size={"default"} onClick={onProcess} disabled={!file}>Process</Button>
+            <Button variant={"secondary"} size={"default"} onClick={onSelectFileClick}>Select file</Button>
+            <Button variant={"default"} size={"default"} onClick={onProcess} disabled={!file}>Process</Button>
             {file && <p>{file.name}</p>}
         </div>
     );

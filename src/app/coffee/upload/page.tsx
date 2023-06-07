@@ -40,8 +40,7 @@ export default function UploadPage() {
 
                         <div className={"flex flex-col gap-4"}>
                             <div className={"max-w-md"}>
-                                <Button variant={"default"} size={"default"} onClick={() => setData(null)}
-                                        label={"Process another file"}>
+                                <Button variant={"default"} size={"default"} onClick={() => setData(null)}>
                                     Process another file
                                 </Button>
                             </div>
