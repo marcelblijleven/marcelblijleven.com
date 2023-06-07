@@ -1,8 +1,8 @@
-import Card from "@/components/Card";
 import {getNaturalDate} from "@/utils/dates";
 import {Bean} from "@/types/coffee/bc";
 import { Text, Value } from "@/components/text";
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/progress-bar";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 
 interface Props {
     averageWeight: number;
@@ -22,17 +22,22 @@ interface StatsProps {
 
 function Stats(props: StatsProps) {
     return (
-        <Card className={"max-w-xs"}>
-        <Text>{props.label}</Text>
-        <Value>{props.value}</Value>
-        {props.progress && (
-            <>
-                <div className="flex justify-between mt-4">
-                    <Text>{`${props.progress.toFixed(2)} remaining days`}</Text>
-                </div>
-                <ProgressBar total={100} progress={props.progress} />
-            </>
-        )}
+        <Card>
+            <CardHeader>
+                <CardTitle className={"text-sm font-medium"}>{props.label}</CardTitle>
+            </CardHeader>
+                <CardContent>
+                    <div className={"text-2xl md:text-4xl font-extrabold"}>{props.value}</div>
+                    {props.progress && (
+                        <>
+                            <div className="flex justify-between mt-4">
+                                <Text>{`${props.progress.toFixed(2)} remaining days`}</Text>
+                            </div>
+                            <ProgressBar total={100} progress={props.progress} />
+                        </>
+                    )}
+                </CardContent>
+
     </Card>)
 }
 
@@ -71,7 +76,7 @@ export default function CardStats(props: Props) {
     const estimatedRemainingWeight = showRemainingWeight ? remainingWeight / (averageBrewsPerDay * averageWeight) : null;
 
     return (
-        <div className={"grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"}>
+        <div className={"grid gap-4 grid-cols-2 lg:grid-cols-4"}>
             {averageWeight && <Stats label={"Avg. grind weight"} value={`${averageWeight.toFixed(2)} gr`} />}
             {averageBrewsPerDay && <Stats label={"Avg. brews per day"} value={averageBrewsPerDay.toFixed(2)} />}
             {totalBrews && <Stats label={"Total brews"} value={totalBrews} />}

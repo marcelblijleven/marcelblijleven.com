@@ -1,7 +1,7 @@
 "use client"
 
 import {ChangeEvent, createRef, useCallback, useState} from "react";
-import Button from "@/components/Button";
+import { Button } from "@/components/ui/button";
 
 interface Props {
     callback: (data: string) => void;
@@ -40,8 +40,8 @@ export default function FileUpload(props: Props) {
                 accept={"application/json"}
                 onChange={onFileChange}
             />
-            <Button label={"Select file"} variant={"secondary"} onClick={onSelectFileClick} />
-            <Button label={"Process"} onClick={onProcess} disabled={!file} />
+            <Button variant={"secondary"} size={"default"} onClick={onSelectFileClick}>Select file</Button>
+            <Button variant={"default"} size={"default"} onClick={onProcess} disabled={!file}>Process</Button>
             {file && <p>{file.name}</p>}
         </div>
     );

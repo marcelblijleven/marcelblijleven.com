@@ -3,7 +3,7 @@ import Intro from "@/app/Intro";
 import Link from "next/link";
 import {Metadata} from "next";
 import {processMyBCFile} from "@/lib/brew_statistics";
-import TextSection from "@/components/TextSection";
+import TextSection from "@/components/text-section";
 import Statistics from "@/app/coffee/components/Statistics";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "Some coffee statistics I track"
 }
 
-export default function Coffee() {
+export default async function Coffee() {
     // const brews = readBrewData(10);
     const statistics = processMyBCFile();
 
