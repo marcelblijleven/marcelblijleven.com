@@ -1,4 +1,4 @@
-import {Activity} from "@/lib/strava/get-data";
+import {Activity, SportType} from "@/lib/strava/get-data";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {format} from "date-fns";
 import ActivityPolyline from "@/components/activities/activity-polyline";
@@ -58,7 +58,7 @@ function ActivityDetails(props: ActivityCardProps) {
     );
 }
 
-function SportIcon(props: {sportType: string}) {
+function SportIcon(props: {sportType: SportType}) {
     const properties = {
         height: 100,
         width: 100,
@@ -67,18 +67,21 @@ function SportIcon(props: {sportType: string}) {
         color: "#0ea5e9",
     }
 
-    switch (props.sportType) {
+    switch (props.sportType.toString()) {
+        case "Hike":
         case "Walk":
         case "Run":
             return <Footprints {...properties} />
         case "RockClimbing":
             return <Mountain {...properties}/>
-        case "Workout":
-        case "WeightTraining":
-            return <Dumbbell {...properties} />
         case "Ride":
         case "VirtualRide":
             return <Bike {...properties} />
+        case "Workout":
+        case "WeightTraining":
+        default:
+            return <Dumbbell {...properties} />
+
     }
 }
 
@@ -103,7 +106,7 @@ export default function ActivityCard(props: ActivityCardProps) {
                 )}
                 {!props.activity.polyline && (
                     <div className={"flex items-center justify-center h-[150px] w-full"}>
-                        <SportIcon sportType={props.activity.sportType!} />
+                        <SportIcon sportType={props.activity.sportType} />
                     </div>
                 )}
                 <ActivityDetails {...props}/>

@@ -1,4 +1,4 @@
-enum SportType {
+export enum SportType {
     AlpineSki,
     BackcountrySki,
     Badminton,
