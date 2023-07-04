@@ -1,5 +1,18 @@
 import PageShell from "@/components/layout/page-shell";
 import Link from "next/link";
+import {Metadata} from "next";
+
+const metadata: Metadata = {
+    title: {
+        template: "%s | marcelblijleven.com",
+        default: "marcelblijleven.com",
+    },
+    description: "My personal website",
+    publisher: "Marcel Blijleven",
+    authors: [{name: "Marcel Blijleven"}],
+    creator: "Marcel Blijleven",
+    keywords: ["Blijleven", "Software Engineering"]
+}
 
 export default function Home() {
     return (

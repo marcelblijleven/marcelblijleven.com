@@ -12,6 +12,11 @@ import {sortFnAsc} from "@/lib/sort";
 import BrewsTable from "@/components/coffee/brews-table";
 import TopNComponent from "@/components/coffee/top-n-component";
 import Link from "next/link";
+import {Metadata} from "next";
+
+const metadata: Metadata = {
+    title: "My coffee",
+}
 
 function getCoffeeData() {
     const zip = path.join(process.cwd(), "/Beanconqueror.zip");

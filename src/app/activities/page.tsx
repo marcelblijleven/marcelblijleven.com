@@ -6,6 +6,11 @@ import {Activity, getActivities as getStravaActivities} from "@/lib/strava/get-d
 import ActivityCard from "@/components/activities/activity-card";
 import {format} from "date-fns";
 import Link from "next/link";
+import {Metadata} from "next";
+
+const metadata: Metadata = {
+    title: "My activities",
+}
 
 async function getActivities(limit: number): Promise<Activity[]> {
     return (await getStravaActivities()).slice(0, limit);
