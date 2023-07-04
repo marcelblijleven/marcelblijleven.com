@@ -13,7 +13,7 @@ export default function Home() {
                        <Link className={"text-blue-500"} href={"/coffee"}>Coffee I&apos;ve been drinking</Link>
                    </li>
                     <li>
-                        <Link className={"text-blue-500"} href={"/coffee"}>Activities I&apos;ve been doing</Link>
+                        <Link className={"text-blue-500"} href={"/activities"}>Activities I&apos;ve been doing</Link>
                     </li>
                 </ul>
             </section>
