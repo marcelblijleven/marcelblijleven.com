@@ -2,6 +2,7 @@ import {Activity} from "@/lib/strava/get-data";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {format} from "date-fns";
 import ActivityPolyline from "@/components/activities/activity-polyline";
+import {Bike, Dumbbell, Footprints, Mountain} from "lucide-react";
 
 export interface ActivityCardProps {
     activity: Activity;
@@ -57,6 +58,29 @@ function ActivityDetails(props: ActivityCardProps) {
     );
 }
 
+function SportIcon(props: {sportType: string}) {
+    const properties = {
+        height: 100,
+        width: 100,
+        className: "mx-auto my-auto h-30 w-30",
+        strokeWidth: 1,
+        color: "#0ea5e9",
+    }
+
+    switch (props.sportType) {
+        case "Walk":
+        case "Run":
+            return <Footprints {...properties} />
+        case "RockClimbing":
+            return <Mountain {...properties}/>
+        case "Workout":
+        case "WeightTraining":
+            return <Dumbbell {...properties} />
+        case "Ride":
+        case "VirtualRide":
+            return <Bike {...properties} />
+    }
+}
 
 export default function ActivityCard(props: ActivityCardProps) {
     const date = format(new Date(props.activity.localDate), "yyyy-MM-dd HH:mm:ss O")
@@ -67,14 +91,21 @@ export default function ActivityCard(props: ActivityCardProps) {
                 <CardTitle>{props.activity.sportType.toString()}</CardTitle>
                 <CardDescription>{date}</CardDescription>
             </CardHeader>
-            <CardContent className={"flex flex-col items-center grow"}>
-                <ActivityPolyline
-                    id={props.activity.name}
-                    width={150}
-                    height={150}
-                    margin={{top: 20, bottom: 20, left: 0, right: 20}}
-                    polyline={props.activity.polyline}
-                />
+            <CardContent className={"flex flex-col items-start"}>
+                {props.activity.polyline && (
+                    <ActivityPolyline
+                        id={props.activity.name}
+                        width={"auto"}
+                        height={150}
+                        margin={{top: 20, bottom: 20, left: 0, right: 20}}
+                        polyline={props.activity.polyline}
+                    />
+                )}
+                {!props.activity.polyline && (
+                    <div className={"flex items-center justify-center h-[150px] w-full"}>
+                        <SportIcon sportType={props.activity.sportType!} />
+                    </div>
+                )}
                 <ActivityDetails {...props}/>
             </CardContent>
         </Card>

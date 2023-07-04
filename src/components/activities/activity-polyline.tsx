@@ -2,7 +2,7 @@ import polyline from "@mapbox/polyline";
 
 export interface ActivityPolylineProps {
     id: string;
-    width: number;
+    width: number | string;
     height: number;
     margin: {top: number; right: number; bottom: number; left: number;}
     polyline: string;
