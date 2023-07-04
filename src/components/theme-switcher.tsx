@@ -1,11 +1,12 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
 import {useTheme} from "next-themes";
 import {Laptop, MoonStar, Sun} from "lucide-react";
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 
-const ThemeSwitcher = () => {
+import {DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem} from "@/components/ui/dropdown-menu";
+import {Button} from "@/components/ui/button";
+
+export default function ThemeSwitcher() {
     const { setTheme } = useTheme();
 
     return (
@@ -33,7 +34,4 @@ const ThemeSwitcher = () => {
             </DropdownMenuContent>
         </DropdownMenu>
     )
-
 }
-
-export default ThemeSwitcher;

@@ -1,39 +1,37 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
-import type { Metadata } from "next";
-import Header from "@/components/layout/header";
-import { Analytics } from '@vercel/analytics/react';
-import {ThemeProvider} from "@/components/theme-provider";
-// import Footer from "@/components/Footer";
+import {ReactNode} from "react";
+import {Metadata} from "next";
+import {Analytics} from '@vercel/analytics/react';
+import {Inter} from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
-const color = "#0284c7";  // sky 600
+import {ThemeProvider} from "@/components/theme-provider";
+import Header from "@/components/layout/header";
+import {cn} from "@/lib/utils";
+
+const inter = Inter({subsets: ['latin']})
 
 export const metadata: Metadata = {
-  title: "marcelblijleven.com",
-  description: "My personal website where I share things and tinker with stuff",
-  themeColor: [
-    {color, media: "(prefers-color-scheme: light)"},
-    {color, media: "(prefers-color-scheme: dark)"},
-  ]
+    title: {
+        template: '%s | marcelblijleven.com',
+        default: 'marcelblijleven.com',
+    },
+    description: "My website"
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en" className={"h-full"}>
-      <body className={inter.className + "h-full"}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <Header />
-        <main className={"max-w-5xl mx-auto px-4 sm:px-6 md:px-8 pb-8"}>
-          {children}
-          <Analytics />
-        </main>
+export default function RootLayout({children}: { children: ReactNode }) {
+    return (
+        <html lang="en" suppressHydrationWarning>
+        <body className={cn(inter.className, "min-h-screen")}>
+        <ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
+            <div className={"relative min-h-screen"}>
+                <Header/>
+                <main className="flex h-full flex-col items-center p-6 md:p-24 space-y-6">
+                    {children}
+                    <Analytics/>
+                </main>
+            </div>
         </ThemeProvider>
-      </body>
-    </html>
-  )
+        </body>
+        </html>
+    )
 }
