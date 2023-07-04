@@ -1,35 +1,46 @@
+"use client"
+
 import Link from "next/link";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {usePathname} from "next/navigation";
+
 import ThemeSwitcher from "@/components/theme-switcher";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
+import {cn} from "@/lib/utils";
 
 export default function Header() {
-    // Note: z-10 on header because the progress bars from /coffee would overlap on Safari
+    const pathname = usePathname();
+    const isActive = (href: string) => (
+        href === pathname ? "underline" : ""
+    )
+
     return (
-        <>
-            <header className={"sticky top-0 z-10 w-full bg-white dark:bg-slate-900 mb-2"}>
-                <div className={"flex justify-between items-center max-w-5xl mx-auto px-8 h-14"}>
-                    <div className={"flex gap-4 md:gap-6 items-center"}>
-                        <Link href={"/"}>
-                            <Avatar>
-                                <AvatarImage src={"/avatar.png"} />
-                                <AvatarFallback>MB</AvatarFallback>
-                            </Avatar>
-                        </Link>
-                        <Link className={"hidden md:block no-underline font-semibold text-lg"} href={"/"}>
-                            <span>Marcel Blijleven</span>
-                        </Link>
-                    </div>
-                    <div className={"flex gap-4 md:gap-6"}>
-                        <nav>
-                            <div className={"flex gap-4 md:gap-6 font-semibold"}>
-                                <Link className={"no-underline"} href={"/projects"}>Projects</Link>
-                                <Link className={"no-underline"} href={"/coffee"}>Coffee</Link>
-                            </div>
-                        </nav>
-                        <ThemeSwitcher/>
-                    </div>
+        <header className={"sticky z-20 top-0 px-2 md:px-24 bg-opacity-90 w-full"}>
+            <div className={"flex align-middle items-center justify-between p-4 w-full bg-background/95"}>
+                <Link className={"hidden md:block text-2xl font-extrabold"} href={"/"}>
+                    Marcel Blijleven
+                </Link>
+                <Link className={"block md:hidden"} href={"/"}>
+                    <Avatar>
+                        <AvatarFallback>MB</AvatarFallback>
+                    </Avatar>
+                </Link>
+
+                <div className={"flex space-x-2 items-center"}>
+                    <Link
+                        className={cn("font-semibold hover:underline", isActive("/coffee"))}
+                        href={"/coffee"}
+                    >
+                        Coffee
+                    </Link>
+                    <Link
+                        className={cn("font-semibold hover:underline", isActive("/activities"))}
+                        href={"/activities"}
+                    >
+                        Activities
+                    </Link>
+                    <ThemeSwitcher />
                 </div>
-            </header>
-        </>
+            </div>
+        </header>
     )
 }
