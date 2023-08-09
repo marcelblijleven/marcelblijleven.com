@@ -25,7 +25,7 @@ export default function Header() {
                     </Avatar>
                 </Link>
 
-                <div className={"flex space-x-2 items-center"}>
+                <div className={"flex space-x-4 items-center"}>
                     <Link
                         className={cn("font-semibold hover:underline", isActive("/coffee"))}
                         href={"/coffee"}
