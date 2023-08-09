@@ -161,7 +161,7 @@ function stravaActivityToActivity(activity: SummaryActivity): Activity {
 }
 
 export async function getActivities(): Promise<Activity[]> {
-    if (process.env.NODE_ENV !== "production") {
+    if (!!process.env.STRAVA_USE_DEV_DATA) {
         const { DEV_DATA} = require("@/lib/strava/data/dev-data");
         return new Promise<Activity[]>((resolve, _) => {
             resolve(DEV_DATA);
