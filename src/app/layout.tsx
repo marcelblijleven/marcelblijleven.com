@@ -2,13 +2,13 @@ import './globals.css'
 import {ReactNode} from "react";
 import {Metadata} from "next";
 import {Analytics} from '@vercel/analytics/react';
-import {Inter} from 'next/font/google'
+import {Fira_Code} from 'next/font/google'
 
 import {ThemeProvider} from "@/components/theme-provider";
 import Header from "@/components/layout/header";
 import {cn} from "@/lib/utils";
 
-const inter = Inter({subsets: ['latin']})
+const font = Fira_Code({subsets: ['latin']})
 
 export const metadata: Metadata = {
     title: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="en" suppressHydrationWarning>
-        <body className={cn(inter.className, "min-h-screen")}>
+        <body className={cn(font.className, "min-h-screen")}>
         <ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
             <div className={"relative min-h-screen"}>
                 <Header/>
