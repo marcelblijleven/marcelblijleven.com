@@ -161,14 +161,16 @@ function stravaActivityToActivity(activity: SummaryActivity): Activity {
 }
 
 export async function getActivities(): Promise<Activity[]> {
-    if (!!process.env.STRAVA_USE_DEV_DATA) {
+    if (process.env.STRAVA_USE_DEV_DATA === "1") {
         const { DEV_DATA} = require("@/lib/strava/data/dev-data");
         return new Promise<Activity[]>((resolve, _) => {
             resolve(DEV_DATA);
         });
     }
-
     const stravaActivities = await getStravaActivities();
+    console.log("------")
 
+    console.log(JSON.stringify(stravaActivities))
+    console.log("------")
     return Array.from(stravaActivities).map(sa => stravaActivityToActivity(sa))
 }
