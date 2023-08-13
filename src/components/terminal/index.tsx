@@ -70,7 +70,7 @@ function BottomBar(props: { file: string }) {
     )
 }
 
-function Row(props: { text: string | ReactNode, index: number, hoverIndex, onMouseOver: MouseEventHandler<HTMLDivElement> }) {
+function Row(props: { text: string | ReactNode, index: number, hoverIndex: number | null, onMouseOver: MouseEventHandler<HTMLDivElement> }) {
     return (
         <div className={"flex w-full gap-6 hover:bg-orange-200 hover:dark:bg-slate-800"}
              onMouseOver={props.onMouseOver}>
