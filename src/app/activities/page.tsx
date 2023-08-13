@@ -13,7 +13,9 @@ const metadata: Metadata = {
 }
 
 async function getActivities(limit: number): Promise<Activity[]> {
-    return (await getStravaActivities()).slice(0, limit);
+    return (await getStravaActivities()).sort((a, b) => {
+        return new Date(b.localDate).getTime() - new Date(a.localDate).getTime();
+    }).slice(0, limit);
 }
 
 function getUpdated(): string {
