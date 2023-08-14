@@ -60,27 +60,37 @@ function TopBar(props: { toggleFullSize: () => void, file: string, toggleMinimis
             <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
                 <AlertDialogContent className={"max-w-[450px]"}>
                     <AlertDialogHeader>
-                        <div className={"flex justify-between h-[30px] items-center w-full bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 text-sm"}>
+                        <div
+                            className={"flex justify-between h-[30px] items-center w-full bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 text-sm"}>
                             <div className={"flex space-x-2 px-2"}>
-                                <button className={"flex items-center justify-center rounded-full bg-[#FF605C] h-[12px] w-[12px] group"} onClick={() => setShowDialog(false)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                                <button
+                                    className={"flex items-center justify-center rounded-full bg-[#FF605C] h-[12px] w-[12px] group"}
+                                    onClick={() => setShowDialog(false)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         strokeWidth={1.5}
                                          stroke="currentColor" className="hidden group-hover:block w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
                                 </button>
-                                <button className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"} disabled />
-                                <button className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"} disabled />
+                                <button
+                                    className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"}
+                                    disabled/>
+                                <button
+                                    className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"}
+                                    disabled/>
                             </div>
                             <span>Are you sure?</span>
-                            <div className={"w-[48px]"} />
+                            <div className={"w-[48px]"}/>
                         </div>
                     </AlertDialogHeader>
                     <AlertDialogFooter className={"items-center gap-2 p-2 text-foreground dark:text-background"}>
-                            Are you sure you want to close this window?
-                            <div className={"flex gap-2"}>
-                                <Button type={"button"} onClick={() => setShowDialog(false)} variant={"secondary"} size={"sm"}>No take me back</Button>
-                                <Button type={"button"} onClick={() => setShowDialog(false)} variant={"destructive"} size={"sm"}>Yes close this dialog</Button>
-                            </div>
+                        Are you sure you want to close this window?
+                        <div className={"flex gap-2"}>
+                            <Button type={"button"} onClick={() => setShowDialog(false)} variant={"secondary"}
+                                    size={"sm"}>No take me back</Button>
+                            <Button type={"button"} onClick={() => setShowDialog(false)} variant={"destructive"}
+                                    size={"sm"}>Yes close this dialog</Button>
+                        </div>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
@@ -155,7 +165,7 @@ const techText = [
     "",
     <Heading key={"tech-heading-2"} level={"##"} text={"Programming languages"}/>,
     "",
-    "* Python (:= ❤️)",
+    "* Python",
     "* TypeScript, JavaScript",
     "* Go",
     "",
@@ -166,31 +176,35 @@ const techText = [
     "* Next.js",
     "* React",
     "* Postgres",
-    "* Strawberry 🍓",
-    "* Docker 🐳",
+    "* Strawberry",
+    "* Tailwind",
+    "* Docker",
     "* REST",
     "* Graphql",
     "* Git (conventional commits FTW)",
     "",
 ];
 
-function MiniTerminal({onClick}: {onClick: () => void}) {
+function MiniTerminal({onClick, minimised}: { onClick: () => void, minimised: boolean }) {
     return (
-        <div
-            className={"absolute flex flex-col items-center left-0 right-0 mx-auto bottom-0 h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer"}
-            onClick={onClick}>
-            <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
-                <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
-                <div className={"h-1.5 w-1.5 rounded-full bg-[#FFBD44]"}/>
-                <div className={"h-1.5 w-1.5 rounded-full bg-[#00CA4E]"}/>
-            </div>
+        <>
+            <div
+                className={"absolute flex flex-col items-center left-0 right-0 mx-auto bottom-0 h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer"}
+                onClick={onClick}>
+                <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
+                    <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
+                    <div className={"h-1.5 w-1.5 rounded-full bg-[#FFBD44]"}/>
+                    <div className={"h-1.5 w-1.5 rounded-full bg-[#00CA4E]"}/>
+                </div>
 
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                 stroke="currentColor" className="w-8 h-8 mt-1">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/>
-            </svg>
-        </div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                     stroke="currentColor" className="w-8 h-8 mt-1">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                          d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/>
+                </svg>
+            </div>
+            {minimised && <div className={"absolute left-0 right-0 mx-auto -bottom-[10px] h-[4px] w-[4px] rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50"} />}
+        </>
     )
 }
 
@@ -208,7 +222,7 @@ function TerminalWindow() {
 
     return (
         <>
-            <MiniTerminal onClick={() => setMinimised(false)} />
+            <MiniTerminal onClick={() => setMinimised(false)} minimised={minimised}/>
             <motion.div
                 initial={'maximised'}
                 variants={variants}
