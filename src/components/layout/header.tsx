@@ -15,7 +15,7 @@ export default function Header() {
 
     return (
         <header className={"sticky z-20 top-0 px-2 md:px-24 bg-opacity-90 w-full"}>
-            <div className={"flex align-middle items-center justify-between p-4 w-full bg-background/95"}>
+            <div className={"flex align-middle items-center justify-between p-1 md:p-4 w-full bg-background/95"}>
                 <Link className={"hidden md:block text-2xl font-extrabold"} href={"/"}>
                     Marcel Blijleven
                 </Link>
@@ -27,13 +27,13 @@ export default function Header() {
 
                 <div className={"flex space-x-4 items-center"}>
                     <Link
-                        className={cn("font-semibold hover:underline", isActive("/coffee"))}
+                        className={cn("font-semibold hover:underline text-sm md:text-base", isActive("/coffee"))}
                         href={"/coffee"}
                     >
                         Coffee
                     </Link>
                     <Link
-                        className={cn("font-semibold hover:underline", isActive("/activities"))}
+                        className={cn("font-semibold hover:underline text-sm md:text-base", isActive("/activities"))}
                         href={"/activities"}
                     >
                         Activities

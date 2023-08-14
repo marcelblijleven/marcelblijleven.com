@@ -139,6 +139,26 @@ const techText = [
     "",
 ];
 
+function MiniTerminal({onClick}: {onClick: () => void}) {
+    return (
+        <div
+            className={"absolute flex flex-col items-center left-0 right-0 mx-auto bottom-0 h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer"}
+            onClick={onClick}>
+            <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
+                <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
+                <div className={"h-1.5 w-1.5 rounded-full bg-[#FFBD44]"}/>
+                <div className={"h-1.5 w-1.5 rounded-full bg-[#00CA4E]"}/>
+            </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                 stroke="currentColor" className="w-8 h-8 mt-1">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/>
+            </svg>
+        </div>
+    )
+}
+
 
 function TerminalWindow() {
     const [fullSize, setFullSize] = useState(false);
@@ -153,21 +173,7 @@ function TerminalWindow() {
 
     return (
         <>
-            <div
-                className={"absolute flex flex-col items-center left-0 right-0 mx-auto bottom-0 h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer"}
-                onClick={() => setMinimised(false)}>
-                <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
-                    <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
-                    <div className={"h-1.5 w-1.5 rounded-full bg-[#FFBD44]"}/>
-                    <div className={"h-1.5 w-1.5 rounded-full bg-[#00CA4E]"}/>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8 mt-1">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/>
-                </svg>
-            </div>
+            <MiniTerminal onClick={() => setMinimised(false)} />
             <motion.div
                 initial={'maximised'}
                 variants={variants}
