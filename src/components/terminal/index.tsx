@@ -141,7 +141,7 @@ const techText = [
 
 
 function TerminalWindow() {
-    const [fullSize, setFullSize] = useState(true);
+    const [fullSize, setFullSize] = useState(false);
     const [minimised, setMinimised] = useState(false);
     const [tab, setTab] = useState<string>("aboutme.md");
     const [hoverIndex, setHoverIndex] = useState<number | null>(null)
@@ -175,7 +175,7 @@ function TerminalWindow() {
                 transition={{duration: 0.2}}
                 className={cn(
                     "absolute bottom-0 z-10 left-0 right-0 mx-auto bg-orange-100 dark:bg-gray-900 min-h-[700px] max-h-[700px] min-w-[300px] max-w-[1000px] rounded-lg overflow-hidden flex flex-col justify-between",
-                    fullSize ? "w-[100%]" : "w-[90%]",
+                    !fullSize ? "w-[95%]" : "w-[100%]",
                 )}
                 onMouseLeave={() => setHoverIndex(null)}
             >
