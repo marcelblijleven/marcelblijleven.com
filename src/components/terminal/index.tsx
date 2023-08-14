@@ -77,44 +77,72 @@ const text = [
     "",
     "I'm a software engineer from the Netherlands. I'm sure I'll come up with some more intro text soon.",
     "",
+    "Click on the tech.md tab for some more tech related information.",
+    "",
     <Heading key={"heading-3"} level={"##"} text={"What I've been up to"}/>,
     "",
     <Heading key={"heading-4"} level={"###"} text={"Coffee"}/>,
     "",
-    <div key={"div-1"}>An overview of some coffee I&apos;ve been drinking <Link
-        className={"underline text-blue-500"} href={"/coffee"}>can be found here</Link>.</div>,
+    <span key={"span-2"}>An overview of some coffee I&apos;ve been drinking <Link
+        className={"underline text-blue-500"} href={"/coffee"}>can be found here</Link>.</span>,
     "",
     <Heading key={"heading-5"} level={"###"} text={"Activities"}/>,
     "",
-    <div key={"div-2"}>Some of my recent Strava activities <Link className={"underline text-blue-500"}
+    <span key={"span-3"}>Some of my recent Strava activities <Link className={"underline text-blue-500"}
                                                                  href={"/activities"}>can be found here</Link>.
-    </div>,
+    </span>,
     "",
 ];
 
 const techText = [
     <Heading key={"tech-heading-1"} level={"#"} text={"Tech I like to work with"}/>,
     "",
-    <Heading key={"tech-heading-2"} level={"##"} text={"Programming languages"}/>,
+    "I like to work with modern Python (walruses :=, type hinting, dataclasses ❤️), " +
+    "JavaScript/TypeScript and the occasional Go projects.",
+    "",
+    "Although I consider myself primarily Backend-focussed, I also like to create beautiful " +
+    "things on the frontend and I don't mind doing 'full stack' work. Especially since discovering Tailwind, " +
+    "which makes css a joy to work with.",
+    "",
+    "I also like to automate the 'boring stuff' like automated releases based on Git commits, test automation and " +
+    "shutting down unused appliances in the night to save energy ⚡️.",
+    "",
+    <Heading key={"tech-heading-2"} level={"##"} text={"Some bullet points"} />,
+    "",
+    <Heading key={"tech-heading-3"} level={"###"} text={"Programming languages & DB's"} />,
     "",
     "* Python",
-    "* TypeScript, JavaScript",
+    "* Typescript/JavaScript",
     "* Go",
+    "* Postgres",
+    "* MySQL",
     "",
-    <Heading key={"tech-heading-3"} level={"##"} text={"Frameworks, packages, DBs & tools"}/>,
+    <Heading key={"tech-heading-3"} level={"###"} text={"Frameworks, packages, techniques, tools etc."}/>,
+    "",
+    "Some stuff I've been working with. It's not an exhaustive list and probably outdated since I'm constantly " +
+    "learning about new stuff through blogs and podcasts.",
     "",
     "* Django",
-    "* FastAPI",
-    "* Next.js",
-    "* React",
-    "* Postgres",
-    "* Strawberry",
+    "* Pydantic",
+    "* PEP8, black, ruff",
+    "* REST (Django Rest Framework, FastAPI)",
+    "* Graphql (Graphene, Strawberry 🍓)",
+    "* Next.js, React",
     "* Tailwind",
     "* Docker",
-    "* REST",
-    "* Graphql",
+    "* Supabase",
     "* Git (conventional commits FTW)",
+    "* Test automation",
+    "* A/B testing",
     "",
+    <Heading key={"tech-heading-4"} level={"###"} text={"Personal projects"} />,
+    "",
+    <span key={"span-1"}>* <a className={"text-blue-500 underline"} target="_blank" href="https://beanstats.com" rel="noopener noreferrer">Beanstats</a>, a coffee data visualiser</span>,
+    <span key={"span-2"}>* <a className={"text-blue-500 underline"} target="_blank" href="https://github.com/marcelblijleven/fittie" rel="noopener noreferrer">Fittie</a>, a package for decoding Garmin FIT files</span>,
+    <span key={"span-3"}>* <a className={"text-blue-500 underline"} target="_blank" href="https://github.com/marcelblijleven/adventofcode" rel="noopener noreferrer">Advent of Code</a>, a slightly overkill project setup for Advent of Code</span>,
+    "* Homelab",
+    "",
+
 ];
 
 function MiniTerminal({
