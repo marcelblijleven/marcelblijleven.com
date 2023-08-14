@@ -75,11 +75,11 @@ function TopBar(props: { toggleFullSize: () => void, file: string, toggleMinimis
                             <div className={"w-[48px]"} />
                         </div>
                     </AlertDialogHeader>
-                    <AlertDialogFooter className={"items-center gap-2 p-2"}>
+                    <AlertDialogFooter className={"items-center gap-2 p-2 text-foreground dark:text-background"}>
                             Are you sure you want to close this window?
                             <div className={"flex gap-2"}>
                                 <Button type={"button"} onClick={() => setShowDialog(false)} variant={"secondary"} size={"sm"}>No take me back</Button>
-                                <Button type={"button"} onClick={() => setShowDialog(false)} variant={"default"} size={"sm"}>Yes close this dialog</Button>
+                                <Button type={"button"} onClick={() => setShowDialog(false)} variant={"destructive"} size={"sm"}>Yes close this dialog</Button>
                             </div>
                     </AlertDialogFooter>
                 </AlertDialogContent>
