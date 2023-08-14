@@ -265,7 +265,7 @@ function TerminalWindow() {
 
 function Terminal() {
     return (
-        <div className={"relative w-full h-[680px] md:h-[700px]"}>
+        <div className={"relative w-full max-w-[1000px] h-[680px] md:h-[700px]"}>
             <TerminalWindow/>
         </div>
     )
