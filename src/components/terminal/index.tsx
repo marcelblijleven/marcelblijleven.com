@@ -5,16 +5,24 @@ import {MouseEventHandler, ReactNode, useState} from "react";
 import Link from "next/link";
 import * as Tabs from "@radix-ui/react-tabs";
 
+
 import {cn} from "@/lib/utils";
+import {AlertDialog} from "@radix-ui/react-alert-dialog";
+import {AlertDialogContent, AlertDialogFooter, AlertDialogHeader} from "@/app/(home)/components/alert-dialog";
+import {Button} from "@/components/ui/button";
 
 
 function TopBar(props: { toggleFullSize: () => void, file: string, toggleMinimised: () => void }) {
+    const [showDialog, setShowDialog] = useState<boolean>(false);
+
     return (
         <div
             className={"flex justify-between items-center h-[30px] w-full bg-slate-200 dark:bg-slate-600 text-slate-600"}>
-            <div className={"flex group items-center space-x-2 px-2 h-full"}>
+
+            <div className={"flex group items-center space-x-2 px-2"}>
                 <button
                     className={`flex items-center justify-center rounded-full bg-[#FF605C] h-[12px] w-[12px]`}
+                    onClick={() => setShowDialog(true)}
                     type={"button"}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
@@ -49,6 +57,33 @@ function TopBar(props: { toggleFullSize: () => void, file: string, toggleMinimis
                 className={"hidden md:inline text-slate-500 dark:text-slate-300"}>nvim code/marcelblijleven.com/{props.file}</span>
             <span className={"inline md:hidden text-slate-500 dark:text-slate-300"}>nvim {props.file}</span>
             <div className={"w-[68px]"}/>
+            <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+                <AlertDialogContent className={"max-w-[450px]"}>
+                    <AlertDialogHeader>
+                        <div className={"flex justify-between h-[30px] items-center w-full bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 text-sm"}>
+                            <div className={"flex space-x-2 px-2"}>
+                                <button className={"flex items-center justify-center rounded-full bg-[#FF605C] h-[12px] w-[12px] group"} onClick={() => setShowDialog(false)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                                         stroke="currentColor" className="hidden group-hover:block w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                                <button className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"} disabled />
+                                <button className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"} disabled />
+                            </div>
+                            <span>Are you sure?</span>
+                            <div className={"w-[48px]"} />
+                        </div>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className={"items-center gap-2 p-2"}>
+                            Are you sure you want to close this window?
+                            <div className={"flex gap-2"}>
+                                <Button type={"button"} onClick={() => setShowDialog(false)} variant={"secondary"} size={"sm"}>No take me back</Button>
+                                <Button type={"button"} onClick={() => setShowDialog(false)} variant={"default"} size={"sm"}>Yes close this dialog</Button>
+                            </div>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     )
 }
@@ -180,7 +215,7 @@ function TerminalWindow() {
                 animate={minimised ? 'minimised' : 'maximised'}
                 transition={{duration: 0.2}}
                 className={cn(
-                    "absolute bottom-0 z-10 left-0 right-0 mx-auto bg-orange-100 dark:bg-gray-900 min-h-[700px] max-h-[700px] min-w-[300px] max-w-[1000px] rounded-lg overflow-hidden flex flex-col justify-between",
+                    "absolute bottom-0 z-10 left-0 right-0 mx-auto bg-orange-100 dark:bg-gray-900 h-[680px] md:h-[700px] min-w-[300px] max-w-[1000px] rounded-lg overflow-hidden flex flex-col justify-between",
                     !fullSize ? "w-[95%]" : "w-[100%]",
                 )}
                 onMouseLeave={() => setHoverIndex(null)}
@@ -230,7 +265,7 @@ function TerminalWindow() {
 
 function Terminal() {
     return (
-        <div className={"relative w-full h-[700px]"}>
+        <div className={"relative w-full h-[680px] md:h-[700px]"}>
             <TerminalWindow/>
         </div>
     )
