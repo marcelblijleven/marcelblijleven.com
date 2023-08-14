@@ -124,9 +124,12 @@ function MiniTerminal({
                             className,
                       }: { onClick?: () => void, minimised?: boolean, children: ReactNode, className?: string }) {
     return (
-        <>
-        <div
-            className={cn("flex flex-col items-center h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer", className)}
+        <motion.div
+            whileHover={{
+                scale: 1.2,
+                transition: {duration: 0.3, stiffness: 50}
+            }}
+            className={cn("flex flex-col items-center h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer transition-shadow hover:shadow-lg hover:shadow-cyan-500/50", className)}
             onClick={onClick}>
             <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
                 <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
@@ -135,8 +138,7 @@ function MiniTerminal({
             </div>
             {children}
             {minimised && <div className={"absolute -bottom-[12px] left-0 right-0 mx-auto h-1 w-1 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50"} />}
-        </div>
-        </>
+        </motion.div>
     )
 }
 
