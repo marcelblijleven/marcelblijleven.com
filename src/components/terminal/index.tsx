@@ -7,111 +7,43 @@ import * as Tabs from "@radix-ui/react-tabs";
 
 
 import {cn} from "@/lib/utils";
-import {AlertDialog} from "@radix-ui/react-alert-dialog";
-import {AlertDialogContent, AlertDialogFooter, AlertDialogHeader} from "@/app/(home)/components/alert-dialog";
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader
+} from "@/app/(home)/components/alert-dialog";
 import {Button} from "@/components/ui/button";
+import MenuBar from "@/components/terminal/menu-bar";
+import TabsList from "@/components/terminal/tabs-list";
+import BottomBar from "@/components/terminal/bottom-bar";
+import {Github} from "lucide-react";
 
 
 function TopBar(props: { toggleFullSize: () => void, file: string, toggleMinimised: () => void }) {
     const [showDialog, setShowDialog] = useState<boolean>(false);
 
     return (
-        <div
-            className={"flex justify-between items-center h-[30px] w-full bg-slate-200 dark:bg-slate-600 text-slate-600"}>
-
-            <div className={"flex group items-center space-x-2 px-2"}>
-                <button
-                    className={`flex items-center justify-center rounded-full bg-[#FF605C] h-[12px] w-[12px]`}
-                    onClick={() => setShowDialog(true)}
-                    type={"button"}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                         stroke="currentColor" className="hidden group-hover:block w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-
-                </button>
-                <button
-                    type={"button"}
-                    className={`flex items-center justify-center rounded-full bg-[#FFBD44] h-[12px] w-[12px]`}
-                    onClick={props.toggleMinimised}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                         stroke="currentColor" className="hidden group-hover:block w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15"/>
-                    </svg>
-
-                </button>
-                <button
-                    type={"button"}
-                    className={`flex items-center justify-center rounded-full bg-[#00CA4E] h-[12px] w-[12px]`}
-                    onClick={props.toggleFullSize}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                         stroke="currentColor" className="hidden group-hover:block w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                    </svg>
-                </button>
-            </div>
-            <span
-                className={"hidden md:inline text-slate-500 dark:text-slate-300"}>nvim code/marcelblijleven.com/{props.file}</span>
-            <span className={"inline md:hidden text-slate-500 dark:text-slate-300"}>nvim {props.file}</span>
-            <div className={"w-[68px]"}/>
+        <>
+            <MenuBar title={`nvim ${props.file}`} onClose={() => setShowDialog(true)} onMinimise={props.toggleMinimised}
+                     onZoom={props.toggleFullSize}/>
             <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
                 <AlertDialogContent className={"max-w-[450px]"}>
                     <AlertDialogHeader>
-                        <div
-                            className={"flex justify-between h-[30px] items-center w-full bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 text-sm"}>
-                            <div className={"flex space-x-2 px-2"}>
-                                <button
-                                    className={"flex items-center justify-center rounded-full bg-[#FF605C] h-[12px] w-[12px] group"}
-                                    onClick={() => setShowDialog(false)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         strokeWidth={1.5}
-                                         stroke="currentColor" className="hidden group-hover:block w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                </button>
-                                <button
-                                    className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"}
-                                    disabled/>
-                                <button
-                                    className={"flex items-center justify-center rounded-full bg-gray-300 h-[12px] w-[12px]"}
-                                    disabled/>
-                            </div>
-                            <span>Are you sure?</span>
-                            <div className={"w-[48px]"}/>
-                        </div>
+                        <MenuBar title={"Are you sure?"} onClose={() => setShowDialog(false)}/>
                     </AlertDialogHeader>
                     <AlertDialogFooter className={"items-center gap-2 p-2 text-foreground dark:text-background"}>
                         Are you sure you want to close this window?
                         <div className={"flex gap-2"}>
                             <Button type={"button"} onClick={() => setShowDialog(false)} variant={"secondary"}
-                                    size={"sm"}>No take me back</Button>
+                                    size={"sm"}>No</Button>
                             <Button type={"button"} onClick={() => setShowDialog(false)} variant={"destructive"}
-                                    size={"sm"}>Yes close this dialog</Button>
+                                    size={"sm"}>Definitely not</Button>
                         </div>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </div>
-    )
-}
-
-function BottomBar(props: { file: string }) {
-    return (
-        <div
-            className={"flex justify-between items-center pl-2 h-[30px] w-full bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 text-sm"}>
-            <div>NORMAL</div>
-            <div className={"rounded-l-full pl-4 pr-2 gap-1 flex items-center bg-sky-200 dark:bg-sky-900 h-full"}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-[18px] h-[18px]">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
-                </svg>
-                {props.file}
-            </div>
-        </div>
+        </>
     )
 }
 
@@ -185,25 +117,25 @@ const techText = [
     "",
 ];
 
-function MiniTerminal({onClick, minimised}: { onClick: () => void, minimised: boolean }) {
+function MiniTerminal({
+                          onClick,
+    minimised = false,
+                          children,
+                            className,
+                      }: { onClick?: () => void, minimised?: boolean, children: ReactNode, className?: string }) {
     return (
         <>
-            <div
-                className={"absolute flex flex-col items-center left-0 right-0 mx-auto bottom-0 h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer"}
-                onClick={onClick}>
-                <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
-                    <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
-                    <div className={"h-1.5 w-1.5 rounded-full bg-[#FFBD44]"}/>
-                    <div className={"h-1.5 w-1.5 rounded-full bg-[#00CA4E]"}/>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                     stroke="currentColor" className="w-8 h-8 mt-1">
-                    <path strokeLinecap="round" strokeLinejoin="round"
-                          d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/>
-                </svg>
+        <div
+            className={cn("flex flex-col items-center h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer", className)}
+            onClick={onClick}>
+            <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
+                <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
+                <div className={"h-1.5 w-1.5 rounded-full bg-[#FFBD44]"}/>
+                <div className={"h-1.5 w-1.5 rounded-full bg-[#00CA4E]"}/>
             </div>
-            {minimised && <div className={"absolute left-0 right-0 mx-auto -bottom-[10px] h-[4px] w-[4px] rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50"} />}
+            {children}
+            {minimised && <div className={"absolute -bottom-[12px] left-0 right-0 mx-auto h-1 w-1 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50"} />}
+        </div>
         </>
     )
 }
@@ -222,56 +154,64 @@ function TerminalWindow() {
 
     return (
         <>
-            <MiniTerminal onClick={() => setMinimised(false)} minimised={minimised}/>
+            <div
+                className={"absolute flex items-center justify-center space-x-4 left-0 right-0 mx-auto bottom-0 w-full"}>
+                <a target="_blank" href="https://github.com/marcelblijleven" rel="noopener noreferrer">
+                    <MiniTerminal className={"bg-gray-500 dark:bg-gray-500 text-background dark:text-foreground"}>
+                        <Github className={"w-6 h-6 mt-2"} />
+                    </MiniTerminal>
+                </a>
+                <MiniTerminal onClick={() => setMinimised(false)} minimised={minimised}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                         stroke="currentColor" className="w-8 h-8 mt-1">
+                        <path strokeLinecap="round" strokeLinejoin="round"
+                              d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/>
+                    </svg>
+                </MiniTerminal>
+                <a target="_blank" href="https://www.linkedin.com/in/marcelblijleven/" rel="noopener noreferrer">
+                <MiniTerminal className={"bg-[#0a66c2] dark:bg-[#0a66c2]"}>
+                    <svg className={"w-6 h-6 mt-2 fill-background dark:fill-foreground"} role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </MiniTerminal>
+                </a>
+            </div>
             <motion.div
                 initial={'maximised'}
                 variants={variants}
                 animate={minimised ? 'minimised' : 'maximised'}
                 transition={{duration: 0.2}}
-                className={cn(
-                    "absolute bottom-0 z-10 left-0 right-0 mx-auto bg-orange-100 dark:bg-gray-900 h-[680px] md:h-[700px] min-w-[300px] max-w-[1000px] rounded-lg overflow-hidden flex flex-col justify-between",
-                    !fullSize ? "w-[95%]" : "w-[100%]",
-                )}
+                className={cn("absolute bottom-0 z-10 left-0 right-0 mx-auto min-h-[450px] md:min-h-[700px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden", !fullSize ? "w-[95%]" : "w-[100%]")}
                 onMouseLeave={() => setHoverIndex(null)}
             >
-                <Tabs.Root value={tab} onValueChange={(val) => setTab(val)}>
+                <Tabs.Root value={tab} onValueChange={(val) => setTab(val)} className={"overflow-unset"}>
                     <div>
                         <TopBar toggleFullSize={() => setFullSize(!fullSize)} file={tab}
                                 toggleMinimised={() => setMinimised(!minimised)}/>
-                        <Tabs.TabsList
-                            className={"flex items-end h-[28px] px-2 bg-orange-200/50 dark:bg-slate-700/50 border-b border-orange-300/50 dark:border-slate-800"}>
-                            <Tabs.Trigger
-                                className={'px-2 h-[24px] data-[state="active"]:rounded-t-lg data-[state="active"]:border-x data-[state="active"]:border-t data-[state="active"]:border-orange-300/50 data-[state="active"]:dark:border-slate-800/50  data-[state="active"]:bg-orange-200 data-[state="active"]:dark:bg-slate-700'}
-                                value={"aboutme.md"}>aboutme.md</Tabs.Trigger>
-                            <Tabs.Trigger
-                                className={'px-2 h-[24px] data-[state="active"]:rounded-t-lg data-[state="active"]:border-x data-[state="active"]:border-t data-[state="active"]:border-orange-300/50 data-[state="active"]:dark:border-slate-800/50  data-[state="active"]:bg-orange-200 data-[state="active"]:dark:bg-slate-700'}
-                                value={"tech.md"}>tech.md</Tabs.Trigger>
-                        </Tabs.TabsList>
-
-                    </div>
-
-                    <div className={"flex flex-col grow text-slate-700 dark:text-slate-300"}>
+                        <TabsList tabs={["aboutme.md", "tech.md"]}/>
                         <Tabs.Content value={"aboutme.md"}>
-                            {text.map((value, index) => (
-                                <Row key={`${value}_${index}`}
-                                     text={value}
-                                     index={index}
-                                     hoverIndex={hoverIndex}
-                                     onMouseEnter={() => setHoverIndex(index)}
-                                />))}
+                            <div className={"h-[450px] md:h-[700px] overflow-y-scroll"}>
+                                {text.map((value, index) => (
+                                    <Row key={`${value}_${index}`}
+                                         text={value}
+                                         index={index}
+                                         hoverIndex={hoverIndex}
+                                         onMouseEnter={() => setHoverIndex(index)}
+                                    />))}
+                            </div>
                         </Tabs.Content>
                         <Tabs.Content value={"tech.md"}>
-                            {techText.map((value, index) => (
-                                <Row key={`${value}_${index}`}
-                                     text={value}
-                                     index={index}
-                                     hoverIndex={hoverIndex}
-                                     onMouseEnter={() => setHoverIndex(index)}
-                                />))}
+                            <div className={"h-[450px] md:h-[700px] overflow-y-scroll"}>
+                                {techText.map((value, index) => (
+                                    <Row key={`${value}_${index}`}
+                                         text={value}
+                                         index={index}
+                                         hoverIndex={hoverIndex}
+                                         onMouseEnter={() => setHoverIndex(index)}
+                                    />))}
+                            </div>
                         </Tabs.Content>
+                        <BottomBar file={tab}/>
                     </div>
                 </Tabs.Root>
-                <BottomBar file={tab}/>
             </motion.div>
         </>
     )
@@ -279,7 +219,7 @@ function TerminalWindow() {
 
 function Terminal() {
     return (
-        <div className={"relative w-full max-w-[1000px] h-[680px] md:h-[700px]"}>
+        <div className={"relative w-full max-w-[1000px] h-[600px] md:h-[700px]"}>
             <TerminalWindow/>
         </div>
     )
