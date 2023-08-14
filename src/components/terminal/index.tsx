@@ -70,10 +70,10 @@ function BottomBar(props: { file: string }) {
     )
 }
 
-function Row(props: { text: string | ReactNode, index: number, hoverIndex: number | null, onMouseOver: MouseEventHandler<HTMLDivElement> }) {
+function Row(props: { text: string | ReactNode, index: number, hoverIndex: number | null, onMouseEnter: MouseEventHandler<HTMLDivElement> }) {
     return (
         <div className={"flex w-full gap-6 hover:bg-orange-200 hover:dark:bg-slate-800"}
-             onMouseOver={props.onMouseOver}>
+             onMouseEnter={props.onMouseEnter}>
             <span
                 className={"ml-2 w-[24px] text-right text-slate-400 dark:text-slate-600"}>{!!props.hoverIndex ? Math.abs(props.hoverIndex - props.index) : props.index + 1}</span>
             <span
@@ -202,7 +202,7 @@ function TerminalWindow() {
                                      text={value}
                                      index={index}
                                      hoverIndex={hoverIndex}
-                                     onMouseOver={() => setHoverIndex(index)}
+                                     onMouseEnter={() => setHoverIndex(index)}
                                 />))}
                         </Tabs.Content>
                         <Tabs.Content value={"tech.md"}>
@@ -211,7 +211,7 @@ function TerminalWindow() {
                                      text={value}
                                      index={index}
                                      hoverIndex={hoverIndex}
-                                     onMouseOver={() => setHoverIndex(index)}
+                                     onMouseEnter={() => setHoverIndex(index)}
                                 />))}
                         </Tabs.Content>
                     </div>
