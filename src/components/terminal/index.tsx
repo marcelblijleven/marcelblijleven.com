@@ -129,7 +129,7 @@ function MiniTerminal({
                 scale: 1.2,
                 transition: {duration: 0.3, stiffness: 50}
             }}
-            className={cn("flex flex-col items-center h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer transition-shadow hover:shadow-lg hover:shadow-cyan-500/50", className)}
+            className={cn("flex flex-col items-center h-[50px] w-[50px] bg-orange-100 dark:bg-gray-900 rounded-lg overflow-hidden hover:cursor-pointer hover:shadow-lg hover:shadow-cyan-500/50", className)}
             onClick={onClick}>
             <div className={"flex items-center h-[12px] px-1 gap-1 w-full bg-slate-200 dark:bg-slate-600"}>
                 <div className={"h-1.5 w-1.5 rounded-full bg-[#FF605C]"}/>
