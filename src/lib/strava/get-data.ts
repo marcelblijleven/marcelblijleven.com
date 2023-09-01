@@ -134,9 +134,11 @@ async function getToken(): Promise<string> {
 async function getStravaActivities(): Promise<SummaryActivity[]> {
     const token = await getToken();
     const response = await fetch("https://www.strava.com/api/v3/athlete/activities", {
-        headers: {Authorization: `Bearer ${token}`}
+        headers: {Authorization: `Bearer ${token}`},
+        cache: "no-store",
     });
     const data = await response.json();
+
     return (data as SummaryActivity[]);
 }
 
@@ -168,9 +170,5 @@ export async function getActivities(): Promise<Activity[]> {
         });
     }
     const stravaActivities = await getStravaActivities();
-    console.log("------")
-
-    console.log(JSON.stringify(stravaActivities))
-    console.log("------")
     return Array.from(stravaActivities).map(sa => stravaActivityToActivity(sa))
 }
