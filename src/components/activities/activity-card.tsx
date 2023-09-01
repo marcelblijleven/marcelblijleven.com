@@ -98,7 +98,7 @@ export default function ActivityCard(props: ActivityCardProps) {
                 {props.activity.polyline && (
                     <ActivityPolyline
                         id={props.activity.name}
-                        width={"auto"}
+                        width={"100%"}
                         height={150}
                         margin={{top: 20, bottom: 20, left: 0, right: 20}}
                         polyline={props.activity.polyline}
