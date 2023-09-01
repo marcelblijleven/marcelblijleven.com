@@ -133,9 +133,10 @@ async function getToken(): Promise<string> {
 
 async function getStravaActivities(): Promise<SummaryActivity[]> {
     const token = await getToken();
+    // @ts-ignore:
     const response = await fetch("https://www.strava.com/api/v3/athlete/activities", {
         headers: {Authorization: `Bearer ${token}`},
-        cache: "no-store",
+        next: { revalidate: 3600 },
     });
     const data = await response.json();
 
