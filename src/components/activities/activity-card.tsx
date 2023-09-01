@@ -23,7 +23,7 @@ function getTime(duration: number): string {
 function DetailsColumn(props: { label: string, value: string }) {
     return (
         <div className={"flex flex-col gap-0.5"}>
-            <span className={"text-xs"}>{props.label}</span>
+            <span className={"text-xs truncate"}>{props.label}</span>
             <span>{props.value}</span>
         </div>
     )
