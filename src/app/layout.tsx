@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "min-h-screen")}>
+        <body className={cn(font.className, "min-h-screen antialiased")}>
         <ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
             <div className={"relative min-h-screen"}>
                 <Header/>
