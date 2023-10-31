@@ -1,0 +1,7 @@
+# Block all crawlers for /activities
+User-agent: *
+Disallow: /activities
+
+# Allow all crawlers
+User-agent: *
+Allow: /

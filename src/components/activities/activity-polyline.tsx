@@ -50,7 +50,7 @@ export default function ActivityPolyline(props: ActivityPolylineProps) {
         <svg viewBox={[0, 0, 150, 150].join(" ")} width={props.width} height={props.height}>
             <rect x={0} y={0} width={150} height={150} fill={"transparent"} rx={14} ry={14}/>
             <path
-                strokeWidth={1} fill={"none"} stroke={"#0ea5e9"}
+                strokeWidth={1} fill={"none"} stroke={"#64748b"}
                 d={'M' + decoded.flatMap(map).join(' ')}
             />
         </svg>

@@ -26,7 +26,7 @@ export default function TopNComponent (props: TopNComponentProps) {
                         <div className="relative flex items-center w-full">
                             <span className="flex items-center h-10 px-2 z-10 text-sm capitalize">{props.mapping?.[key].name || key}</span>
                             <div
-                                className="absolute origin-left h-8 bg-blue-300 dark:bg-blue-700"
+                                className="absolute origin-left h-8 bg-gray-300 dark:bg-blue-700"
                                 style={{width: getWidth(value, total)}}
                             />
                         </div>

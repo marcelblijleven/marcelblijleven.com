@@ -2,35 +2,32 @@ import './globals.css'
 import {ReactNode} from "react";
 import {Metadata} from "next";
 import {Analytics} from '@vercel/analytics/react';
-import {Fira_Code} from 'next/font/google'
+import {IBM_Plex_Sans} from 'next/font/google'
 
-import {ThemeProvider} from "@/components/theme-provider";
-import Header from "@/components/layout/header";
-import {cn} from "@/lib/utils";
-
-const font = Fira_Code({subsets: ['latin']})
+const font = IBM_Plex_Sans({
+    subsets: ["latin"],
+    weight: ["200", "300", "400", "500", "600"],
+    variable: "--font-sans",
+})
 
 export const metadata: Metadata = {
     title: {
         template: '%s | marcelblijleven.com',
         default: 'marcelblijleven.com',
     },
-    description: "My website"
+    description: "Software engineer creating quality software and automating the boring stuff"
 }
 
 export default function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "min-h-screen antialiased")}>
-        <ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
-            <div className={"relative min-h-screen"}>
-                <Header/>
-                <main className="flex h-full flex-col items-center p-2 md:p-24 space-y-6">
-                    {children}
-                    <Analytics/>
-                </main>
-            </div>
-        </ThemeProvider>
+        <body className={font.className}>
+        <div className={"mx-auto min-h-screen max-w-5xl pb-12"}>
+            <main className={"flex flex-col justify-center antialiased"}>
+                {children}
+            </main>
+        </div>
+        <Analytics/>
         </body>
         </html>
     )

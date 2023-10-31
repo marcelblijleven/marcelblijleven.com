@@ -63,8 +63,8 @@ function SportIcon(props: {sportType: SportType}) {
         height: 100,
         width: 100,
         className: "mx-auto my-auto h-30 w-30",
-        strokeWidth: 1,
-        color: "#0ea5e9",
+        strokeWidth: 0.5,
+        color: "#64748b",
     }
 
     switch (props.sportType.toString()) {

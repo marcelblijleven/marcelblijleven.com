@@ -1,5 +1,4 @@
 import * as path from "path";
-import PageShell from "@/components/layout/page-shell";
 import BacklogTable from "@/components/coffee/backlog-table";
 
 import {Mapping} from "@/types";
@@ -11,8 +10,8 @@ import {stringToDate} from "@/lib/dates";
 import {sortFnAsc} from "@/lib/sort";
 import BrewsTable from "@/components/coffee/brews-table";
 import TopNComponent from "@/components/coffee/top-n-component";
-import Link from "next/link";
 import {Metadata} from "next";
+import {BackHome} from "@/components/back-home";
 
 const metadata: Metadata = {
     title: "My coffee",
@@ -39,13 +38,20 @@ export default function CoffeePage() {
     const coffeeData = getCoffeeData();
 
     return (
-        <PageShell>
-            <h1>Coffee stats</h1>
-            <section>
-                Automatically parsed data from the Beanconqueror app. If you&apos;d like to see your own data,
-                visit <Link className={"underline text-blue-500"} href={"https://www.beanstats.com"}>www.beanstats.com</Link>
+        <div className={"flex flex-col space-y-2"}>
+            <section className={"w-full px-4"}>
+                <div className={"mt-5 md:mt-28"}>
+                    <BackHome/>
+                    <h1 className={"text-xl md:text-2xl"}>
+                        <span className={"text-md font-medium"}>Coffee stats</span>
+                        <p className={"text-lg max-w-lg my-2"}>
+                            Automatically parsed data from the Beanconqueror app. If you&apos;d like to see your own data,
+                            visit <a className={"link"} rel={"noopener noreferrer"} href={"https://www.beanstats.com"}>www.beanstats.com</a>
+                        </p>
+                    </h1>
+                </div>
             </section>
-            <section className={"w-full space-y-2 md:space-y-3"}>
+            <section className={"w-full px-4 space-y-2 md:space-y-3"}>
                 <legend className={"font-semibold text-lg"}>Last brews</legend>
                 <BrewsTable
                     brews={coffeeData.brews}
@@ -54,14 +60,14 @@ export default function CoffeePage() {
                     grinderMapping={coffeeData.grinderMapping}
                 />
             </section>
-            <section className={"w-full space-y-2 md:space-y-3"}>
+            <section className={"w-full px-4 space-y-2 md:space-y-3"}>
                 <legend className={"font-semibold text-lg"}>Backlog</legend>
                 <BacklogTable
                     beans={backlogBeans(coffeeData.beanMapping)}
                     usage={coffeeData.usagePerBean}
                 />
             </section>
-            <section className={"w-full space-y-2 md:space-y-3"}>
+            <section className={"w-full px-4 space-y-2 md:space-y-3"}>
                 <legend className={"font-semibold text-lg"}>Favourites</legend>
                 <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-3 lg:gap-4"}>
                     <TopNComponent
@@ -97,6 +103,6 @@ export default function CoffeePage() {
                     />
                 </div>
             </section>
-        </PageShell>
+        </div>
     )
 }
