@@ -1,17 +1,17 @@
 import "@/styles/prism.css";
 import "katex/dist/katex.css";
 
-import { components } from "@/components/mdx/mdx-components";
-import { MDXLayoutRenderer } from "pliny/mdx-components";
-import { sortPosts, coreContent, allCoreContent } from "pliny/utils/contentlayer";
-import { allBlogs, allAuthors } from "contentlayer/generated";
-import type { Authors, Blog } from "contentlayer/generated";
+import {components} from "@/components/mdx/mdx-components";
+import {MDXLayoutRenderer} from "pliny/mdx-components";
+import {allCoreContent, coreContent, sortPosts} from "pliny/utils/contentlayer";
+import type {Authors, Blog} from "contentlayer/generated";
+import {allAuthors, allBlogs} from "contentlayer/generated";
 import PostSimple from "@/layouts/post-simple";
 import PostLayout from "@/layouts/post-layout";
 import PostBanner from "@/layouts/post-banner";
-import { Metadata } from "next";
+import {Metadata} from "next";
 import siteMetadata from "@/data/siteMetadata";
-import { notFound } from "next/navigation";
+import {notFound} from "next/navigation";
 
 const defaultLayout = "PostLayout";
 const layouts = {
@@ -74,9 +74,7 @@ export async function generateMetadata({
 }
 
 export const generateStaticParams = async () => {
-  const paths = allBlogs.map((p) => ({ slug: p.slug.split("/") }));
-
-  return paths;
+  return allBlogs.map((p) => ({slug: p.slug.split("/")}));
 };
 
 export default async function Page({ params }: { params: { slug: string[] } }) {

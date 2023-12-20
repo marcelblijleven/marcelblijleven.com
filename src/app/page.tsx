@@ -1,8 +1,7 @@
 import { sortPosts, allCoreContent } from "pliny/utils/contentlayer";
 import { allBlogs } from "contentlayer/generated";
-import Link from "next/link";
 import Section from "@/components/section";
-import PostPreview, {PostPreviewSmall} from "@/components/blog/preview";
+import {PostPreviewSmall} from "@/components/blog/preview";
 import {getActivities} from "@/lib/strava/utils";
 import ActivityTable from "@/components/activities/activity-table";
 import {getCoffeeData} from "@/lib/coffee/utils";

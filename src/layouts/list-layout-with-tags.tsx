@@ -1,14 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 "use client";
 
 import { usePathname } from "next/navigation";
 import { slug } from "github-slugger";
-import { formatDate } from "pliny/utils/formatDate";
 import { CoreContent } from "pliny/utils/contentlayer";
 import type { Blog } from "contentlayer/generated";
 import Link from "@/components/mdx/link";
-import Tag from "@/components/tag";
-import siteMetadata from "@/data/siteMetadata";
 import tagData from "@/app/tag-data.json";
 import PostPreview from "@/components/blog/preview";
 
