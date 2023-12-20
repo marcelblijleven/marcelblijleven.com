@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import Image from "@/components/image";
+import Image from "@/components/mdx/image";
 import Bleed from "pliny/ui/Bleed";
 import { CoreContent } from "pliny/utils/contentlayer";
 import type { Blog } from "contentlayer/generated";
-import Link from "@/components/link";
+import Link from "@/components/mdx/link";
 import PageTitle from "@/components/page-title";
 import SectionContainer from "@/components/section-container";
 

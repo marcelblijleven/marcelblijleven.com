@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "./link";
+import Link from "./mdx/link";
 import headerNavLinks from "@/data/header-nav-links";
 
 const MobileNav = () => {

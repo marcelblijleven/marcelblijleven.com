@@ -1,6 +1,6 @@
 import { formatDate } from "pliny/utils/formatDate";
 import siteMetadata from "@/data/siteMetadata";
-import Link from "@/components/link";
+import Link from "@/components/mdx/link";
 import Tag from "@/components/tag";
 
 interface Props {

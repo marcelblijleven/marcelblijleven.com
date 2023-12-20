@@ -24,7 +24,7 @@ const Pre = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className="relative">
+    <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className="relative my-2 overflow-x-auto rounded-lg">
       {hovered && (
         <button
           aria-label="Copy code"

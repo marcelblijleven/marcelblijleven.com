@@ -24,9 +24,9 @@ export default async function Page() {
     <div className={"flex flex-col space-y-12 divide-y divide-gray-200 dark:divide-gray-700"}>
       <section className={"w-full snap-center"}>
         <div className={"mt-5"}>
-          <h1 className={"text-xl md:text-2xl"}>
+          <h1 className={"text-xl md:text-2xl mb-2"}>
             <span className={"text-md font-medium"}>Marcel Blijleven</span>
-            <p className={"text-balance max-w-xl"}>
+            <p className={"text-balance max-w-xl text-muted-foreground"}>
               Software engineer creating quality software and automating the boring stuff
             </p>
           </h1>
@@ -67,7 +67,7 @@ export default async function Page() {
         </div>
       </section>
       <Section title={"Latest writings"}>
-        <ul className={"max-w-md divide-y divide-gray-200 dark:divide-gray-700"}>
+        <ul className={"max-w-none divide-y divide-gray-200 dark:divide-gray-700"}>
           {!posts.length && <p className={"ml-auto max-w-lg"}>Nothing here yet</p>}
           {posts.slice(0, MAX_POSTS).map((post) => {
             const { slug, date, title, path, summary, tags } = post;

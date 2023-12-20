@@ -1,10 +1,11 @@
 import TOCInline from "pliny/ui/TOCInline";
-import Pre from "@/components/pre";
+import Pre from "@/components/mdx/pre";
 import type { MDXComponents } from "mdx/types";
-import Image from "./image";
-import CustomLink from "./link";
-import TableWrapper from "./table-wrapper";
-import Paragraph from "./paragraph";
+import Image from "@/components/mdx/image";
+import CustomLink from "@/components/mdx/link";
+import TableWrapper from "@/components/mdx/table-wrapper";
+import Paragraph from "@/components/mdx/paragraph";
+import {Heading1, Heading2, Heading3} from "@/components/mdx/heading";
 
 interface CustomLinkProps {
   href: string;
@@ -17,4 +18,7 @@ export const components: MDXComponents = {
   pre: Pre,
   table: TableWrapper,
   p: Paragraph,
+  h1: Heading1,
+  h2: Heading2,
+  h3: Heading3,
 };

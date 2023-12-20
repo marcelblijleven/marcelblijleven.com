@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Link from "@/components/link";
+import Link from "@/components/mdx/link";
 
 export default function HeaderTitle() {
   const currentPath = usePathname();

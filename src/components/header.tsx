@@ -1,5 +1,5 @@
 import headerNavLinks from "@/data/header-nav-links";
-import Link from "./link";
+import Link from "./mdx/link";
 import MobileNav from "./mobile-nav";
 import SearchButton from "./search-button";
 import HeaderTitle from "@/components/headerTitle";

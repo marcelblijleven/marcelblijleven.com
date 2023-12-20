@@ -1,4 +1,4 @@
-import Link from "@/components/link";
+import Link from "@/components/mdx/link";
 import Tag from "@/components/tag";
 import { slug } from "github-slugger";
 import tagData from "../tag-data.json";
