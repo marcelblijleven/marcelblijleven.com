@@ -172,6 +172,9 @@ devDependencies:
   lint-staged:
     specifier: ^13.0.0
     version: 13.3.0
+  original-fs:
+    specifier: ^1.2.0
+    version: 1.2.0
   prettier:
     specifier: ^3.0.0
     version: 3.1.0
@@ -7146,6 +7149,10 @@ packages:
       levn: 0.4.1
       prelude-ls: 1.2.1
       type-check: 0.4.0
+    dev: true
+
+  /original-fs@1.2.0:
+    resolution: {integrity: sha512-IGo+qFumpIV65oDchJrqL0BOk9kr82fObnTesNJt8t3YgP6vfqcmRs0ofPzg3D9PKMeBHt7lrg1k/6L+oFdS8g==}
     dev: true
 
   /p-limit@2.3.0:

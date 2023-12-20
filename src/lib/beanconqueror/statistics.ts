@@ -1,6 +1,5 @@
 import {createMappingByUUID, increaseCountOfKey, sortCountMappingDesc} from "@/lib/beanconqueror/utils";
-import {Mapping} from "@/types";
-import {BCData, Bean, Brew, Mill, Preparation} from "@/types/beanconqueror";
+import {BCData, Bean, Brew, Mill, Preparation} from "beanconqueror";
 
 interface BeanStatistics {
     roasterCount: [string, number][];
@@ -12,12 +11,12 @@ interface BeanStatistics {
 
 interface BrewStatistics {
     lastBrew: Date;
-    brewsPerDay: Mapping<number>;
+    brewsPerDay: Record<string, number>;
     averageBrewsPerDay: number;
     totalGroundWeight: number;
     averageGrindWeight: number;
-    usagePerBean: Mapping<number>;
-    brewsPerBean:  Mapping<number>;
+    usagePerBean: Record<string, number>;
+    brewsPerBean:  Record<string, number>;
     usagePerGrinder: [string, number][];
     brewsPerGrinder: [string, number][];
     brewsPerPreparationMethod: [string, number][];
@@ -26,17 +25,17 @@ interface BrewStatistics {
 }
 
 export interface Statistics extends BeanStatistics, BrewStatistics {
-    beanMapping: Mapping<Bean>;
-    grinderMapping: Mapping<Mill>;
-    preparationMapping: Mapping<Preparation>
+    beanMapping: Record<string, Bean>;
+    grinderMapping: Record<string, Mill>;
+    preparationMapping: Record<string, Preparation>
 }
 
 function getBeanStatistics(beans: Bean[]): BeanStatistics {
-    const roasterCount: Mapping<number> = {};
-    const roasterCountWeight: Mapping<number> = {};
-    const countryCount: Mapping<number> = {};
-    const varietyCount: Mapping<number> = {};
-    const processingCount: Mapping<number> = {};
+    const roasterCount: Record<string, number> = {};
+    const roasterCountWeight: Record<string, number> = {};
+    const countryCount: Record<string, number> = {};
+    const varietyCount: Record<string, number> = {};
+    const processingCount: Record<string, number> = {};
 
     for (const bean of beans) {
         if (bean.roaster) {
@@ -62,12 +61,12 @@ function getBeanStatistics(beans: Bean[]): BeanStatistics {
 }
 
 function getBrewStatistics(brews: Brew[]): BrewStatistics {
-    const brewsPerDay: Mapping<number> = {};
-    const brewsPerBean: Mapping<number> = {};
-    const usagePerBean: Mapping<number> = {};
-    const brewsPerGrinder: Mapping<number> = {};
-    const usagePerGrinder: Mapping<number> = {};
-    const brewsPerPreparationMethod: Mapping<number> = {};
+    const brewsPerDay: Record<string, number> = {};
+    const brewsPerBean: Record<string, number> = {};
+    const usagePerBean: Record<string, number> = {};
+    const brewsPerGrinder: Record<string, number> = {};
+    const usagePerGrinder: Record<string, number> = {};
+    const brewsPerPreparationMethod: Record<string, number> = {};
     const grindWeights: number[] = [];
     let lastBrewTime: number = 0;
 

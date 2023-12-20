@@ -1,6 +1,5 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Mill, Preparation} from "@/types/beanconqueror";
-import {Mapping} from "@/types";
+import {Mill, Preparation} from "beanconqueror";
 
 const getWidth = (value: number, total: number) => `${(value / (total || 0)) * 100}%`
 
@@ -8,7 +7,7 @@ export interface TopNComponentProps {
     label: string;
     description: string;
     items: any[];
-    mapping?: Mapping<Preparation | Mill>;
+    mapping?: Record<string, Preparation | Mill>;
 }
 
 export default function TopNComponent (props: TopNComponentProps) {
