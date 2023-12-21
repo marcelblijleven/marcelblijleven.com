@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useRef, ReactNode } from 'react'
+import {useState, useRef, ReactNode} from 'react'
 
-const Pre = ({ children }: { children: ReactNode }) => {
+const Pre = ({children}: { children: ReactNode }) => {
   const textInput = useRef(null)
   const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -24,7 +24,8 @@ const Pre = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className="relative my-2 overflow-x-auto rounded-lg">
+    <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit}
+         className="relative my-2 overflow-hidden rounded bg-slate-800 text-gray-200">
       {hovered && (
         <button
           aria-label="Copy code"
@@ -64,8 +65,7 @@ const Pre = ({ children }: { children: ReactNode }) => {
           </svg>
         </button>
       )}
-
-      <pre>{children}</pre>
+      <pre className={"p-4 overflow-x-auto"}>{children}</pre>
     </div>
   )
 }
