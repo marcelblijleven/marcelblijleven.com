@@ -65,7 +65,7 @@ const Pre = ({children}: { children: ReactNode }) => {
           </svg>
         </button>
       )}
-      <pre className={"p-4 overflow-x-auto"}>{children}</pre>
+      <pre className={"relative crt p-4 overflow-x-auto"}>{children}</pre>
     </div>
   )
 }
