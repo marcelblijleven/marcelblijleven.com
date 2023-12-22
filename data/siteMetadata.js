@@ -13,7 +13,6 @@ const siteMetadata = {
   github: 'https://github.com/marcelblijleven',
   linkedin: 'https://www.linkedin.com/in/marcelblijleven',
   locale: 'en-US',
-  // Can't remove analytics, will throw err at build time
   analytics: {
     umamiAnalytics: {
       umamiWebsiteId: process.env.NEXT_UMAMI_ID,
