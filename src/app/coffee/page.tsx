@@ -1,12 +1,5 @@
-import * as path from "path";
 import BacklogTable from "@/components/coffee/backlog-table";
 
-import {Bean} from "beanconqueror";
-
-import {processBCFile} from "@/lib/beanconqueror/statistics";
-import {readZipFile} from "@/lib/beanconqueror/utils";
-import {stringToDate} from "@/lib/dates";
-import {sortFnAsc} from "@/lib/sort";
 import BrewsTable from "@/components/coffee/brews-table";
 import TopNComponent from "@/components/coffee/top-n-component";
 import {Metadata} from "next";
@@ -18,6 +11,7 @@ const metadata: Metadata = {
 
 export default function CoffeePage() {
   const coffeeData = getCoffeeData();
+  const backlog= []// = backlogBeans(coffeeData.beanMapping);
 
   return (
     <div className={"flex flex-col space-y-2"}>
@@ -44,7 +38,7 @@ export default function CoffeePage() {
       <section className={"w-full px-4 space-y-2 md:space-y-3"}>
         <legend className={"font-semibold text-lg"}>Backlog</legend>
         <BacklogTable
-          beans={backlogBeans(coffeeData.beanMapping)}
+          beans={backlog}
           usage={coffeeData.usagePerBean}
         />
       </section>
