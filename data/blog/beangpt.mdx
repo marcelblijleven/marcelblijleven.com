@@ -33,6 +33,63 @@ Any subsequent messages are sent as a `user` message, allowing me to chat with m
 ## The code
 
 Project was set up using T3, using TypeScript and Tailwind. I also included Shadcn's component library.
-The code can be found at my [Github page](https://github.com/marcelblijleven/beangpt)
+The code can be found at my [Github page](https://github.com/marcelblijleven/beangpt).
 
+The backend is fairly simple, a Next.js API route which sends the messages to OpenAI with the `stream` option set to true.
+Vercel's AI SDK then converts the response to a `ReadableStream` using the `StreamingTextResponse` helper.
+
+```typescript
+import {OpenAIStream, StreamingTextResponse} from "ai";
+import {type Messages, streamChat} from "~/lib/openai/stream";
+
+export const runtime = "edge";
+
+interface RequestWithJSON extends Request {
+  json: () => Promise<{messages: Messages}>
+}
+
+export async function POST(req: RequestWithJSON) {
+  const { messages } = await req.json();
+
+  const res = await streamChat(messages);
+
+  // Convert to stream and return
+  const stream = OpenAIStream(res);
+  return new StreamingTextResponse(stream);
+}
+
+```
+
+The AI SDK provides a `useChat` hook which makes it easy to generate a chat interface in the frontend
+
+```typescript jsx
+"use client"
+
+import {useChat} from "ai/react";
+import {Input} from "~/components/ui/input";
+import {ChatMessages} from "~/components/chat/messages";
+import {useMessageStore} from "~/components/upload-form/store";
+
+export default function Chat() {
+  const initialMessages = useMessageStore(state => state.messages)
+  const {messages, input, handleInputChange, handleSubmit} = useChat({
+    initialMessages,
+  })
+
+  return (
+    <div className={"mx-auto w-full max-w-2xl"}>
+      <ChatMessages messages={messages} />
+      <form onSubmit={handleSubmit}>
+        <Input
+          value={input}
+          placeholder={"Ask me about your coffee backlog"}
+          onChange={handleInputChange}
+          className={"text-foreground"}
+        />
+      </form>
+    </div>
+  )
+}
+
+```
 
