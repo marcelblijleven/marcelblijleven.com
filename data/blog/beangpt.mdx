@@ -1,0 +1,38 @@
+---
+title: BeanGPT
+date: '2023-12-31'
+tags: ['typescript', 'nextjs', 'openai', 'code', 'coffee']
+draft: false
+summary: Talking with your coffee statistics
+---
+
+Had a couple of hours to spare and thought it might be fun to use OpenAI to keep track of my coffee purchases. 
+I had never worked with the OpenAI API before, so this seemed like a fun project to spent 2-3 hours on.
+
+## The data
+
+I'm using Beanconqueror for the data. I already wrote the parsers for both Beanstats and my website, so it was very quick
+to set up. Since the raw data is too much to process, I transferred the data into text and provided instructions to the OpenAI API.
+
+An entry would look like this: `coffee: lord voldemort;3;200;16.2, bean information: colombia;wush wush;natural;huila;null;deiro garcia;null;`.
+
+The values are: name, rating, weight, price, country, variety, processing, region, farm, farmer, elevation.
+
+## The chat
+
+After uploading a Beanconqueror zip file, BeanGPT will create two `system` messages to instruct the OpenAI API. The first message
+contains the instruction where I explain the data, the second message is the coffee data. These messages are always sent to the API, but
+the frontend filters these messages.
+
+Any subsequent messages are sent as a `user` message, allowing me to chat with my coffee stats 😄☕️.
+
+## The result
+
+![beangpt](/static/images/blog/beangpt.png)
+
+## The code
+
+Project was set up using T3, using TypeScript and Tailwind. I also included Shadcn's component library.
+The code can be found at my [Github page](https://github.com/marcelblijleven/beangpt)
+
+
