@@ -16,7 +16,7 @@ function getCaption(): string {
 }
 
 const BacklogTable = (props: BacklogTableProps) => {
-  if (!props.beans.length) {
+  if (props.beans.length === 0) {
     return (
       <div className="w-full p-2 text-center text-muted-foreground">
         Oops, I ran out of coffee 😅
