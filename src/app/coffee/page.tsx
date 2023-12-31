@@ -11,7 +11,7 @@ const metadata: Metadata = {
 
 export default function CoffeePage() {
   const coffeeData = getCoffeeData();
-  const backlog= []// = backlogBeans(coffeeData.beanMapping);
+  const backlog= backlogBeans(coffeeData.beanMapping);
 
   return (
     <div className={"flex flex-col space-y-2"}>
