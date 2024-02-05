@@ -44,7 +44,7 @@ export function PostPreviewSmall(props: Props) {
           <time dateTime={props.date}>{formatDate(props.date, siteMetadata.locale)}</time>
         </dd>
       </dl>
-      <div className={"flex gap-2 items-center leading-8 tracking-tight"}>
+      <div className={"flex flex-col gap-2 items-center leading-8 tracking-tight"}>
         <h2 className="text-xl font-bold ">
           <Link href={`/${props.path}`} className="link">
             {props.title}
