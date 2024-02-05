@@ -6,7 +6,7 @@ draft: false
 summary: Page Component Model, easy scoping and maintainability in automated tests.
 ---
 
-You can consider _Page Component Model as an extension or successor to _Page Object Model_,
+You can consider _Page Component_ Model as an extension or successor to _Page Object Model_,
 a design pattern used in test automation frameworks. Using the _Page Object Model_ design pattern you create a class
 for each page which hides locators and logic from your tests, while also providing ways to interact with 'pages'.
 
@@ -24,9 +24,11 @@ Combine this with the other reason and you get a recipe for disaster 😄.
 
 ## Page Component Model
 
-This is why I like to keep page objects as small as possible and focus on using Components instead. A Component can be
-as small as a `<button>` or as big as a `<form>`. The key is to use _Composition over Inheritance_. This makes your
-design more flexible. You can think of Inheritance as an *is-a* relationship, which is tightly coupled and Composition
+This is why I like to keep page objects as small as possible and focus on using components instead. A component can be
+as small as a `<button>` or as big as a `<form>` or any other element with lots of children and grandchildren. The key is to use _Composition over Inheritance_. This makes your
+design more flexible. 
+
+You can think of Inheritance as an *is-a* relationship, which is tightly coupled and Composition
 as a *has-a* relationship, which is loosely coupled. By splitting up functionality into several components it becomes
 really easy to share functionality between different pages and tests.
 
@@ -54,10 +56,10 @@ class BaseComponent:
         self.root_locator = locator
 ```
 
-This might not seem like much at the moment, but if you take into account that you can use composition on components, you ]
+This might not seem like much at the moment, but if you take into account that you can use composition on components, you 
 can extend this locator to new components which automatically provides scoping to the parent component.
 
-A simple example: If you have a page with a login form, sign up form and multiple buttons it can be difficult to target
+A simple example: If you have a page with a login form, sign up form and multiple buttons spread throughout the page it can be difficult to target
 the actual 'login' button instead of one of the many other buttons. By using the root locator of a component this becomes
 a lot easier because you can use it to locate other elements/components that are children or grand children in the DOM.
 
