@@ -5,7 +5,8 @@ import Image from "@/components/mdx/image";
 import CustomLink from "@/components/mdx/link";
 import TableWrapper from "@/components/mdx/table-wrapper";
 import Paragraph from "@/components/mdx/paragraph";
-import {Heading1, Heading2, Heading3} from "@/components/mdx/heading";
+import { Heading1, Heading2, Heading3, Heading4 } from "@/components/mdx/heading";
+import { OrderedList, UnorderedList } from "@/components/mdx/lists";
 
 interface CustomLinkProps {
   href: string;
@@ -21,4 +22,7 @@ export const components: MDXComponents = {
   h1: Heading1,
   h2: Heading2,
   h3: Heading3,
+  h4: Heading4,
+  ol: OrderedList,
+  ul: UnorderedList,
 };
