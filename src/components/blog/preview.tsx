@@ -44,13 +44,13 @@ export function PostPreviewSmall(props: Props) {
           <time dateTime={props.date}>{formatDate(props.date, siteMetadata.locale)}</time>
         </dd>
       </dl>
-      <div className={"flex flex-col gap-2 items-center leading-8 tracking-tight"}>
+      <div className={"flex flex-col gap-2 leading-8 tracking-tight"}>
         <h2 className="text-xl font-bold ">
           <Link href={`/${props.path}`} className="link">
             {props.title}
           </Link>
         </h2>
-        <div className={"flex flex-wrap"}>{props.tags?.map((tag) => <Tag key={tag} text={tag} />)}</div>
+        <div className={"flex flex-wrap"}>{props.tags?.slice(0, 3).map((tag) => <Tag key={tag} text={tag} />)}</div>
       </div>
         <div className="prose max-w-none text-gray-500 dark:text-gray-400">{props.summary}</div>
     </article>
