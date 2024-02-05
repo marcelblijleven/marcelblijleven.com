@@ -9,3 +9,7 @@ export function Heading2({ children }) {
 export function Heading3({ children }) {
   return <h3 className={"text-xl font-semibold mt-4"}>{children}</h3>;
 }
+
+export function Heading4({ children }) {
+  return <h4 className={"text-lg font-semibold mt-4"}>{children}</h4>;
+}
