@@ -108,5 +108,5 @@ input:-webkit-autofill:focus {
 }
 
 .link {
-  @apply text-blue-500 hover:underline
+  @apply underline hover:decoration-blue-500 hover:underline-offset-2
 }

@@ -1,6 +1,6 @@
 import "@/styles/tailwind.css";
 
-import { IBM_Plex_Sans } from "next/font/google";
+import { Inconsolata } from "next/font/google";
 import { Analytics, AnalyticsConfig } from "pliny/analytics";
 import { SearchProvider, SearchConfig } from "pliny/search";
 import Header from "@/components/header";
@@ -9,11 +9,10 @@ import Footer from "@/components/footer";
 import siteMetadata from "@/data/siteMetadata";
 import { ThemeProviders } from "./theme-providers";
 import { Metadata } from "next";
+import { cn } from "@/lib/utils";
 
-const font = IBM_Plex_Sans({
+const font = Inconsolata({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600"],
-  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${font.variable} scroll-smooth`}
+      className="scroll-smooth"
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon.png" />
@@ -79,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex h-screen flex-col justify-between font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                 <Header />
-                <main className="mb-auto antialiased">{children}</main>
+                <main className={cn("mb-auto antialiased", font.className)}>{children}</main>
               </SearchProvider>
               <Footer />
             </div>

@@ -3,10 +3,16 @@ import Link from "./mdx/link";
 import MobileNav from "./mobile-nav";
 import SearchButton from "./search-button";
 import HeaderTitle from "@/components/headerTitle";
+import { Inconsolata } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const font = Inconsolata({
+  subsets: ["latin"],
+});
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between py-10">
+    <header className={cn("flex items-center justify-between py-10", font.className)}>
       <div>
         <HeaderTitle />
       </div>

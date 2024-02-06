@@ -4,7 +4,7 @@ pre[class="language-error"] {
 }
 
 code:not([class*="language-"]) {
-  @apply rounded bg-gray-500/10 p-0.5 border border-gray-400/10 border-dashed;
+  @apply text-sm rounded bg-gray-500/10 p-0.5 border border-gray-400/10 border-dashed;
 }
 
 /* Code title styles */
