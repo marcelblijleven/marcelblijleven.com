@@ -26,7 +26,7 @@ Combine this with the other reason and you get a recipe for disaster 😄.
 
 This is why I like to keep page objects as small as possible and focus on using components instead. A component can be
 as small as a `<button>` or as big as a `<form>` or any other element with lots of children and grandchildren. The key is to use _Composition over Inheritance_. This makes your
-design more flexible. 
+design more flexible.
 
 You can think of Inheritance as an *is-a* relationship, which is tightly coupled and Composition
 as a *has-a* relationship, which is loosely coupled. By splitting up functionality into several components it becomes
@@ -56,7 +56,7 @@ class BaseComponent:
         self.root_locator = locator
 ```
 
-This might not seem like much at the moment, but if you take into account that you can use composition on components, you 
+This might not seem like much at the moment, but if you take into account that you can use composition on components, you
 can extend this locator to new components which automatically provides scoping to the parent component.
 
 A simple example: If you have a page with a login form, sign up form and multiple buttons spread throughout the page it can be difficult to target
@@ -129,9 +129,61 @@ class BaseComponent:
 
 This allows you to interact with your custom components just like you would with normal locators.
 
+## Adding component specific methods
+
+Now that you have a basic component you can create components with specific methods you want to use in tests. For example
+a login form. If you think about the ways you interact with a login form there are three main actions you do when logging
+in:
+
+1. Type in username
+2. Type in password
+3. Press the login button
+
+So we can identify at least three fields, or subcomponents, we interact with. Two input fields and a button. Let's first
+add these.
+
+```python
+class LoginForm(BaseComponent):
+    ...
+
+    @property
+    def username_inputfield(self) -> Locator:
+        self.root_locator.locate("input[name='username']")
+
+    @property
+    def password_inputfield(self) -> Locator:
+        self.root_locator.locate("input[name='password']")
+
+    @property
+    def login_button(self) -> Locator:
+        self.root_locator.locate("button[type='submit']")
+```
+
+Now it's possible to enter a username using just `login_form.username_inputfield.type("...")`. You could put this
+inside a separate method too.
+
+```python
+class LoginForm(BaseComponent):
+    def enter_username(self, username: str) -> None:
+        self.username_inputfield.type(username)
+```
+
+Then combine all the methods into a single login method
+
+```python
+class LoginForm(BaseComponent):
+    def login(self, username: str, password: str) -> None:
+        self.enter_username(username)
+        self.enter_password(password)
+        self.login_button.click()
+```
+
+And now you have a working LoginForm component that you can use on both the login page and for example an order checkout
+page.
+
 ## Using components
 
-You can still use page objects, a login page *has a* login form for example. But you don't need to, you can
+Now it's time to use the components in your tests. You can still use page objects, a login page *has a* login form for example. But you don't need to, you can
 use a lightweight method too.
 
 ```python
