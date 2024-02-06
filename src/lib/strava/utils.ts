@@ -1,4 +1,4 @@
-import {Activity, SummaryActivity} from "@/lib/strava/types";
+import {type Activity, type SummaryActivity} from "@/lib/strava/types";
 import {getActivities as getStravaActivities} from "@/lib/strava/get-data";
 
 /**

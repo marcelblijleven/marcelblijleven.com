@@ -1,4 +1,4 @@
-import {Activity, SportType, SummaryActivity, TokenResponseData} from "@/lib/strava/types";
+import {Activity, SummaryActivity, TokenResponseData} from "@/lib/strava/types";
 import {stravaActivityToActivity} from "@/lib/strava/utils";
 
 
@@ -36,6 +36,9 @@ async function getStravaActivities(): Promise<SummaryActivity[]> {
     headers: {Authorization: `Bearer ${token}`},
     next: { revalidate: 3600 },
   });
+
+  console.log(`received strava response: ${response.statusText}`);
+
   const data = await response.json();
 
   return (data as SummaryActivity[]);
@@ -51,6 +54,8 @@ export async function getActivities(): Promise<Activity[]> {
       resolve(DEV_DATA);
     });
   }
+  console.log("retrieving strava activities");
   const stravaActivities = await getStravaActivities();
+  console.log(`retrieved ${stravaActivities.length} activities`);
   return Array.from(stravaActivities).map(sa => stravaActivityToActivity(sa))
 }
