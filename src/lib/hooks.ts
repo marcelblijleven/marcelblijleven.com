@@ -1,33 +1,21 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { SimpleDeque } from "@/lib/utils";
 
 export function useImanok(callback: () => void) {
   const expected = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-  const [keys, setKeys] = useState<number[]>([])
+  const deque = new SimpleDeque<number>()
 
-  const onKeyDown = useCallback((event: { keyCode: number; }) => {
-    const newKeys = [...keys];
-    newKeys.push(event.keyCode);
-    setKeys(newKeys);
-  }, [keys]);
+  const onKeyDown = (event: { keyCode: number; }) => {
+    deque.push(event.keyCode);
+  }
 
-  const onKeyUp = useCallback((event: {keyCode: number}) => {
-    const index = keys.lastIndexOf(event.keyCode);
-
-    if (keys[index] !== expected[index]) {
-      setKeys([]);
+  const onKeyUp = () => {
+    if (deque.includesSequence(expected)) {
+      callback();
     }
-
-    if (keys.length === expected.length) {
-      if (keys.every((value,  idx) => value === expected[idx])) {
-        setKeys([]);
-        console.log("bami")
-        callback();
-      }
-    }
-
-  }, [keys]);
+  }
 
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown, false);
