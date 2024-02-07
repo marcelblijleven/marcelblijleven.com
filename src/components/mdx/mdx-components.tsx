@@ -15,7 +15,7 @@ interface CustomLinkProps {
 export const components: MDXComponents = {
   Image,
   TOCInline,
-  a: ({href, ...rest}: CustomLinkProps) => <CustomLink className={"text-blue-500 hover:underline"} href={href} {...rest}/> ,
+  a: ({href, ...rest}: CustomLinkProps) => <CustomLink className={"text-blue-500 dark:text-green-600 hover:underline"} href={href} {...rest}/> ,
   pre: Pre,
   table: TableWrapper,
   p: Paragraph,

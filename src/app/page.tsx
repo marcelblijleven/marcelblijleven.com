@@ -22,7 +22,8 @@ export default async function Page() {
     <div className={"flex flex-col space-y-12 divide-y divide-gray-200 dark:divide-gray-700"}>
       <section className={"w-full snap-center"}>
         <div className={"mt-5"}>
-          My personal page where I log things and write stuff
+          My personal page where I log things and write stuff.
+
           <ul className={"list-disc list-inside"}>
             <li><a
               className={"link"}

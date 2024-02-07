@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: 'Marcel Blijleven',
   description: 'My personal blog',
   language: 'en-us',
-  theme: 'light',
+  theme: 'system',
   siteUrl: 'https://www.marcelblijleven.com',
   siteRepo: 'https://github.com/marcelblijleven/marcelblijleven.com',
   siteLogo: '/static/images/logo.png',
