@@ -83,11 +83,11 @@ export default async function Page() {
           limit={MAX_BREWS}
         />
       </Section>
-      <Section
-        title={"Latest activities"}
-      >
-        <ActivityTable activities={activities} />
-      </Section>
+      {/*<Section*/}
+      {/*  title={"Latest activities"}*/}
+      {/*>*/}
+      {/*  <ActivityTable activities={activities} />*/}
+      {/*</Section>*/}
     </div>
   );
 }
