@@ -1,5 +1,5 @@
 ---
-title: Add type hints to kwargs
+title: Add type annotations to kwargs
 date: '2024-03-26'
 tags: ['python', 'typing']
 draft: false
@@ -23,8 +23,9 @@ But this would mean that any value inside the kwargs dict is an int.
 ## TypedDict and Unpack
 
 This is where `TypedDict` and `Unpack` can be helpful. These were introduced in 
-Python 3.8 and Python 3.11 respectively, but `Unpack` was modified in 3.12 to support [PEP 692](https://peps.python.org/pep-0692/)
-Both have also been made available in earlier versions through `typing_extensions`, but it's recommended to use at least version
+Python 3.8 and Python 3.11 respectively. `Unpack` was modified in 3.12 to support [PEP 692](https://peps.python.org/pep-0692/).
+
+Both `TypedDict` and `Unpack` have also been made available in earlier versions through `typing_extensions`, but it's recommended to use at least version
 3.11 because of [issues](https://github.com/python/typing_extensions/issues/103) in Python 3.10 and earlier versions.
 
 A `TypedDict` lets you add type hints to dicts with a fixed set of keys. These keys can also be marked
