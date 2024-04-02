@@ -47,7 +47,7 @@ print(settings.blog / "blog/truediv")
 This is already quite nice, but what if you want to add more segments? If you run `settings.blog / "blog" / "foo"` you'll be
 presented with an error:
 
-```error
+```shell
 TypeError: unsupported operand type(s) for /: 'str' and 'str'
 ```
 

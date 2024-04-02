@@ -119,7 +119,7 @@ of code you have to write yourself, which improves maintainability should you ev
 There are two ways of using a discriminator with Pydantic. The most simple way is by providing the name of the property
 to the `discriminator` kwarg in a `Field` constructor.
 
-```
+```shell
 Authentication: TypeAlias = SSLAuthentication | PlainAuthentication | GSSAPIAuthentication
 
 class Client(BaseModel):

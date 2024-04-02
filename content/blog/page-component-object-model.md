@@ -104,7 +104,7 @@ Other things I like to add to the base component are the default locator methods
 
 To add these methods to the base component you simple have to call them on the root locator:
 
-```
+```python
 class BaseComponent:
     ...
 

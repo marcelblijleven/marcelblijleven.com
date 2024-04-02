@@ -1,0 +1,27 @@
+baseURL = 'https://www.marcelblijleven.com'
+languageCode = 'en-us'
+title = "Marcel Blijleven"
+theme = 'mb-blog-theme'
+# themesDir = ".."
+
+[[menus.main]]
+name = "Home"
+pageRef = "/"
+weight = 10
+
+[[menus.main]]
+name = "Blog"
+pageRef = "/blog"
+
+# [[menus.main]]
+# name = "Coffee"
+# pageRef = "/coffee"
+
+[params]
+  google_fonts = [
+    ["Inconsolata", "400, 400i, 700, 700i"]
+  ]
+
+[markup]
+  [markup.highlight]
+    style = "gruvbox"

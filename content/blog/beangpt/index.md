@@ -28,11 +28,11 @@ Any subsequent messages are sent as a `user` message, allowing me to chat with m
 
 ## The result
 
-![beangpt](/static/images/blog/beangpt.png)
+![beangpt](images/beangpt.png)
 
-![beangpt-2](/static/images/blog/beangpt-2.png)
+![beangpt-2](images/beangpt-2.png)
 
-![beangpt-3](/static/images/blog/beangpt-3.png)
+![beangpt-3](images/beangpt-3.png)
 
 ## The code
 

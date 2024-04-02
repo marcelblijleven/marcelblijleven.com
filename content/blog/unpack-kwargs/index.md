@@ -49,7 +49,7 @@ def create_consumer(client_id: str, **kwargs: Unpack[Kwargs]) -> None:
 This will give you code completion hints both inside the function body and when calling the function from
 anywhere in your code.
 
-![A screenshot of a code editor that displays the behaviour of unpacking a TypedDict](/static/images/blog/code-completion-with-kwargs.png)
+![A screenshot of a code editor that displays the behaviour of unpacking a TypedDict](images/code-completion-with-kwargs.png)
 
 This currently works in both (neo)vim and VSCode, it doesn't work in PyCharm as of this writing. There's an open ticket [here](https://youtrack.jetbrains.com/issue/PY-58406/Missing-python-type-check-error-pycharm-vs-pylance).
 

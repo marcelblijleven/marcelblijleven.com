@@ -125,9 +125,9 @@ This will print the commits with a pretty graph using `git logp`.
 git config --global alias.logp "log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 ```
 
-Exmple output:
+Example output:
 
-```
+```shell
 * 3d7103b Marcel Blijleven: style: move tags below title -   (5 weeks ago)
 *   97de6f6 Marcel Blijleven: Merge pull request #18 from marcelblijleven/feature/page-component-object-model -   (5 weeks ago)
 |\
