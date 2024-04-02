@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Discriminating Unions and Type Narrowing | Marcel Blijleven</title>
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/index.35dbb91b4658fec8c693d9ab005682d95e1b3c975106cb4fa0ab29047e3ffbf6.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+  
+  
+    
+    
+    
+    
+  
+  
+  <link href="//fonts.googleapis.com/css?family=Inconsolata:400,400i,700,700i" rel="stylesheet">
+
+
+
+
+</head>
+<body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
+  <header>
+    <h1>Marcel Blijleven</h1>
+
+  <nav>
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/blog/">Blog</a>
+    </li>
+    </ul>
+  </nav>
+
+
+  </header>
+  <main>
+    
+  <h1>Discriminating Unions and Type Narrowing</h1>
+
+  
+  
+  <time datetime="2024-01-31T00:00:00&#43;00:00">January 31, 2024</time>
+
+  <p>A discriminating union is a union of types that can be identified by one or more of their properties, or discriminator(s).
+These discriminators are often literal values or type guards.</p>
+<p>In this post I&rsquo;ll provide some examples using type narrowing in Python before moving on to an example using
+discriminating unions in Pydantic to parse .env files.</p>
+<h2 id="basic-example">Basic example</h2>
+<p>Take a look at the following code where we have two datastructures. Both structures have the property <code>security_protocol</code>,
+which is the discriminator. The other properties are different and not shared between the datastructures.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">from</span> pathlib <span style="color:#fe8019">import</span> Path
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> typing <span style="color:#fe8019">import</span> Literal, TypeAlias
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> SSLAuthentication:
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    certificate_location: Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> SASLSSLAuthentication:
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    sasl_mechanism: Literal[<span style="color:#b8bb26">&#34;PLAIN&#34;</span>, <span style="color:#b8bb26">&#34;GSSAPI&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Authentication: TypeAlias <span style="color:#fe8019">=</span> SSLAuthentication <span style="color:#fe8019">|</span> SASLSSLAuthentication
+</span></span></code></pre></div><p>It&rsquo;s easy to narrow down the type using the builtin isinstance function, this will also provide the correct code completions
+for the corresponding type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">do_something</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> <span style="color:#fabd2f">str</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">if</span> <span style="color:#fabd2f">isinstance</span>(auth, SSLAuthentication):
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>certificate_location<span style="color:#fe8019">.</span>name
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">elif</span> <span style="color:#fabd2f">isinstance</span>(auth, SASLSSLAuthentication):
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>sasl_mechanism
+</span></span></code></pre></div><p>But sometimes you want to check the type based on something else, for example a property value.
+You won&rsquo;t get much type hinting by simply using <em>Equality Narrowing</em> on <code>Authentication.security_protocol</code>, unlike with TypeScript for example.
+While writing the following function your IDE will not give you any narrowed down type hints. When you dot into the
+properties of <code>auth</code> on line 2, you&rsquo;ll still see <code>sasl_mechanism</code> which is not a property of <code>SSLAuthentication</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">do_something</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> <span style="color:#fabd2f">str</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">if</span> auth<span style="color:#fe8019">.</span>security_protocol <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;SSL&#34;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>certificate_location<span style="color:#fe8019">.</span>name
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">elif</span> auth<span style="color:#fe8019">.</span>security_protocol <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>sasl_mechanism
+</span></span></code></pre></div><h2 id="type-guards">Type guards</h2>
+<p>This is where a user defined type guard is useful. <code>TypeGuard</code> was introduced in Python 3.10 via <a href="https://peps.python.org/pep-0647/">PEP 647</a>.
+When a function has return type <code>TypeGuard[int]</code> and the return value is <code>True</code>, it is expected that the type is actually an <code>int</code>.
+By adding a user defined <code>TypeGuard</code> to the function you will get proper code completion and type hinting when narrowing down
+a type by property values.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">from</span> typing <span style="color:#fe8019">import</span> TypeGuard
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">is_ssl</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> TypeGuard[SSLAuthentication]:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>security_protocol <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;SSL&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">is_sasl</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> TypeGuard[SASLSSLAuthentication]:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>security_protocol <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">do_something_better</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> <span style="color:#fabd2f">str</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">if</span> is_ssl(auth):
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>certificate_location<span style="color:#fe8019">.</span>name
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">elif</span> is_sasl(auth):
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>sasl_mechanism
+</span></span></code></pre></div><p>This becomes even more useful when we split the <code>SASLSSLAuthentication</code> class by <code>sasl_mechanism</code> into two new classes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">class</span> PlainAuthentication:
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    sasl_mechanism: Literal[<span style="color:#b8bb26">&#34;PLAIN&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> GSSAPIAuthentication:
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    sasl_mechanism: Literal[<span style="color:#b8bb26">&#34;GSSAPI&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Authentication: TypeAlias <span style="color:#fe8019">=</span> (
+</span></span><span style="display:flex;"><span>    SSLAuthentication <span style="color:#fe8019">|</span> PlainAuthentication <span style="color:#fe8019">|</span> GSSAPIAuthentication
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">is_plain</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> TypeGuard[SASLSSLAuthentication]:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>security_protocol <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;SASL_SSL&#34;</span> <span style="color:#fe8019">and</span> auth<span style="color:#fe8019">.</span>sasl_mechanism <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;PLAIN&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">is_gssapi</span>(auth: Authentication) <span style="color:#fe8019">-&gt;</span> TypeGuard[GSSAPIAuthentication]:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">return</span> auth<span style="color:#fe8019">.</span>security_protocol <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;SASL_SSL&#34;</span> <span style="color:#fe8019">and</span> auth<span style="color:#fe8019">.</span>sasl_mechanism <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;GSSAPI&#34;</span>
+</span></span></code></pre></div><h2 id="discriminating-unions">Discriminating unions</h2>
+<p>Pydantic introduces a simple way to do this by specifying a discriminator on a field. This reduces the amount
+of code you have to write yourself, which improves maintainability should you ever add more authentication methods.</p>
+<p>There are two ways of using a discriminator with Pydantic. The most simple way is by providing the name of the property
+to the <code>discriminator</code> kwarg in a <code>Field</code> constructor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Authentication: TypeAlias <span style="color:#fe8019">=</span> SSLAuthentication | PlainAuthentication | GSSAPIAuthentication
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>class Client<span style="color:#fe8019">(</span>BaseModel<span style="color:#fe8019">)</span>:
+</span></span><span style="display:flex;"><span>    auth: Authentication <span style="color:#fe8019">=</span> Field<span style="color:#fe8019">(</span>..., discriminator<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;security_protocol&#34;</span><span style="color:#fe8019">)</span>
+</span></span></code></pre></div><p>This will only discriminate by one property though, so you will not know if it is <code>PlainAuthentication</code> or <code>GSSAPIAuthentication</code>.
+The second way of using a discriminating union, by using <code>Annotated</code> and <code>Discriminator</code>, makes that possible.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">from</span> typing <span style="color:#fe8019">import</span> Annotated, TypeAlias
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> pydantic <span style="color:#fe8019">import</span> BaseModel, ConfigDict, Discriminator
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SASLAuthentications: TypeAlias <span style="color:#fe8019">=</span> PlainAuthentication <span style="color:#fe8019">|</span> GSSAPIAuthentication
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> Client(BaseModel):
+</span></span><span style="display:flex;"><span>    auth: Annotated[
+</span></span><span style="display:flex;"><span>        SSLAuthentication <span style="color:#fe8019">|</span> Annotated[
+</span></span><span style="display:flex;"><span>            SASLAuthentications,
+</span></span><span style="display:flex;"><span>            Discriminator(<span style="color:#b8bb26">&#34;sasl_mechanism&#34;</span>)
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        Discriminator(<span style="color:#b8bb26">&#34;security_protocol&#34;</span>)
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    model_config <span style="color:#fe8019">=</span> ConfigDict(
+</span></span><span style="display:flex;"><span>        extra<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;ignore&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span></code></pre></div><p>It&rsquo;s especially useful when using Pydantic to validate user data, for example from and <code>.env</code> file using <code>Pydantic Settings</code>.
+You won&rsquo;t have to write logic to instantiate certain authentication methods by checking values yourself, this will all be
+done automatically.</p>
+<h2 id="env-file-example">Env file example</h2>
+<p>Take a look at the following script. It defines a <code>Settings</code> model which has a property <code>auth</code>, its type is a discriminating
+union. When instantiated the <code>Settings</code> model will read the <code>.env</code> file and populate its <code>auth</code> property depending on the values
+in that file. Below the script you&rsquo;ll find three sets of input/output to demonstrate that this simple code can handle multiple
+user input settings without adding any logic yourself.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">from</span> pathlib <span style="color:#fe8019">import</span> Path
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> typing <span style="color:#fe8019">import</span> TypeAlias, Literal, Annotated
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> pydantic <span style="color:#fe8019">import</span> BaseModel, Discriminator
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> pydantic_settings <span style="color:#fe8019">import</span> BaseSettings, SettingsConfigDict
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> SSLAuthentication(BaseModel):
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    certificate_location: Path
+</span></span><span style="display:flex;"><span>    whatami: <span style="color:#fabd2f">str</span> <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;I am SSLAuthentication&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> PlainAuthentication(BaseModel):
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    sasl_mechanism: Literal[<span style="color:#b8bb26">&#34;PLAIN&#34;</span>]
+</span></span><span style="display:flex;"><span>    whatami: <span style="color:#fabd2f">str</span> <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;I am PlainAuthentication&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> GSSAPIAuthentication(BaseModel):
+</span></span><span style="display:flex;"><span>    security_protocol: Literal[<span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>]
+</span></span><span style="display:flex;"><span>    sasl_mechanism: Literal[<span style="color:#b8bb26">&#34;GSSAPI&#34;</span>]
+</span></span><span style="display:flex;"><span>    whatami: <span style="color:#fabd2f">str</span> <span style="color:#fe8019">=</span> <span style="color:#b8bb26">&#34;I am GSSAPIAuthentication&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SASLSSLAuthentication: TypeAlias <span style="color:#fe8019">=</span> PlainAuthentication <span style="color:#fe8019">|</span> GSSAPIAuthentication
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">class</span> Settings(BaseSettings):
+</span></span><span style="display:flex;"><span>    title: <span style="color:#fabd2f">str</span>
+</span></span><span style="display:flex;"><span>    auth: Annotated[
+</span></span><span style="display:flex;"><span>        SSLAuthentication <span style="color:#fe8019">|</span> Annotated[
+</span></span><span style="display:flex;"><span>            SASLSSLAuthentication,
+</span></span><span style="display:flex;"><span>            Discriminator(<span style="color:#b8bb26">&#34;sasl_mechanism&#34;</span>)
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        Discriminator(<span style="color:#b8bb26">&#34;security_protocol&#34;</span>)
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    model_config <span style="color:#fe8019">=</span> SettingsConfigDict(
+</span></span><span style="display:flex;"><span>        case_sensitive<span style="color:#fe8019">=</span><span style="color:#fe8019">False</span>,
+</span></span><span style="display:flex;"><span>        env_file<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;.env&#34;</span>,
+</span></span><span style="display:flex;"><span>        env_file_encoding<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;utf-8&#34;</span>,
+</span></span><span style="display:flex;"><span>        env_nested_delimiter<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;__&#34;</span>,
+</span></span><span style="display:flex;"><span>        env_prefix<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;blog_&#34;</span>,
+</span></span><span style="display:flex;"><span>        extra<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;ignore&#34;</span>,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">if</span> __name__ <span style="color:#fe8019">==</span> <span style="color:#b8bb26">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    settings <span style="color:#fe8019">=</span> Settings()
+</span></span><span style="display:flex;"><span>    <span style="color:#fabd2f">print</span>(settings<span style="color:#fe8019">.</span>model_dump_json(indent<span style="color:#fe8019">=</span><span style="color:#d3869b">4</span>))
+</span></span></code></pre></div><h3 id="env-ssl">Env SSL</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>BLOG_TITLE<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;Discriminating Unions&#34;</span>
+</span></span><span style="display:flex;"><span>BLOG_AUTH__SECURITY_PROTOCOL<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;SSL&#34;</span>
+</span></span><span style="display:flex;"><span>BLOG_AUTH__CERTIFICATE_LOCATION<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;/home/ca.crt&#34;</span>
+</span></span></code></pre></div><h3 id="output-ssl">Output SSL</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">&#34;title&#34;</span>: <span style="color:#b8bb26">&#34;Discriminating Unions&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">&#34;auth&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;security_protocol&#34;</span>: <span style="color:#b8bb26">&#34;SSL&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;certificate_location&#34;</span>: <span style="color:#b8bb26">&#34;/home/ca.crt&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;whatami&#34;</span>: <span style="color:#b8bb26">&#34;I am SSLAuthentication&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="env-sasl_ssl-plain">Env SASL_SSL, Plain</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>BLOG_TITLE<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;Discriminating Unions&#34;</span>
+</span></span><span style="display:flex;"><span>BLOG_AUTH__SECURITY_PROTOCOL<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>
+</span></span><span style="display:flex;"><span>BLOG_AUTH__SASL_MECHANISM<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;PLAIN&#34;</span>
+</span></span></code></pre></div><h3 id="output-sasl_ssl-plain">Output SASL_SSL, Plain</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">&#34;title&#34;</span>: <span style="color:#b8bb26">&#34;Discriminating Unions&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">&#34;auth&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;security_protocol&#34;</span>: <span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;sasl_mechanism&#34;</span>: <span style="color:#b8bb26">&#34;PLAIN&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;whatami&#34;</span>: <span style="color:#b8bb26">&#34;I am PlainAuthentication&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="env-sasl_ssl-plain-1">Env SASL_SSL, Plain</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>BLOG_TITLE<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;Discriminating Unions&#34;</span>
+</span></span><span style="display:flex;"><span>BLOG_AUTH__SECURITY_PROTOCOL<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>
+</span></span><span style="display:flex;"><span>BLOG_AUTH__SASL_MECHANISM<span style="color:#fe8019">=</span><span style="color:#b8bb26">&#34;PLAIN&#34;</span>
+</span></span></code></pre></div><h3 id="output-sasl_ssl-gssapi">Output SASL_SSL, GSSAPI</h3>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">&#34;title&#34;</span>: <span style="color:#b8bb26">&#34;Discriminating Unions&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#fb4934">&#34;auth&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;security_protocol&#34;</span>: <span style="color:#b8bb26">&#34;SASL_SSL&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;sasl_mechanism&#34;</span>: <span style="color:#b8bb26">&#34;GSSAPI&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#fb4934">&#34;whatami&#34;</span>: <span style="color:#b8bb26">&#34;I am GSSAPIAuthentication&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>That&rsquo;s it for now!</p>
+
+  
+  <div>
+    <div>Tags:</div>
+    <ul>
+        <li><a href="/tags/pydantic/">Pydantic</a></li>
+        <li><a href="/tags/typing/">Typing</a></li>
+        <li><a href="/tags/python/">Python</a></li>
+    </ul>
+  </div>
+
+
+  </main>
+  <footer>
+    <p>Copyright 2024. All rights reserved.</p>
+
+  </footer>
+</body>
+</html>

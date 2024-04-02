@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Validate return values with Pydantic | Marcel Blijleven</title>
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/index.35dbb91b4658fec8c693d9ab005682d95e1b3c975106cb4fa0ab29047e3ffbf6.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+  
+  
+    
+    
+    
+    
+  
+  
+  <link href="//fonts.googleapis.com/css?family=Inconsolata:400,400i,700,700i" rel="stylesheet">
+
+
+
+
+</head>
+<body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
+  <header>
+    <h1>Marcel Blijleven</h1>
+
+  <nav>
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/blog/">Blog</a>
+    </li>
+    </ul>
+  </nav>
+
+
+  </header>
+  <main>
+    
+  <h1>Validate return values with Pydantic</h1>
+
+  
+  
+  <time datetime="2023-12-20T00:00:00&#43;00:00">December 20, 2023</time>
+
+  <h2 id="decorator">Decorator</h2>
+<p>Here&rsquo;s a little helper decorator that will validate return values from functions, for
+example functions that return json from an HTTP request.</p>
+<p>The decorator will only call <code>inspect.signature</code> once when it loads the module and checks if the return
+annotation is a Pydantic BaseModel. If not, it will simply return the base function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">import</span> functools
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">import</span> inspect
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> typing <span style="color:#fe8019">import</span> Callable, Any, TypeVar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">from</span> pydantic <span style="color:#fe8019">import</span> BaseModel, ValidationError
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ValidatedCallable <span style="color:#fe8019">=</span> TypeVar(<span style="color:#b8bb26">&#34;ValidatedCallable&#34;</span>, bound<span style="color:#fe8019">=</span>Callable[<span style="color:#fe8019">...</span>, Any])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">validate</span>(func: ValidatedCallable) <span style="color:#fe8019">-&gt;</span> ValidatedCallable:
+</span></span><span style="display:flex;"><span>    <span style="color:#b8bb26">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">    If the return annotation is a Pydantic BaseModel, use the
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">    annotation to call model_validate on the outcome of the wrapped
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">    function
+</span></span></span><span style="display:flex;"><span><span style="color:#b8bb26">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    sig <span style="color:#fe8019">=</span> inspect<span style="color:#fe8019">.</span>signature(func)
+</span></span><span style="display:flex;"><span>    return_annotation <span style="color:#fe8019">=</span> sig<span style="color:#fe8019">.</span>return_annotation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">if</span> <span style="color:#fe8019">not</span> <span style="color:#fabd2f">issubclass</span>(return_annotation, BaseModel):
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">return</span> func
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @functools.wraps(func)
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">def</span> <span style="color:#fabd2f">validated</span>():
+</span></span><span style="display:flex;"><span>        ret: <span style="color:#fabd2f">dict</span> <span style="color:#fe8019">=</span> func()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#fe8019">return</span> return_annotation<span style="color:#fe8019">.</span>model_validate(ret)
+</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">except</span> ValidationError:
+</span></span><span style="display:flex;"><span>            <span style="color:#fe8019">return</span> ret
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">return</span> validated
+</span></span></code></pre></div><p>If needed, you can ignore the try&hellip;catch and let the errors bubble up to be handled somewhere in your code.</p>
+<h2 id="example">Example</h2>
+<p>Take a look at the following function which calls an HTTP endpoint and returns the <code>response.json()</code> value.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>@validate
+</span></span><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">get_bami</span>() <span style="color:#fe8019">-&gt;</span> Bami:
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">with</span> httpx<span style="color:#fe8019">.</span>Client() <span style="color:#fe8019">as</span> client:
+</span></span><span style="display:flex;"><span>        response <span style="color:#fe8019">=</span> client<span style="color:#fe8019">.</span>get(<span style="color:#b8bb26">&#34;https://foo.bar&#34;</span>)
+</span></span><span style="display:flex;"><span>        response<span style="color:#fe8019">.</span>raise_for_status()
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">return</span> response<span style="color:#fe8019">.</span>json()
+</span></span></code></pre></div><p>Since it is decorated by the <code>validate</code> decorator, the return value will be converted to an instance of <code>Bami</code>. This can
+be confirmed by a simple test.</p>
+<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fe8019">def</span> <span style="color:#fabd2f">test_get_bami</span>(respx_mock):
+</span></span><span style="display:flex;"><span>    respx_mock<span style="color:#fe8019">.</span>get(<span style="color:#b8bb26">&#34;https://foo.bar/&#34;</span>)<span style="color:#fe8019">.</span>mock(
+</span></span><span style="display:flex;"><span>        return_value<span style="color:#fe8019">=</span>httpx<span style="color:#fe8019">.</span>Response(
+</span></span><span style="display:flex;"><span>            status_code<span style="color:#fe8019">=</span><span style="color:#d3869b">200</span>,
+</span></span><span style="display:flex;"><span>            json<span style="color:#fe8019">=</span>{<span style="color:#b8bb26">&#34;deliciousness&#34;</span>: <span style="color:#d3869b">9001</span>}
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    response <span style="color:#fe8019">=</span> get_bami()
+</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">assert</span> <span style="color:#fabd2f">isinstance</span>(response, Bami)
+</span></span></code></pre></div>
+  
+  <div>
+    <div>Tags:</div>
+    <ul>
+        <li><a href="/tags/python/">Python</a></li>
+        <li><a href="/tags/pydantic/">Pydantic</a></li>
+        <li><a href="/tags/code/">Code</a></li>
+    </ul>
+  </div>
+
+
+  </main>
+  <footer>
+    <p>Copyright 2024. All rights reserved.</p>
+
+  </footer>
+</body>
+</html>
