@@ -1,0 +1,49 @@
+{
+  "available_beans": [
+    {
+      "name": "Geisha Finca Gascon",
+      "roaster": "Kaffeelix (🇦🇹)",
+      "roasting_date": "2024-03-04",
+      "purchase_date": "2024-03-01",
+      "weight": 125,
+      "weight_consumed": 102.19999999999999,
+      "weight_available": 22.8
+    },
+    {
+      "name": "Mystery Coffee March 2024",
+      "roaster": "Kaffeelix (🇦🇹)",
+      "roasting_date": "2024-03-04",
+      "purchase_date": "2024-03-01",
+      "weight": 125,
+      "weight_consumed": 100.30000000000001,
+      "weight_available": 24.7
+    },
+    {
+      "name": "Typica Colombia Nos Nogales",
+      "roaster": "A Matter of Concrete (Rotterdam 🇳🇱)",
+      "roasting_date": "2024-03-04",
+      "purchase_date": "2024-03-04",
+      "weight": 100,
+      "weight_consumed": 14,
+      "weight_available": 86
+    },
+    {
+      "name": "/004³ Colombia — La Macarena Washed Castillo",
+      "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
+      "roasting_date": "2024-02-28",
+      "purchase_date": "2024-03-04",
+      "weight": 300,
+      "weight_consumed": 260.6,
+      "weight_available": 39.4
+    },
+    {
+      "name": "/038 Ecuador — Sidra washed",
+      "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
+      "roasting_date": "2024-03-04",
+      "purchase_date": "2024-03-04",
+      "weight": 300,
+      "weight_consumed": 80.30000000000001,
+      "weight_available": 219.7
+    }
+  ]
+}
