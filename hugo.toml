@@ -13,9 +13,9 @@ weight = 10
 name = "Blog"
 pageRef = "/blog"
 
-# [[menus.main]]
-# name = "Coffee"
-# pageRef = "/coffee"
+[[menus.main]]
+name = "Coffee"
+pageRef = "/coffee"
 
 [params]
   google_fonts = [
