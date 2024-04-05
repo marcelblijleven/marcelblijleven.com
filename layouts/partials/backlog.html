@@ -1,7 +1,6 @@
-{{ $headers := slice "Name" "Roasting date" "Roaster" "Purchase date" "Weight" "Consumed" "Available" }}
+{{ $headers := slice "Name" "Roasting date" "Roaster" "Purchase date" "Weight"
+"Consumed" "Available" }}
 <section>
   <h2>My backlog</h2>
-<div class="overflow-auto">
   {{ partial "partials/table" (dict "headers" $headers "values" . )}}
-    </div>
 </section>
