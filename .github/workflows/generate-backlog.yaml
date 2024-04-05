@@ -11,6 +11,7 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'auto sync coffee') }}
     steps:
       - uses: actions/checkout@v3
       - name: Run bc tool
@@ -19,5 +20,5 @@ jobs:
         run: |
           git config --global user.name "Marcel Blijleven"
           git config --global user.email "marcelblijleven@users.noreply.github.com"
-          git commit -am "coffee: generate backlog"
+          git commit -am "coffee: generate backlog" || echo "No changes detected^"
           git push
