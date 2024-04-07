@@ -5,36 +5,36 @@
       "roaster": "Kaffeelix (🇦🇹)",
       "roasting_date": "2024-03-04",
       "purchase_date": "2024-03-01",
-      "weight": 125,
-      "weight_consumed": 102.19999999999999,
-      "weight_available": 22.8
+      "weight": "125.00",
+      "weight_consumed": "102.20",
+      "weight_available": "22.80"
     },
     {
       "name": "Typica Colombia Nos Nogales",
       "roaster": "A Matter of Concrete (Rotterdam 🇳🇱)",
       "roasting_date": "2024-03-04",
       "purchase_date": "2024-03-04",
-      "weight": 100,
-      "weight_consumed": 14,
-      "weight_available": 86
+      "weight": "100.00",
+      "weight_consumed": "14.00",
+      "weight_available": "86.00"
     },
     {
       "name": "/004³ Colombia — La Macarena Washed Castillo",
       "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
       "roasting_date": "2024-02-28",
       "purchase_date": "2024-03-04",
-      "weight": 300,
-      "weight_consumed": 260.6,
-      "weight_available": 39.39
+      "weight": "300.00",
+      "weight_consumed": "303.50",
+      "weight_available": "-3.50"
     },
     {
       "name": "/038 Ecuador — Sidra washed",
       "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
       "roasting_date": "2024-03-04",
       "purchase_date": "2024-03-04",
-      "weight": 300,
-      "weight_consumed": 180.7,
-      "weight_available": 119.3
+      "weight": "300.00",
+      "weight_consumed": "180.70",
+      "weight_available": "119.30"
     }
   ]
 }
