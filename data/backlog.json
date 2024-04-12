@@ -19,22 +19,13 @@
       "weight_available": "86.00"
     },
     {
-      "name": "/004³ Colombia — La Macarena Washed Castillo",
-      "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
-      "roasting_date": "2024-02-28",
-      "purchase_date": "2024-03-04",
-      "weight": "300.00",
-      "weight_consumed": "303.50",
-      "weight_available": "-3.50"
-    },
-    {
       "name": "/038 Ecuador — Sidra washed",
       "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
       "roasting_date": "2024-03-04",
       "purchase_date": "2024-03-04",
       "weight": "300.00",
-      "weight_consumed": "180.70",
-      "weight_available": "119.30"
+      "weight_consumed": "242.30",
+      "weight_available": "57.70"
     }
   ]
 }
