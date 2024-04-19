@@ -1,7 +1,4 @@
-
 {{ define "main"}}
 <h1>{{ .Title }}</h1>
 
-{{ partial "partials/backlog.html" .Site.Data.backlog.available_beans }}
-{{ end }}
-
+{{ partial "partials/backlog.html" .Site.Data.backlog }} {{ end }}
