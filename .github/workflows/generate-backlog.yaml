@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run bc tool
-        run: ./tools/bc-linux-amd64 backlog Beanconqueror.zip > data/backlog.json
+        run: ./tools/bc-linux-amd64 backlog Beanconqueror.zip | jq .available_beans > data/backlog.json
       - name: "Commit changes"
         run: |
           git config --global user.name "Marcel Blijleven"
