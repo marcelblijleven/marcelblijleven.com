@@ -1,5 +1,5 @@
 ---
 title: Coffee
-type: mylayout
-layout: coffee
 ---
+
+{{< table file="backlog" >}}
