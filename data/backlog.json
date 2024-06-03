@@ -5,8 +5,8 @@
     "roasting_date": "2024-03-04",
     "purchase_date": "2024-03-04",
     "weight": "100.00",
-    "weight_consumed": "14.00",
-    "weight_available": "86.00"
+    "weight_consumed": "51.90",
+    "weight_available": "48.10"
   },
   {
     "name": "Intango Washed",
@@ -14,7 +14,7 @@
     "roasting_date": "2024-05-27",
     "purchase_date": "2024-05-28",
     "weight": "280.00",
-    "weight_consumed": "37.90",
-    "weight_available": "242.10"
+    "weight_consumed": "0.00",
+    "weight_available": "280.00"
   }
 ]
