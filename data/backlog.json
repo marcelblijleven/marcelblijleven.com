@@ -1,14 +1,5 @@
 [
   {
-    "name": "Geisha Finca Gascon",
-    "roaster": "Kaffeelix (🇦🇹)",
-    "roasting_date": "2024-03-04",
-    "purchase_date": "2024-03-01",
-    "weight": "125.00",
-    "weight_consumed": "102.20",
-    "weight_available": "22.80"
-  },
-  {
     "name": "Typica Colombia Nos Nogales",
     "roaster": "A Matter of Concrete (Rotterdam 🇳🇱)",
     "roasting_date": "2024-03-04",
@@ -18,12 +9,12 @@
     "weight_available": "86.00"
   },
   {
-    "name": "/038 Ecuador — Sidra washed",
-    "roaster": "A Matter Of Concrete (Rotterdam 🇳🇱)",
-    "roasting_date": "2024-03-04",
-    "purchase_date": "2024-03-04",
-    "weight": "300.00",
-    "weight_consumed": "282.60",
-    "weight_available": "17.40"
+    "name": "Intango Washed",
+    "roaster": "Shokunin (Rotterdam 🇳🇱)",
+    "roasting_date": "2024-05-27",
+    "purchase_date": "2024-05-28",
+    "weight": "280.00",
+    "weight_consumed": "37.90",
+    "weight_available": "242.10"
   }
 ]
