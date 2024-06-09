@@ -5,7 +5,16 @@
     "roasting_date": "2024-05-27",
     "purchase_date": "2024-05-28",
     "weight": "280.00",
-    "weight_consumed": "14.10",
-    "weight_available": "265.90"
+    "weight_consumed": "28.20",
+    "weight_available": "251.80"
+  },
+  {
+    "name": "Ana Restrepo Cenicafe1",
+    "roaster": "Shokunin (Rotterdam 🇳🇱)",
+    "roasting_date": "2024-05-28",
+    "purchase_date": "2024-05-28",
+    "weight": "250.00",
+    "weight_consumed": "28.50",
+    "weight_available": "221.50"
   }
 ]
