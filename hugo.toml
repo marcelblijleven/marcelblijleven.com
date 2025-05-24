@@ -13,15 +13,9 @@ weight = 10
 name = "Blog"
 pageRef = "/blog"
 
-[[menus.main]]
-name = "Coffee"
-pageRef = "/coffee"
-
 [params]
-  google_fonts = [
-    ["Inconsolata", "400, 400i, 700, 700i"]
-  ]
+google_fonts = [["Inconsolata", "400, 400i, 700, 700i"]]
 
 [markup]
-  [markup.highlight]
-    style = "gruvbox"
+[markup.highlight]
+style = "gruvbox"
