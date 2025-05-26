@@ -1,0 +1,10 @@
+{{ define "main" }} {{ .Content }}
+<section>
+  <h2>Latest writings</h2>
+  <ul class="max-w-none divide-y divide-gray-200 dark:divide-gray-700">
+    {{ range site.RegularPages }}
+    <li>{{ partial "post-preview.html" . }}</li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

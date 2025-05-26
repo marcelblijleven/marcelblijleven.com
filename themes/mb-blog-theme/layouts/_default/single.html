@@ -1,0 +1,37 @@
+{{ define "main" }}
+  {{ $dateMachine := .Date | time.Format
+    "2006-01-02T15:04:05-07:00"
+  }}
+  {{ $dateHuman := .Date | time.Format ":date_long" }}
+  <article>
+    <div class="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+      <header class="pt-6 xl:pb-6">
+        <div class="space-y-1">
+          <dl class="space-y-10">
+            <div>
+              <dt class="sr-only">Published on</dt>
+              <dd
+                class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400"
+              >
+                <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+              </dd>
+            </div>
+          </dl>
+          <div>
+            <h1>{{ .Title }}</h1>
+          </div>
+        </div>
+      </header>
+      <div class="divide-y pb-8 divide-gray-700">
+        <div
+          class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0"
+        >
+          <div class="prose dark:prose-invert max-w-none pb-8 pt-10">
+            {{ .Content }}
+            {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+{{ end }}

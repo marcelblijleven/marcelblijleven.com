@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "UbuntuMono Nerd Font";
+  src: url("/fonts/UbuntuMonoNerdFont-Regular.ttf") format("truetype");
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "UbuntuMono Nerd Font";
+  src: url("/fonts/UbuntuMonoNerdFont-Regular.ttf") format("truetype");
+  font-stretch: normal;
+}

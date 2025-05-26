@@ -2,7 +2,7 @@ baseURL = 'https://www.marcelblijleven.com'
 languageCode = 'en-us'
 title = "Marcel Blijleven"
 theme = 'mb-blog-theme'
-# themesDir = ".."
+themesDir = "themes"
 
 [[menus.main]]
 name = "Home"

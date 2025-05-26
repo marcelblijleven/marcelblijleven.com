@@ -1,0 +1,8 @@
+<header class="flex items-center justify-between py-10">
+  <a href="/" class="hover:underline hover:underline-offset-2">
+    <h1 class="title">{{ site.Title }}</h1>
+  </a>
+  <div class="flex items-center space-x-4 leading-5 sm:space-x-6">
+    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+  </div>
+</header>

@@ -1,0 +1,20 @@
+<script src="{{ "asciinema-player.min.js" | relURL }}"></script>
+<link href="{{ "asciinema-player.css" | relURL }}" rel="stylesheet" />
+<link href="/css/asciinema-fonts.css" rel="stylesheet" />
+<link href="/css/asciinema-custom-themes.css" rel="stylesheet" />
+<script>
+  (function () {
+    document.fonts.load("1rem UbuntuMono Nerd Font").then(() => {
+      document
+        .querySelectorAll("[data-asciinema-player]")
+        .forEach(function (el) {
+          AsciinemaPlayer.create(el.dataset.asciinemaPlayer, el, {
+            terminalFontFamily: "UbuntuMono Nerd Font",
+            preload: true,
+            theme: {{ .Param "asciinema-theme" }},
+            fit: false,
+          });
+        });
+    });
+  })();
+</script>

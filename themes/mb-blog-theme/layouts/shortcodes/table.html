@@ -1,0 +1,5 @@
+{{ $fileName := .Get "file" }}
+{{ $fileNameWithoutExt := strings.TrimSuffix (path.Ext $fileName) $fileName }}
+{{ $tableData := index .Site.Data $fileNameWithoutExt }}
+
+{{ partial "table.html" $tableData }}

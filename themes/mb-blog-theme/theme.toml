@@ -1,0 +1,17 @@
+name = 'MB Blog Theme'
+license = 'MIT'
+licenselink = 'https://github.com/marcelblijleven/mb-blog-theme/LICENSE'
+description = 'A blog focussed theme using Tailwind'
+
+homepage = 'https://github.com/marcelblijleven/mb-blog-theme/'
+
+demosite = 'https://www.marcelblijleven.com'
+
+# Taxonomy terms
+tags = ['blog', 'company']
+features = ['some', 'awesome', 'features']
+
+[author]
+  name = 'Marcel Blijleven'
+  homepage = 'https://www.marcelblijleven.com'
+

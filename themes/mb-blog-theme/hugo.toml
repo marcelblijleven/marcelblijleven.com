@@ -1,0 +1,44 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'My New Hugo Site'
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = "gruvbox"
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+
+[[menus.main]]
+name = 'Home'
+pageRef = '/'
+weight = 10
+
+[[menus.main]]
+name = 'Blog'
+pageRef = '/blog'
+weight = 20
+
+[[menus.main]]
+name = 'Tags'
+pageRef = '/tags'
+weight = 30
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.116.0"
+
+[params]
+  google_fonts = [
+    ["Inconsolata", "400, 400i, 500, 700, 700i"]
+  ]
+
+  font = "Inconsolata"
+  linkedin = "linkedin url"
+  github = "github url"
+  asciinema-theme = "gruvbox"
+
+[taxonomies]
+  tags = "tags"

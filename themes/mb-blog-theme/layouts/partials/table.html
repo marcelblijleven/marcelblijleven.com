@@ -1,0 +1,53 @@
+<div class="overflow-scroll">
+  <table class="whitespace-nowrap">
+    {{ partial "partials/table/header" . }}
+    {{ range $k, $v := . }}
+      {{ partial "partials/table/row" $v }}
+    {{ end }}
+  </table>
+</div>
+
+{{- define "partials/table/header" }}
+  <thead class="[&_tr]:border-b">
+    {{ $first := index (.) 0 }}
+    {{ range $k, $_ := $first }}
+      {{ partial "partials/table/head" $k }}
+    {{ end }}
+  </thead>
+{{- end }}
+
+{{- define "partials/table/body" }}
+  <tbody class="[&_tr:last-child]:border-0">
+    {{- . }}
+  </tbody>
+{{- end }}
+
+{{- define "partials/table/footer" }}
+  <tfoot class="border-t bg-muted/50 font-medium [&>tr]:last:border-b-0">
+    {{- . }}
+  </tfoot>
+{{- end }}
+
+{{- define "partials/table/row" }}
+  <tr
+    class="text-sm border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+  >
+    {{ range $k, $v := . }}
+      {{ partial "partials/table/data" $v }}
+    {{ end }}
+  </tr>
+{{- end }}
+
+{{- define "partials/table/head" }}
+  <th
+    class="h-12 p-2 text-sm text-left align-middle font-semibold text-muted-foreground [&:has([role=checkbox])]:pr-0"
+  >
+    {{- replace . "_" " " | strings.FirstUpper }}
+  </th>
+{{- end }}
+
+{{- define "partials/table/data" }}
+  <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 whitespace-nowrap">
+    {{- . }}
+  </td>
+{{- end }}

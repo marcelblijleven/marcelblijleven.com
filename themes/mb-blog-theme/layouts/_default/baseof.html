@@ -1,0 +1,26 @@
+<!doctype html>
+<html
+  lang="{{ or site.Language.LanguageCode site.Language.Lang }}"
+  dir="{{ or site.Language.LanguageDirection `ltr` }}"
+>
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body
+    class="relative bg-white text-black antialiased dark:bg-gray-950 dark:text-white"
+  >
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+      <div class="flex min-h-screen flex-col font-inconsolata">
+      <div class="absolute inset-0 -z-10 pointer-events-none [background-size:20px_20px] [background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] dark:[background-image:radial-gradient(#404040_1px,transparent_1px)] opacity-50"></div>
+        {{ partial "header.html" . }}
+        <main class="grow">
+          {{ block "main" . }}{{ end }}
+        </main>
+        <footer>
+          {{ partial "footer.html" . }}
+        </footer>
+        {{ partial "load_extra.html" . }}
+      </div>
+    </div>
+  </body>
+</html>
